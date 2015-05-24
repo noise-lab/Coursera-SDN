@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #  Dependencies for ryu
-sudo apt-get install python-routes
+sudo apt-get install -y python-routes
 sudo pip install oslo.config --upgrade
 sudo pip install msgpack-python
 sudo pip install eventlet

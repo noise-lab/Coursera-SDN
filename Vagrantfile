@@ -12,12 +12,12 @@ Vagrant.configure("2") do |config|
   config.vm.network :forwarded_port, guest:6633, host:6635 # forwarding of port
 
   ## Provisioning
-  #config.vm.provision :shell, privileged: false, :path => "basic-setup.sh"
-  #config.vm.provision :shell, privileged: false, :path => "ovs-setup.sh"
+  config.vm.provision :shell, privileged: false, :path => "basic-setup.sh"
+  config.vm.provision :shell, privileged: false, :path => "ovs-setup.sh"
   config.vm.provision :shell, privileged: false, :path => "mininet-setup.sh"
-  #config.vm.provision :shell, privileged: false, :path => "pox-setup.sh"
+  config.vm.provision :shell, privileged: false, :path => "pox-setup.sh"
   config.vm.provision :shell, privileged: false, :path => "pyretic-setup.sh"
-  config.vm.provision :shell, privileged: false, :path => "ryu-setup.sh"
+  #config.vm.provision :shell, privileged: false, :path => "ryu-setup.sh"
   #config.vm.provision :shell, privileged: false, :path => "netasm-setup.sh"
   #config.vm.provision :shell, privileged: false, :path => "sdx-setup.sh"
   #config.vm.provision :shell, privileged: false, :path => "kinetic-setup.sh"

@@ -2,8 +2,8 @@
 
 # Dependencies install
 cd ~
-sudo apt-get install python-dev screen hping3
-sudo pip install networkx bitarray netaddr ipaddr pytest ipdb
+sudo apt-get install -y python-dev screen hping3
+sudo pip install networkx bitarray netaddr ipaddr pytest ipdb yappi
 
 # Asynchat installation
 wget https://raw.github.com/frenetic-lang/pyretic/master/pyretic/backend/patch/asynchat.py
@@ -24,4 +24,8 @@ git clone git://github.com/frenetic-lang/pyretic.git
 export PATH=$PATH:$HOME/pyretic:$HOME/pox  
 export PYTHONPATH=$HOME/pyretic:$HOME/mininet:$HOME/pox
 
-sudo cat /dev/zero > zero.fill; sudo sync; sleep 1; sudo sync; sudo rm -f zero.fill; sudo shutdown -h now
+echo "export PATH=$PATH:$HOME/pyretic:$HOME/pox" >> ~/.bash_profile
+echo "export PYTHONPATH=$HOME/pyretic:$HOME/mininet:$HOME/pox" >> ~/.bash_profile
+source ~/.bash_profile
+
+#sudo cat /dev/zero > zero.fill; sudo sync; sleep 1; sudo sync; sudo rm -f zero.fill; sudo shutdown -h now
