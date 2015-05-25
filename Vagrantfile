@@ -1,3 +1,5 @@
+## Vagrantfile for SDN Coursera Course 2015
+
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
@@ -10,7 +12,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
   # TODO: Upload the box image over Coursera's server and update the url here.
-  config.vm.box_url = "http://cs.princeton.edu/~arpitg/coursera_vm/coursera-sdn-2015.box"
+  config.vm.box_url = "https://d396qusza40orc.cloudfront.net/sdn1/srcs/Vagrant%20Box/coursera-sdn-2015.box"
 
  ## Guest Config
  config.vm.hostname = "coursera-sdn"
@@ -27,4 +29,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
  #config.vm.provision :shell, privileged: false, :path => "setup-scripts/sdx-setup.sh"
  #config.vm.provision :shell, privileged: false, :path => "setup-scripts/kinetic-setup.sh"
 
+ ## SSH config
+ config.ssh.forward_x11 = true
 end
