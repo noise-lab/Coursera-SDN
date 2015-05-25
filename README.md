@@ -1,4 +1,4 @@
-##Coursera SDN 2015
+##Coursera SDN Virtual Machine Setup
 
 ###Setting up the course VM
 
@@ -16,12 +16,12 @@ To get started install these softwares on your host machine:
 
 * Clone the course repository from Github:
 ```bash 
-$ git clone https://github.com/PrincetonUniversity/Coursera-SDN-2015
+$ git clone https://github.com/PrincetonUniversity/Coursera-SDN
 ```
 
-* Change the directory to Coursera-SDN-2015:
+* Change the directory to Coursera-SDN:
 ```bash
-$ cd Coursera-SDN-2015
+$ cd Coursera-SDN
 ```
 
 * Now run the vagrant up command. This will read the Vagrantfile from the current directory and provision the VM accordingly:
