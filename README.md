@@ -1,27 +1,41 @@
-Coursera SDN 2015
+##Coursera SDN 2015
 
-Setting up the course VM
+###Setting up the course VM
 
-Prerequisite
+####Prerequisite
 
 To get started install these softwares on your host machine:
 
-Install Vagrant, it is a wrapper around virtualization softwares like VirtualBox, VMWare etc.: http://www.vagrantup.com/downloads
+1. Install ***Vagrant***, it is a wrapper around virtualization softwares like VirtualBox, VMWare etc.: http://www.vagrantup.com/downloads
 
-Install VirtualBox, this would be your VM provider: https://www.virtualbox.org/wiki/Downloads
+2. Install ***VirtualBox***, this would be your VM provider: https://www.virtualbox.org/wiki/Downloads
 
-Install Git, it is a distributed version control system: https://git-scm.com/downloads
+3. Install ***Git***, it is a distributed version control system: https://git-scm.com/downloads
 
-Basics
+####Basics
 
-Clone the course repository from Github:
+* Clone the course repository from Github:
+```bash 
 $ git clone https://github.com/PrincetonUniversity/Coursera-SDN-2015
-Change the directory to Coursera-SDN-2015:
+```
+
+* Change the directory to Coursera-SDN-2015:
+```bash
 $ cd Coursera-SDN-2015
-Now run the vagrant up command. This will read the Vagrantfile from the current directory and provision the VM accordingly:
+```
+
+* Now run the vagrant up command. This will read the Vagrantfile from the current directory and provision the VM accordingly:
+```bash
 $ vagrant up
-Now SSH into the VM:
+```
+
+* Now SSH into the VM:
+``` bash
 $ vagrant ssh
-Programming assignments: You will find the programming assignments in the vm under the directory: /vagrant/Programming-Assignments.
+```
+
+* Programming assignments: You will find the programming assignments in the vm under the directory: /vagrant/Programming-Assignments.
+``` bash
 vagrant@coursera-sdn:~$ ls /vagrant/
 Programming-Assignments  README.md  setup-scripts  Vagrantfile
+```
