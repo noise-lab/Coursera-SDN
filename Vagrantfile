@@ -12,7 +12,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # TODO: Upload the box image over Coursera's server and update the url here.
   config.vm.box_url = "http://cs.princeton.edu/~arpitg/coursera_vm/coursera-sdn-2015.box"
 
+ ## Guest Config
+ config.vm.hostname = "coursera-sdn"
+ config.vm.network :private_network, ip: "192.168.0.100"
+ config.vm.network :forwarded_port, guest:6633, host:6635 # forwarding of port 
+ 
  ## Provisioning
+ 
  ## We will update the Vagrantfile as the course progresses and students will 
  ## need additional installations to complete the assignments. 
  
