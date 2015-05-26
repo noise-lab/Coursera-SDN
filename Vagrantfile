@@ -11,9 +11,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
-  # TODO: Upload the box image over Coursera's server and update the url here.
-  config.vm.box_url = "https://d396qusza40orc.cloudfront.net/sdn1/srcs/Vagrant%20Box/coursera-sdn-2015.box"
 
+  # 64 bit Vagrant Box
+  config.vm.box_url = "https://d396qusza40orc.cloudfront.net/sdn1/srcs/Vagrant%20Box/coursera-sdn-2015_64bit.box"
+  
+  # 32 bit Vagrant Box 
+  # config.vm.box_url = "https://d396qusza40orc.cloudfront.net/sdn1/srcs/Vagrant%20Box/coursera-sdn-2015_32bit.box"
+ 
  ## Guest Config
  config.vm.hostname = "coursera-sdn"
  config.vm.network :private_network, ip: "192.168.0.100"
