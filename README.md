@@ -28,6 +28,14 @@ $ cd Coursera-SDN
 ```bash
 $ vagrant up
 ```
+Note: By default it will instantiate a 64 bit VM. In case you want to run a 32 bit VM, you will need to change the ```config.vm.box_url``` parameter in the Vagrantfile as shown below: 
+```
+## 64 bit Vagrant Box
+#config.vm.box_url = "https://d396qusza40orc.cloudfront.net/sdn1/srcs/Vagrant%20Box/coursera-sdn-2015_64bit.box"
+
+## 32 bit Vagrant Box 
+config.vm.box_url = "https://d396qusza40orc.cloudfront.net/sdn1/srcs/Vagrant%20Box/coursera-sdn-2015_32bit.box"
+```
 
 * Now SSH into the VM:
 ``` bash
