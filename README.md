@@ -42,10 +42,10 @@ config.vm.box_url = "https://d396qusza40orc.cloudfront.net/sdn1/srcs/Vagrant%20B
 $ vagrant ssh
 ```
 
-* Programming assignments: You will find the programming assignments in the vm under the directory: /vagrant/Programming-Assignments.
+* Programming assignments: You will find the programming assignments in the vm under the directory: /vagrant/assignments.
 ``` bash
 vagrant@coursera-sdn:~$ ls /vagrant/
-Programming-Assignments  README.md  setup-scripts  Vagrantfile
+assignments  README.md  setup  Vagrantfile
 ```
 
 * To perform a simple test to check if your VM setup is correct, run the command:
