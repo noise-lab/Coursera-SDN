@@ -47,3 +47,9 @@ $ vagrant ssh
 vagrant@coursera-sdn:~$ ls /vagrant/
 Programming-Assignments  README.md  setup-scripts  Vagrantfile
 ```
+
+* To perform a simple test to check if your VM setup is correct, run the command:
+```bash
+sudo mn
+```
+This will start a Mininet bash terminal. Type ```xterm h1 h2``` in this terminal. If two external terminals pop out, then your setup worked as expected. 
