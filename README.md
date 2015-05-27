@@ -12,6 +12,11 @@ To get started install these softwares on your host machine:
 
 3. Install ***Git***, it is a distributed version control system: https://git-scm.com/downloads
 
+4. Install X Server and SSH capable terminal
+    * For Windows install [Xming](http://sourceforge.net/project/downloading.php?group_id=156984&filename=Xming-6-9-0-31-setup.exe) and [Putty](http://the.earth.li/~sgtatham/putty/latest/x86/putty.exe).
+    * For MAC OS install [XQuartz](http://xquartz.macosforge.org/trac/wiki) and Terminal.app (builtin)
+    * Linux comes pre-installed with X server and Gnome terminal + SSH (buitlin)   
+
 ####Basics
 
 * Clone the course repository from Github:
