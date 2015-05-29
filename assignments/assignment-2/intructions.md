@@ -317,11 +317,13 @@ c0
 
 <span></span>
 
-<span>To submit your code, run the submit.py script:</span>
+<span>To submit your code, run the ```submit.py``` script:</span>
 
 <span></span>
 
-<span>$</span> <span class="c0">sudo python submit.py</span>
+```bash
+$ sudo python submit.py
+```
 
 <span></span>
 
@@ -341,16 +343,19 @@ c0
 
 <span></span>
 
-<span>$</span> <span class="c0">sudo mn -c</span>
+```bash
+$ sudo mn -c
+```
+
 
 <span class="c0"></span>
 
 <span>Also, if it still complains about the controller running. Execute the following command to kill it:</span>
 
 <span></span>
-
-<span>$</span> <span class="c0">sudo fuser -k 6633/tcp</span>
-
+```bash
+$ sudo fuser -k 6633/tcp
+```
 * * *
 
 # <a name="h.febi5qeveedy"></a>
