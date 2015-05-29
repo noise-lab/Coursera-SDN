@@ -1,10 +1,10 @@
 '''
 Coursera:
 - Software Defined Networking (SDN) course
--- Module 3 Programming Assignment
+-- Programming Assignment 2
 
 Professor: Nick Feamster
-Teaching Assistant: Muhammad Shahbaz
+Teaching Assistant: Arpit Gupta, Muhammad Shahbaz
 '''
 
 from mininet.topo import Topo

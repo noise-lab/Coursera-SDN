@@ -1,10 +1,10 @@
 '''
 Coursera:
 - Software Defined Networking (SDN) course
--- Module 3 Programming Assignment
+-- Programming Assignment 2
 
 Professor: Nick Feamster
-Teaching Assistant: Muhammad Shahbaz
+Teaching Assistant: Arpit Gupta, Muhammad Shahbaz
 '''
 
 ### The only things you'll have to edit (unless you're porting this script over to a different language) 
@@ -156,10 +156,10 @@ from CustomTopo import *
 
 # Make sure you change this string to the last segment of your class URL.
 # For example, if your URL is https://class.coursera.org/pgm-2012-001-staging, set it to "pgm-2012-001-staging".
-URL = 'sdn-001'
+URL = 'sdn-002'
 
 # the "Identifier" you used when creating the part
-partIds = ['m3a']                        
+partIds = ['agPA2']                        
 # used to generate readable run-time information for students
 partFriendlyNames = ['Create Custom Topology'] 
 # source files to collect (just for our records)
@@ -169,7 +169,7 @@ def output(partIdx):
   """Uses the student code to compute the output for test cases."""
   outputString = ''
   
-  if partIdx == 0: # This is m3a
+  if partIdx == 0: # This is agPA2
     "Set up link parameters"
     print "a. Setting link parameters"
     "--- core to aggregation switches"
