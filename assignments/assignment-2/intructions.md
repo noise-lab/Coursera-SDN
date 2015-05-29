@@ -32,67 +32,52 @@
 
 ### <a name="h.inagbam49gdf"></a><span>Linear Topology (without Performance Settings)</span>
 
-[](#)[](#)
+```bash
+#!/usr/bin/python
 
-<table cellpadding="0" cellspacing="0" class="c17">
+from mininet.topo import Topo
+from mininet.net import Mininet
+from mininet.util import irange,dumpNodeConnections
+from mininet.log import setLogLevel
 
-<tbody>
+class LinearTopo(Topo):
+   "Linear topology of k switches, with one host per switch."
 
-<tr>
+   def __init__(self, k=2, **opts):
+       """Init.
+           k: number of switches (and hosts)
+           hconf: host configuration options
+           lconf: link configuration options"""
 
-<td class="c22">
+       super(LinearTopo, self).__init__(**opts)
 
-<span class="c25 c19">#!/usr/bin/python</span><span class="c1">  
+       self.k = k
 
-</span><span class="c1 c4">from</span><span class="c1"> </span><span class="c15">mininet.topo</span><span class="c1"> </span><span class="c1 c4">import</span><span class="c1"> Topo  
-</span><span class="c1 c4">from</span><span class="c1"> </span><span class="c15">mininet.net</span><span class="c1"> </span><span class="c1 c4">import</span><span class="c1"> Mininet  
-</span><span class="c1 c4">from</span><span class="c1"> </span><span class="c15">mininet.util</span><span class="c1"> </span><span class="c1 c4">import</span><span class="c1"> irange,dumpNodeConnections  
-</span><span class="c1 c4">from</span><span class="c1"> </span><span class="c15">mininet.log</span><span class="c1"> </span><span class="c1 c4">import</span><span class="c1"> setLogLevel  
+       lastSwitch = None
+       for i in irange(1, k):
+           host = self.addHost('h%s' % i)
+           switch = self.addSwitch('s%s' % i)
+           self.addLink( host, switch)
+           if lastSwitch:
+               self.addLink( switch, lastSwitch)
+           lastSwitch = switch
 
-</span><span class="c1 c4">class</span><span class="c1"> </span><span class="c4 c14">LinearTopo</span><span class="c1">(Topo):  
-    </span><span class="c6">"Linear topology of k switches, with one host per switch."</span><span class="c1">  
+def simpleTest():
+   "Create and test a simple network"
+   topo = LinearTopo(k=4)
+   net = Mininet(topo)
+   net.start()
+   print "Dumping host connections"
+   dumpNodeConnections(net.hosts)
+   print "Testing network connectivity"
+   net.pingAll()
+   net.stop()
 
-    </span><span class="c1 c4">def</span><span class="c1"> </span><span class="c3">__init__</span><span class="c1">(</span><span class="c7">self</span><span class="c1">, k</span><span class="c1 c4">=</span><span class="c9">2</span><span class="c1">,</span> <span class="c1 c4">**</span><span class="c1">opts):  
-        </span><span class="c6">"""Init.</span><span class="c1">  
-</span><span class="c6">           k: number of switches (and hosts)</span><span class="c1">  
-</span><span class="c6">           hconf: host configuration options</span><span class="c1">  
-</span><span class="c6">           lconf: link configuration options"""</span><span class="c1">  
-
-        </span><span class="c30 c19">super</span><span class="c1">(LinearTopo,</span> <span class="c7">self</span><span class="c1">)</span><span class="c1 c4">.</span><span class="c1">__init__(</span><span class="c1 c4">**</span><span class="c1">opts)  
-
-        </span><span class="c7">self</span><span class="c1 c4">.</span><span class="c1">k</span> <span class="c1 c4">=</span><span class="c1"> k  
-
-        lastSwitch</span> <span class="c1 c4">=</span><span class="c1"> </span><span class="c7">None</span><span class="c1">  
-        </span><span class="c1 c4">for</span><span class="c1"> i</span> <span class="c1 c4">in</span><span class="c1"> irange(</span><span class="c9">1</span><span class="c1">, k):  
-            host</span> <span class="c1 c4">=</span><span class="c1"> </span><span class="c7">self</span><span class="c1 c4">.</span><span class="c1">addHost(</span><span class="c6">'h%s'</span><span class="c1"> </span><span class="c1 c4">%</span><span class="c1"> i)  
-            switch</span> <span class="c1 c4">=</span><span class="c1"> </span><span class="c7">self</span><span class="c1 c4">.</span><span class="c1">addSwitch(</span><span class="c6">'s%s'</span><span class="c1"> </span><span class="c1 c4">%</span><span class="c1"> i)  
-            </span><span class="c7">self</span><span class="c1 c4">.</span><span class="c1">addLink( host, switch)  
-            </span><span class="c1 c4">if</span><span class="c1"> lastSwitch:  
-                </span><span class="c7">self</span><span class="c1 c4">.</span><span class="c1">addLink( switch, lastSwitch)  
-            lastSwitch</span> <span class="c1 c4">=</span><span class="c1"> switch  
-
-</span><span class="c1 c4">def</span><span class="c1"> </span><span class="c3">simpleTest</span><span class="c1">():  
-    </span><span class="c6">"Create and test a simple network"</span><span class="c1">   topo</span> <span class="c1 c4">=</span><span class="c1"> LinearTopo(k</span><span class="c1 c4">=</span><span class="c9">4</span><span class="c1">)  
-    net</span> <span class="c1 c4">=</span><span class="c1"> Mininet(topo)  
-    net</span><span class="c1 c4">.</span><span class="c1">start()  
-    </span><span class="c1 c4">print</span><span class="c1"> </span><span class="c6">"Dumping host connections"</span><span class="c1">  
-    dumpNodeConnections(net</span><span class="c1 c4">.</span><span class="c1">hosts)  
-    </span><span class="c1 c4">print</span><span class="c1"> </span><span class="c6">"Testing network connectivity"</span><span class="c1">  
-    net</span><span class="c1 c4">.</span><span class="c1">pingAll()  
-    net</span><span class="c1 c4">.</span><span class="c1">stop()  
-
-</span><span class="c1 c4">if</span><span class="c1"> __name__</span> <span class="c1 c4">==</span><span class="c1"> </span><span class="c6">'__main__'</span><span class="c1">:  
-    </span><span class="c25 c19"># Tell mininet to print useful information</span><span class="c1">  
-    setLogLevel(</span><span class="c6">'info'</span><span class="c1">)  
-    simpleTest()</span>
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
+if __name__ == '__main__':
+   # Tell mininet to print useful information
+   setLogLevel('info')
+   simpleTest()
+```
 
 <span></span>
 
@@ -134,71 +119,58 @@
 
 [](#)[](#)
 
-<table cellpadding="0" cellspacing="0" class="c17">
+```bash
+#!/usr/bin/python
 
-<tbody>
+from mininet.topo import Topo
+from mininet.net import Mininet
+from mininet.node import CPULimitedHost
+from mininet.link import TCLink
+from mininet.util import irange,dumpNodeConnections
+from mininet.log import setLogLevel
 
-<tr>
+class LinearTopo(Topo):
+   "Linear topology of k switches, with one host per switch."
 
-<td class="c22">
+   def __init__(self, k=2, **opts):
+       """Init.
+           k: number of switches (and hosts)
+           hconf: host configuration options
+           lconf: link configuration options"""
 
-<span class="c25 c19">#!/usr/bin/python</span><span class="c1">  
+       super(LinearTopo, self).__init__(**opts)
 
-</span><span class="c1 c4">from</span><span class="c1"> </span><span class="c15">mininet.topo</span><span class="c1"> </span><span class="c1 c4">import</span><span class="c1"> Topo  
-</span><span class="c1 c4">from</span><span class="c1"> </span><span class="c15">mininet.net</span><span class="c1"> </span><span class="c1 c4">import</span><span class="c1"> Mininet  
-</span><span class="c1 c4">from</span><span class="c1"> </span><span class="c15">mininet.node</span><span class="c1"> </span><span class="c1 c4">import</span><span class="c1"> CPULimitedHost  
-</span><span class="c1 c4">from</span><span class="c1"> </span><span class="c15">mininet.link</span><span class="c1"> </span><span class="c1 c4">import</span><span class="c1"> TCLink  
-</span><span class="c1 c4">from</span><span class="c1"> </span><span class="c15">mininet.util</span><span class="c1"> </span><span class="c1 c4">import</span><span class="c1"> irange,dumpNodeConnections  
-</span><span class="c1 c4">from</span><span class="c1"> </span><span class="c15">mininet.log</span><span class="c1"> </span><span class="c1 c4">import</span><span class="c1"> setLogLevel  
+       self.k = k
 
-</span><span class="c1 c4">class</span><span class="c1"> </span><span class="c14 c4">LinearTopo</span><span class="c1">(Topo):  
-    </span><span class="c6">"Linear topology of k switches, with one host per switch."</span><span class="c1">  
+       lastSwitch = None
+       for i in irange(1, k):
+           host = self.addHost('h%s' % i, cpu=.5/k)
+           switch = self.addSwitch('s%s' % i)
+           # 10 Mbps, 5ms delay, 1% loss, 1000 packet queue
+           self.addLink( host, switch, bw=10, delay='5ms', loss=1, max_queue_size=1000, use_htb=True)
+           if lastSwitch:
+               self.addLink(switch, lastSwitch, bw=10, delay='5ms', loss=1, max_queue_size=1000, use_htb=True)
+           lastSwitch = switch
 
-    </span><span class="c1 c4">def</span><span class="c1"> </span><span class="c3">__init__</span><span class="c1">(</span><span class="c7">self</span><span class="c1">, k</span><span class="c1 c4">=</span><span class="c9">2</span><span class="c1">,</span> <span class="c1 c4">**</span><span class="c1">opts):  
-        </span><span class="c6">"""Init.</span><span class="c1">  
-</span><span class="c6">           k: number of switches (and hosts)</span><span class="c1">  
-</span><span class="c6">           hconf: host configuration options</span><span class="c1">  
-</span><span class="c6">           lconf: link configuration options"""</span><span class="c1">  
+def perfTest():
+   "Create network and run simple performance test"
+   topo = LinearTopo(k=4)
+   net = Mininet(topo=topo, 
+                 host=CPULimitedHost, link=TCLink)
+   net.start()
+   print "Dumping host connections"
+   dumpNodeConnections(net.hosts)
+   print "Testing network connectivity"
+   net.pingAll()
+   print "Testing bandwidth between h1 and h4"
+   h1, h4 = net.get('h1', 'h4')
+   net.iperf((h1, h4))
+   net.stop()
 
-        </span><span class="c19 c30">super</span><span class="c1">(LinearTopo,</span> <span class="c7">self</span><span class="c1">)</span><span class="c1 c4">.</span><span class="c1">__init__(</span><span class="c1 c4">**</span><span class="c1">opts)  
-
-        </span><span class="c7">self</span><span class="c1 c4">.</span><span class="c1">k</span> <span class="c1 c4">=</span><span class="c1"> k  
-
-        lastSwitch</span> <span class="c1 c4">=</span><span class="c1"> </span><span class="c7">None</span><span class="c1">  
-        </span><span class="c1 c4">for</span><span class="c1"> i</span> <span class="c1 c4">in</span><span class="c1"> irange(</span><span class="c9">1</span><span class="c1">, k):  
-            host</span> <span class="c1 c4">=</span><span class="c1"> </span><span class="c7">self</span><span class="c1 c4">.</span><span class="c1">addHost(</span><span class="c6">'h%s'</span><span class="c1"> </span><span class="c1 c4">%</span><span class="c1"> i, cpu</span><span class="c1 c4">=.</span><span class="c9">5</span><span class="c1 c4">/</span><span class="c1">k)  
-            switch</span> <span class="c1 c4">=</span><span class="c1"> </span><span class="c7">self</span><span class="c1 c4">.</span><span class="c1">addSwitch(</span><span class="c6">'s%s'</span><span class="c1"> </span><span class="c1 c4">%</span><span class="c1"> i)  
-            </span><span class="c19 c25"># 10 Mbps, 5ms delay, 1% loss, 1000 packet queue</span><span class="c1">  
-            </span><span class="c7">self</span><span class="c1 c4">.</span><span class="c1">addLink( host, switch, bw</span><span class="c1 c4">=</span><span class="c9">10</span><span class="c1">, delay</span><span class="c1 c4">=</span><span class="c6">'5ms'</span><span class="c1">, loss</span><span class="c1 c4">=</span><span class="c9">1</span><span class="c1">, max_queue_size</span><span class="c1 c4">=</span><span class="c9">1000</span><span class="c1">, use_htb</span><span class="c1 c4">=</span><span class="c7">True</span><span class="c1">)  
-            </span><span class="c1 c4">if</span><span class="c1"> lastSwitch:  
-                </span><span class="c7">self</span><span class="c1 c4">.</span><span class="c1">addLink(switch, lastSwitch, bw</span><span class="c1 c4">=</span><span class="c9">10</span><span class="c1">, delay</span><span class="c1 c4">=</span><span class="c6">'5ms'</span><span class="c1">, loss</span><span class="c1 c4">=</span><span class="c9">1</span><span class="c1">, max_queue_size</span><span class="c1 c4">=</span><span class="c9">1000</span><span class="c1">, use_htb</span><span class="c1 c4">=</span><span class="c7">True</span><span class="c1">)  
-            lastSwitch</span> <span class="c1 c4">=</span><span class="c1"> switch  
-
-</span><span class="c1 c4">def</span><span class="c1"> </span><span class="c3">perfTest</span><span class="c1">():  
-    </span><span class="c6">"Create network and run simple performance test"</span><span class="c1">   topo</span> <span class="c1 c4">=</span><span class="c1"> LinearTopo(k</span><span class="c1 c4">=</span><span class="c9">4</span><span class="c1">)  
-    net</span> <span class="c1 c4">=</span><span class="c1"> Mininet(topo</span><span class="c1 c4">=</span><span class="c1">topo,   
-                 host</span><span class="c1 c4">=</span><span class="c1">CPULimitedHost, link</span><span class="c1 c4">=</span><span class="c1">TCLink)  
-    net</span><span class="c1 c4">.</span><span class="c1">start()  
-    </span><span class="c1 c4">print</span><span class="c1"> </span><span class="c6">"Dumping host connections"</span><span class="c1">  
-    dumpNodeConnections(net</span><span class="c1 c4">.</span><span class="c1">hosts)  
-    </span><span class="c1 c4">print</span><span class="c1"> </span><span class="c6">"Testing network connectivity"</span><span class="c1">  
-    net</span><span class="c1 c4">.</span><span class="c1">pingAll()  
-    </span><span class="c1 c4">print</span><span class="c1"> </span><span class="c6">"Testing bandwidth between h1 and h4"</span><span class="c1">   h1, h4</span> <span class="c1 c4">=</span><span class="c1"> net</span><span class="c1 c4">.</span><span class="c1">get(</span><span class="c6">'h1'</span><span class="c1">,</span> <span class="c6">'h4'</span><span class="c1">)  
-    net</span><span class="c1 c4">.</span><span class="c1">iperf((h1, h4))  
-    net</span><span class="c1 c4">.</span><span class="c1">stop()  
-
-</span><span class="c1 c4">if</span><span class="c1"> __name__</span> <span class="c1 c4">==</span><span class="c1"> </span><span class="c6">'__main__'</span><span class="c1">:  
-    setLogLevel(</span><span class="c6">'info'</span><span class="c1">)  
-    perfTest()</span>
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
+if __name__ == '__main__':
+   setLogLevel('info')
+   perfTest()
+```
 <span class="c4"></span>
 
 <span>Some important methods and parameters:</span>
@@ -221,33 +193,13 @@
 
 [](#)[](#)
 
-<table cellpadding="0" cellspacing="0" class="c17">
-
-<tbody>
-
-<tr>
-
-<td class="c22">
-
-<span class="c0">linkopts = dict(bw=10, delay='5ms', loss=1, max_queue_size=1000, use_htb=True)  
-</span>
-
-<span class="c0">’’’</span>
-
-<span class="c0">alternately: linkopts = {'bw':10, 'delay':'5ms', 'loss':1, 'max_queue_size':1000, 'use_htb':True}  
-’’’</span>
-
-<span class="c0"></span>
-
-<span class="c0">self.addLink(node1, node2, **linkopts)</span>
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
+```bash
+linkopts = dict(bw=10, delay='5ms', loss=1, max_queue_size=1000, use_htb=True)
+’’’
+alternately: linkopts = {'bw':10, 'delay':'5ms', 'loss':1, 'max_queue_size':1000, 'use_htb':True}
+’’’
+self.addLink(node1, node2, **linkopts)
+```
 
 <span></span>
 
@@ -276,85 +228,40 @@
 
 [](#)[](#)
 
-<table cellpadding="0" cellspacing="0" class="c17">
-
-<tbody>
-
-<tr>
-
-<td class="c22">
-
-<span class="c0">*** Creating network</span>
-
-<span class="c20 c0">*** Adding controller</span>
-
-<span class="c20 c0">*** Adding hosts:</span>
-
-<span class="c0">h1 h2 h3 h4</span>
-
-<span class="c20 c0">*** Adding switches:</span>
-
-<span class="c0">s1 s2 s3 s4</span>
-
-<span class="c20 c0">*** Adding links:</span>
-
-<span class="c0">(h1, s1) (h2, s2) (h3, s3) (h4, s4) (s1, s2) (s2, s3) (s3, s4)</span>
-
-<span class="c20 c0">*** Configuring hosts</span>
-
-<span class="c0">h1 h2 h3 h4</span>
-
-<span class="c20 c0">*** Starting controller</span>
-
-<span class="c20 c0">*** Starting 4 switches</span>
-
-<span class="c0">s1 s2 s3 s4</span>
-
-<span class="c0 c20">Dumping host connections</span>
-
-<span class="c0">h1 h1-eth0:s1-eth1</span>
-
-<span class="c0">h2 h2-eth0:s2-eth1</span>
-
-<span class="c0">h3 h3-eth0:s3-eth1</span>
-
-<span class="c0">h4 h4-eth0:s4-eth1</span>
-
-<span class="c0">Testing network connectivity</span>
-
-<span class="c20 c0">*** Ping: testing ping reachability</span>
-
-<span class="c0">h1 -> h2 h3 h4</span>
-
-<span class="c0">h2 -> h1 h3 h4</span>
-
-<span class="c0">h3 -> h1 h2 h4</span>
-
-<span class="c0">h4 -> h1 h2 h3</span>
-
-<span class="c0">*** Results: 0% dropped (0/12 lost)</span>
-
-<span class="c0">*** Stopping 4 hosts</span>
-
-<span class="c0">h1 h2 h3 h4</span>
-
-<span class="c0">*** Stopping 4 switches</span>
-
-<span class="c0">s1 ...s2 ....s3 ....s4 ...</span>
-
-<span class="c0">*** Stopping 1 controllers</span>
-
-<span class="c0">c0</span>
-
-<span class="c0">*** Done</span>
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
+```bash
+*** Creating network
+*** Adding controller
+*** Adding hosts:
+h1 h2 h3 h4
+*** Adding switches:
+s1 s2 s3 s4
+*** Adding links:
+(h1, s1) (h2, s2) (h3, s3) (h4, s4) (s1, s2) (s2, s3) (s3, s4)
+*** Configuring hosts
+h1 h2 h3 h4
+*** Starting controller
+*** Starting 4 switches
+s1 s2 s3 s4
+Dumping host connections
+h1 h1-eth0:s1-eth1
+h2 h2-eth0:s2-eth1
+h3 h3-eth0:s3-eth1
+h4 h4-eth0:s4-eth1
+Testing network connectivity
+*** Ping: testing ping reachability
+h1 -> h2 h3 h4
+h2 -> h1 h3 h4
+h3 -> h1 h2 h4
+h4 -> h1 h2 h3
+*** Results: 0% dropped (0/12 lost)
+*** Stopping 4 hosts
+h1 h2 h3 h4
+*** Stopping 4 switches
+s1 ...s2 ....s3 ....s4 ...
+*** Stopping 1 controllers
+c0
+*** Done
+```
 
 <span class="c0"></span>
 
