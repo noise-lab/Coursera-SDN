@@ -7,7 +7,7 @@ Professor: Nick Feamster
 Teaching Assistant: Arpit Gupta, Muhammad Shahbaz
 '''
 
-### The only things you'll have to edit (unless you're porting this script over to a different language) 
+### The only things you'll have to edit (unless you're porting this script over to a different language)
 ### are at the bottom of this file.
 
 import urllib
@@ -27,14 +27,14 @@ class NullDevice:
   def write(self, s):
     pass
 
-def submit():   
+def submit():
   print '==\n== [sandbox] Submitting Solutions \n=='
-  
+
   (login, password) = loginPrompt()
   if not login:
     print '!! Submission Cancelled'
     return
-  
+
   print '\n== Connecting to Coursera ... '
 
   # Part Identifier
@@ -101,8 +101,8 @@ def challengeResponse(email, passwd, challenge):
   strAnswer = ''
   for i in range(0, len(digest)):
     strAnswer = strAnswer + digest[i]
-  return strAnswer 
-  
+  return strAnswer
+
 def challenge_url():
   """Returns the challenge url."""
   return "https://class.coursera.org/" + URL + "/assignment/challenge"
@@ -127,7 +127,7 @@ def submitSolution(email_address, ch_resp, sid, output, source, state, ch_aux):
              'challenge_response' : ch_resp, \
              'state' : state \
            }
-  url = submit_url()  
+  url = submit_url()
   data = urllib.urlencode(values)
   req = urllib2.Request(url, data)
   response = urllib2.urlopen(req)
@@ -136,11 +136,11 @@ def submitSolution(email_address, ch_resp, sid, output, source, state, ch_aux):
   result = 0
   return result, string
 
-## This collects the source code (just for logging purposes) 
+## This collects the source code (just for logging purposes)
 def source(partIdx):
   # open the file, get all lines
   f = open(sourceFiles[partIdx])
-  src = f.read() 
+  src = f.read()
   f.close()
   return src
 
@@ -156,19 +156,19 @@ from CustomTopo import *
 
 # Make sure you change this string to the last segment of your class URL.
 # For example, if your URL is https://class.coursera.org/pgm-2012-001-staging, set it to "pgm-2012-001-staging".
-URL = 'sdn-002'
+URL = 'sdn1-001'
 
 # the "Identifier" you used when creating the part
-partIds = ['agPA2']                        
+partIds = ['agPA2']
 # used to generate readable run-time information for students
-partFriendlyNames = ['Create Custom Topology'] 
+partFriendlyNames = ['Create Custom Topology']
 # source files to collect (just for our records)
-sourceFiles = ['CustomTopo.py']                           
-          
+sourceFiles = ['CustomTopo.py']
+
 def output(partIdx):
   """Uses the student code to compute the output for test cases."""
   outputString = ''
-  
+
   if partIdx == 0: # This is agPA2
     "Set up link parameters"
     print "a. Setting link parameters"
@@ -178,7 +178,7 @@ def output(partIdx):
     linkopts2 = {'bw':30, 'delay':'10ms'}
     "--- edge switches to hosts"
     linkopts3 = {'bw':10, 'delay':'15ms'}
-  
+
     "Creating network and run simple performance test"
     print "b. Creating Custom Topology"
     topo = CustomTopo(linkopts1, linkopts2, linkopts3, fanout=3)
@@ -188,14 +188,14 @@ def output(partIdx):
     net.start()
     h1 = net.get('h1')
     h27 = net.get('h27')
-  
+
     print "d. Starting Test"
     # Start pings
     outputString = h1.cmd('ping', '-c6', h27.IP())
-    
+
     print "e. Stopping Mininet"
     net.stop()
-    
+
   return outputString.strip()
 
 submit()
