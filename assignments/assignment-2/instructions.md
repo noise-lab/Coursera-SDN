@@ -285,12 +285,16 @@ c0
 
 <span></span>
 
-<span>To start this exercise, download</span> <span class="c18 c19 c16">[programming-assignment-2.zip](https://d396qusza40orc.cloudfront.net/sdn/srcs/programming-assignment-2.zip)</span><span>. It consists of two files:</span>
+<span>To start this assignment update the course's Github repo on your host machine using ```git pull```. Turn on your guest VM (if it is turned off) using ```vagrant up```. Now ssh into the guest VM using ```vagrant ssh```. Go to the directory with the updated code base in your guest VM. 
+```bash
+cd /vagrant/assignments/assignment-2
+```
+</span>
 
-<span></span>
+<span> It consists of two files: </span>
 
-1.  <span class="c0">CustomTopo.py</span><span>: a sekleton class which you will update with the logic for creating the datacenter topology described above.</span>
-2.  <span class="c0">submit.py</span><span>: used to submit your code and output to the coursera servers for grading. You don’t have to do any modifications in here.</span>
+1.  ```CustomTopo.py```: a sekleton class which you will update with the logic for creating the datacenter topology described above.</span>
+2.  ```submit.py```: used to submit your code and output to the coursera servers for grading. You don’t have to do any modifications in here.</span>
 
 <span></span>
 
