@@ -3,7 +3,7 @@
 cd ~
 git clone git://github.com/p4lang/p4factory.git
 
-cd ~/p4-factory/
+cd ~/p4factory/
 ./install.sh
 
 sudo ~/p4factory/tools/veth_setup.sh
