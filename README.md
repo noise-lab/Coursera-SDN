@@ -68,3 +68,14 @@ assignments  README.md  setup  Vagrantfile
 sudo mn
 ```
 This will start a Mininet bash terminal. Type ```xterm h1 h2``` in this terminal. If two external terminals pop out, then your setup worked as expected. 
+
+#### Notes and Tips for running vagrant and the course VM
+- Follow the instructions closely
+- If you are running a 64bit OS, run a 64 bit VM
+- If you are running a 32bit OS, run a 32 bit VM
+- Disable Hyper-V on Windows
+- Enable Virtualization support on the host (BIOS setup)
+- The VM runs 192.168.0.0/24 as default network, if you use that network locally you need to change it (edit Vagrantfile: config.vm.network :private_network, ip: "192.168.0.100”). It has been reported that on ocations when "vagrant ssh" fails, this alternative method does work. This is under investigation.
+- The host machine needs to run an X server (it’s native on Linux; OS X and Windowns require the installation of an X Server)
+- Alternative methods to ssh to the VM (ssh -X vagrant@192.168.0.100; password is vagrant)
+- The shared folder: "Coursera-SDN" git cloned folder for the host and /vagrant for the guest
