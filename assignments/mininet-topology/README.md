@@ -345,7 +345,7 @@ vagrant@coursera-sdn:/vagrant/assignments/mininet-topology$ sudo python submit.p
 == [sandbox] Submitting Solutions 
 ==
 Login (Email address): <Your email id>
-One-time Password (from the assignment page. This is NOT your own account's password): <Your assignment-specific password>
+One-time Password (from the assignment page. This is NOT your own accounts password): <Your assignment-specific password>
 
 == Connecting to Coursera ... 
 Hello! These are the assignment parts that you can submit:
