@@ -75,7 +75,8 @@ This will start a Mininet bash terminal. Type ```xterm h1 h2``` in this terminal
 - If you are running a 32bit OS, run a 32 bit VM
 - Disable Hyper-V on Windows
 - Enable Virtualization support on the host (BIOS setup)
-- The VM runs 192.168.0.0/24 as default network, if you use that network locally you need to change it (edit Vagrantfile: config.vm.network :private_network, ip: "192.168.0.100”). It has been reported that on ocations when "vagrant ssh" fails, this alternative method does work. This is under investigation.
+- The VM runs 192.168.0.0/24 as default network, if you use that network locally you need to change it (edit Vagrantfile: config.vm.network :private_network, ip: "192.168.0.100”)
 - The host machine needs to run an X server (it’s native on Linux; OS X and Windowns require the installation of an X Server)
-- Alternative methods to ssh to the VM (ssh -X vagrant@192.168.0.100; password is vagrant)
+- Alternative methods to ssh to the VM: run "ssh -X vagrant@192.168.0.100" password is vagrant
+- If you see "ssh_exchange_identification: read: Connection reset by peer" when trying to connect using "vagrant ssh" use the alternative method provided above since it has been reported as a valid workaround, this issue is under investigation
 - The shared folder: "Coursera-SDN" git cloned folder for the host and /vagrant for the guest
