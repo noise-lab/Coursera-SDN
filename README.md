@@ -37,7 +37,7 @@ $ vagrant up
 If you want to tear down your vagrant session, you have multiple options to do so, each has its pros and cons. These options are as follows: 
 * **vagrant suspend**: With this option you will be able to save the state of the VM and stop it. 
 * **vagrant halt**: This will gracefully shutdown the guest operating system and power down the guest machine. 
-* **vagrant destroy**: If you want to remove all traces of the guest machine from your system, this is the command you should use. It willpower down the machine and remove all guest hard disks
+* **vagrant destroy**: If you want to remove all traces of the guest machine from your system, this is the command you should use. It will power down the machine and remove all guest hard disks
 
 Go [here](http://docs.vagrantup.com/v2/getting-started/teardown.html) for more information about vagrant teardown. 
 
