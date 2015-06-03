@@ -339,6 +339,20 @@ $ sudo python submit.py
 
 <span>The submission script will ask for your login and password. This password is not the general account password, but an assignment-specific password that is uniquely generated for each student. You can get this from the assignments listing page.</span>
 
+```bash
+vagrant@coursera-sdn:/vagrant/assignments/mininet-topology$ sudo python submit.py 
+==
+== [sandbox] Submitting Solutions 
+==
+Login (Email address): <Your email id>
+One-time Password (from the assignment page. This is NOT your own accounts password): <Your assignment-specific password>
+
+== Connecting to Coursera ... 
+Hello! These are the assignment parts that you can submit:
+1) Create Custom Topology
+Please enter which part you want to submit (1-1): <Part of the assignment you want to submit, 1 in this case>
+```
+
 <span></span>
 
 <span>Once finished, it will prompt the results on the terminal (either passed or failed).</span>
