@@ -30,23 +30,27 @@
 
 <span>We’re not going to be using the reference controller anymore, which is the default controller that Mininet uses during it simulation. Make sure that it’s not running in the background:</span>
 
-<span class="c1">$ ps -A | grep controller</span>
+```bash
+$ ps -A | grep controller
+```
 
 <span>If so, you should kill it either press Ctrl-C in the window running the controller program, or from the other SSH window:</span>
 
 <span></span>
-
-<span class="c1">$ sudo killall controller</span>
-
+```bash
+$ sudo killall controller
+```
 <span class="c1 c26"></span>
 
 <span>You should also run</span> <span class="c1">sudo mn -c</span><span> and restart Mininet to make sure that everything is clean and using the faster kernel switch: From you Mininet console:</span>
 
 <span></span>
 
-<span class="c1">mininet> exit  
+```bash
+mininet> exit  
 $ sudo mn -c  
-$ sudo mn --topo single,3 --mac --switch ovsk --controller remote</span>
+$ sudo mn --topo single,3 --mac --switch ovsk --controller remote
+```
 
 <span class="c1"></span>
 
@@ -58,7 +62,9 @@ $ sudo mn --topo single,3 --mac --switch ovsk --controller remote</span>
 
 <span class="c1"></span>
 
-<span class="c1">$ pox.py log.level --DEBUG forwarding.hub</span>
+```bash
+$ pox.py log.level --DEBUG forwarding.hub
+```
 
 <span class="c1"></span>
 
@@ -74,18 +80,22 @@ $ sudo mn --topo single,3 --mac --switch ovsk --controller remote</span>
 
 <span></span>
 
-<span class="c1">INFO:openflow.of_01:[Con 1/1] Connected to 00-00-00-00-00-01  
-DEBUG:samples.of_tutorial:Controlling [Con 1/1]</span>
+```
+INFO:openflow.of_01:[Con 1/1] Connected to 00-00-00-00-00-01  
+DEBUG:samples.of_tutorial:Controlling [Con 1/1]
+```
 
 <span></span>
 
 ## <a name="h.jk1wcrjvrj9s"></a><span class="c19">Verify Hub behavior with tcpdump</span>
 
-## <a name="h.au1yvg3rv9vl"></a><span>Now verify that hosts can ping each other, and that all hosts see the exact same traffic - the behavior of a hub. To do this, we'll create xterms for each host and view the traffic in each. In the Mininet console, start up three xterms:</span>
+<span>Now verify that hosts can ping each other, and that all hosts see the exact same traffic - the behavior of a hub. To do this, we'll create xterms for each host and view the traffic in each. In the Mininet console, start up three xterms:</span>
 
 <span class="c1"></span>
 
-<span class="c1">mininet> xterm h1 h2 h3</span>
+```bash
+mininet> xterm h1 h2 h3
+```
 
 <span class="c1"></span>
 
@@ -93,18 +103,20 @@ DEBUG:samples.of_tutorial:Controlling [Con 1/1]</span>
 
 <span></span>
 
-<span>In the xterms for h2 and h3, run</span> <span class="c1">tcpdump</span><span>, a utility to print the packets seen by a host:</span>
+<span>In the xterms for h2 and h3, run</span> ```tcpdump```, a utility to print the packets seen by a host:</span>
 
-<span class="c1">  
-# tcpdump -XX -n -i h2-eth0</span>
-
+```bash
+# tcpdump -XX -n -i h2-eth0
+```
 <span></span>
 
 <span>and respectively:</span>
 
 <span></span>
 
-<span class="c1"># tcpdump -XX -n -i h3-eth0</span>
+```bash
+# tcpdump -XX -n -i h3-eth0
+```
 
 <span></span>
 
@@ -112,7 +124,9 @@ DEBUG:samples.of_tutorial:Controlling [Con 1/1]</span>
 
 <span></span>
 
-<span class="c1"># ping -c 1 10.0.0.2</span>
+```bash
+# ping -c 1 10.0.0.2
+```
 
 <span class="c1"></span>
 
@@ -124,7 +138,9 @@ DEBUG:samples.of_tutorial:Controlling [Con 1/1]</span>
 
 <span></span>
 
-<span class="c1"># ping -c 1 10.0.0.5</span>
+```bash
+# ping -c 1 10.0.0.5
+```
 
 <span class="c1"></span>
 
@@ -140,60 +156,20 @@ DEBUG:samples.of_tutorial:Controlling [Con 1/1]</span>
 
 <span></span>
 
-[](#)[](#)
-
-<table cellpadding="0" cellspacing="0" class="c30">
-
-<tbody>
-
-<tr>
-
-<td class="c35">
-
-<span class="c0">from</span><span class="c9"> </span><span class="c13">pox.core</span><span class="c9"> </span><span class="c0">import</span><span class="c9"> core</span>
-
-<span class="c0">import</span><span class="c9"> </span><span class="c13">pox.openflow.libopenflow_01</span><span class="c9"> </span><span class="c0">as</span><span class="c9"> </span><span class="c13">of</span>
-
-<span class="c0">from</span><span class="c9"> </span><span class="c13">pox.lib.util</span><span class="c9"> </span><span class="c0">import</span><span class="c9"> dpidToStr</span>
-
-<span class="c9"></span>
-
-<span class="c9">log</span> <span class="c0">=</span><span class="c9"> core</span><span class="c0">.</span><span class="c9">getLogger()</span>
-
-<span class="c9"></span>
-
-<span class="c9"></span>
-
-<span class="c0">def</span><span class="c9"> </span><span class="c31 c21">_handle_ConnectionUp</span><span class="c9"> (event):</span>
-
-<span class="c9">  msg</span> <span class="c0">=</span><span class="c9"> of</span><span class="c0">.</span><span class="c9">ofp_flow_mod()</span>
-
-<span class="c9">  msg</span><span class="c0">.</span><span class="c9">actions</span><span class="c0">.</span><span class="c9">append(of</span><span class="c0">.</span><span class="c9">ofp_action_output(port</span> <span class="c0">=</span><span class="c9"> of</span><span class="c0">.</span><span class="c9">OFPP_FLOOD))</span>
-
-<span class="c9">  event</span><span class="c0">.</span><span class="c9">connection</span><span class="c0">.</span><span class="c9">send(msg)</span>
-
-<span class="c9">  log</span><span class="c0">.</span><span class="c9">info(</span><span class="c6">"Hubifying %s"</span><span class="c9">, dpidToStr(event</span><span class="c0">.</span><span class="c9">dpid))</span>
-
-<span class="c9"></span>
-
-<span class="c0">def</span><span class="c9"> </span><span class="c21 c31">launch</span><span class="c9"> ():</span>
-
-<span class="c9">  core</span><span class="c0">.</span><span class="c9">openflow</span><span class="c0">.</span><span class="c9">addListenerByName(</span><span class="c6">"ConnectionUp"</span><span class="c9">, _handle_ConnectionUp)</span>
-
-<span class="c9"></span>
-
-<span class="c9">  log</span><span class="c0">.</span><span class="c9">info(</span><span class="c6">"Hub running."</span><span class="c9">)</span>
-
-<span></span>
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
+```bash
+from pox.core import core
+import pox.openflow.libopenflow_01 as of
+from pox.lib.util import dpidToStr
+log = core.getLogger()
+def _handle_ConnectionUp (event):
+  msg = of.ofp_flow_mod()
+  msg.actions.append(of.ofp_action_output(port = of.OFPP_FLOOD))
+  event.connection.send(msg)
+  log.info("Hubifying %s", dpidToStr(event.dpid))
+def launch ():
+  core.openflow.addListenerByName("ConnectionUp", _handle_ConnectionUp)
+  log.info("Hub running.")
+```
 <span>Table 1\. Hub Controller</span>
 
 <span></span>
@@ -202,7 +178,7 @@ DEBUG:samples.of_tutorial:Controlling [Con 1/1]</span>
 
 <span></span>
 
-1.  <span class="c1 c19">connection.send( ... )</span><span class="c1"> </span><span>function sends an OpenFlow message to a switch.</span>
+1.  ```connection.send( ... )``` function sends an OpenFlow message to a switch.</span>
 
 <span class="c8"></span>
 
@@ -210,7 +186,7 @@ DEBUG:samples.of_tutorial:Controlling [Con 1/1]</span>
 
 <span></span>
 
-1.  <span class="c1 c19">ofp_action_output</span><span> class</span>
+1.  ```ofp_action_output``` class
 
 <span></span>
 
@@ -222,11 +198,13 @@ DEBUG:samples.of_tutorial:Controlling [Con 1/1]</span>
 
 <span></span>
 
-<span class="c1">out_action = of.ofp_action_output(port = of.OFPP_FLOOD)</span>
+```bash
+out_action = of.ofp_action_output(port = of.OFPP_FLOOD)
+```
 
 <span></span>
 
-1.  <span class="c1 c19">ofp_match</span><span> class</span> <span class="c34">(not used in the code above but might be useful in the assignment)</span>
+1.  ```ofp_match``` class (not used in the code above but might be useful in the assignment)</span>
 
 <span></span>
 
@@ -236,9 +214,9 @@ DEBUG:samples.of_tutorial:Controlling [Con 1/1]</span>
 
 <span>Some notable fields of ofp_match objects are:</span>
 
-1.  <span class="c1">dl_src</span><span> - The data link layer (MAC) source address</span>
-2.  <span class="c1">dl_dst</span><span> - The data link layer (MAC) destination address</span>
-3.  <span class="c1">in_port</span><span> - The packet input switch port</span>
+1.  ```dl_src```- The data link layer (MAC) source address</span>
+2.  ```dl_dst```- The data link layer (MAC) destination address</span>
+3.  ```in_port```- The packet input switch port</span>
 
 <span></span>
 
@@ -246,81 +224,71 @@ DEBUG:samples.of_tutorial:Controlling [Con 1/1]</span>
 
 <span></span>
 
-<span class="c1">match = of.ofp_match()  
-match.in_port = 3</span>
+```
+match = of.ofp_match()  
+match.in_port = 3
+```
 
 <span class="c1"></span>
 
-1.  <span class="c1 c19">ofp_packet_out</span><span class="c1"> </span><span>OpenFlow message</span> <span class="c34">(not used in the code above but might be useful in the assignment)</span>
+1.  ```ofp_packet_out``` <span>OpenFlow message</span> <span class="c34">(not used in the code above but might be useful in the assignment)</span>
 
 <span></span>
 
-<span>The</span> <span class="c1">ofp_packet_out</span><span> message instructs a switch to send a packet. The packet might be one constructed at the controller, or it might be one that the switch received, buffered, and forwarded to the controller (and is now referenced by a</span> <span class="c1">buffer_id</span><span>).</span>
+<span>The</span> <span class="c1">```ofp_packet_out```</span><span> message instructs a switch to send a packet. The packet might be one constructed at the controller, or it might be one that the switch received, buffered, and forwarded to the controller (and is now referenced by a</span> <span class="c1">buffer_id</span><span>).</span>
 
 <span></span>
 
 <span>Notable fields are:</span>
 
-1.  <span class="c1">buffer_id</span><span> - The buffer_id of a buffer you wish to send. Do not set if you are sending a constructed packet.</span>
-2.  <span class="c1">data</span><span> - Raw bytes you wish the switch to send. Do not set if you are sending a buffered packet.</span>
-3.  <span class="c1">actions</span><span> - A list of actions to apply (for this tutorial, this is just a single</span> <span class="c1">ofp_action_output</span><span> action).</span>
-4.  <span class="c1">in_port</span><span> - The port number this packet initially arrived on if you are sending by</span> <span class="c1">buffer_id</span><span>, otherwise</span> <span class="c1">OFPP_NONE</span><span>.</span>
+1.  <span class="c1">```buffer_id```</span><span> - The buffer_id of a buffer you wish to send. Do not set if you are sending a constructed packet.</span>
+2.  <span class="c1">```data```</span><span> - Raw bytes you wish the switch to send. Do not set if you are sending a buffered packet.</span>
+3.  <span class="c1">```actions```</span><span> - A list of actions to apply (for this tutorial, this is just a single</span> <span class="c1">```ofp_action_output```</span><span> action).</span>
+4.  <span class="c1">```in_port```</span><span> - The port number this packet initially arrived on if you are sending by</span> <span class="c1">buffer_id</span><span>, otherwise</span> <span class="c1">```OFPP_NONE```</span><span>.</span>
 
 <span></span>
 
-<span>Example. send_packet() method:</span>
+<span>Example. ```send_packet()``` method:</span>
 
-<span></span>
+```bash
+def send_packet (self, buffer_id, raw_data, out_port, in_port):
+  """
+   Sends a packet out of the specified switch port.
+   If buffer_id is a valid buffer on the switch, use that.  Otherwise,
+   send the raw data in raw_data.
+   The "in_port" is the port number that packet arrived on.  Use
+   OFPP_NONE if you're generating this packet.
+   """
+  msg = of.ofp_packet_out()
+  msg.in_port = in_port
+  if buffer_id != -1 and buffer_id is not None:
+    # We got a buffer ID from the switch; use that
+    msg.buffer_id = buffer_id
+  else:
+    # No buffer ID from switch -- we got the raw data
+    if raw_data is None:
+      # No raw_data specified -- nothing to send!
+      return
+    msg.data = raw_data
+  
+  action = of.ofp_action_output(port = out_port)
+  msg.actions.append(action)
+  
+  # Send message to switch
+  self.connection.send(msg)
+```
 
-[](#)[](#)
 
-<table cellpadding="0" cellspacing="0" class="c30">
-
-<tbody>
-
-<tr>
-
-<td class="c35">
-
-<span class="c4 c21">def</span><span class="c4"> </span><span class="c31 c17 c21">send_packet</span><span class="c4"> (</span><span class="c36 c17">self</span><span class="c4">, buffer_id, raw_data, out_port, in_port):  
-  </span> <span class="c6 c17">"""</span><span class="c4">  
-</span><span class="c6 c17">   Sends a packet out of the specified switch port.</span><span class="c4">  
-</span><span class="c6 c17">   If buffer_id is a valid buffer on the switch, use that.  Otherwise,</span><span class="c4">  
-</span><span class="c6 c17">   send the raw data in raw_data.</span><span class="c4">  
-</span><span class="c6 c17">   The "in_port" is the port number that packet arrived on.  Use</span><span class="c4">  
-</span><span class="c6 c17">   OFPP_NONE if you're generating this packet.</span><span class="c4">  
-</span><span class="c6 c17">   """</span><span class="c4">  msg</span> <span class="c4 c21">=</span><span class="c4"> of</span><span class="c4 c21">.</span><span class="c4">ofp_packet_out()  
-   msg</span><span class="c4 c21">.</span><span class="c4">in_port</span> <span class="c4 c21">=</span><span class="c4"> in_port  
-  </span> <span class="c4 c21">if</span><span class="c4"> buffer_id</span> <span class="c4 c21">!=</span><span class="c4"> </span><span class="c4 c21">-</span><span class="c17 c29">1</span><span class="c4"> </span><span class="c4 c21">and</span><span class="c4"> buffer_id</span> <span class="c4 c21">is</span><span class="c4"> </span><span class="c4 c21">not</span><span class="c4"> </span><span class="c36 c17">None</span><span class="c4">:  
-    </span> <span class="c14"># We got a buffer ID from the switch; use that</span><span class="c4">  
-     msg</span><span class="c4 c21">.</span><span class="c4">buffer_id</span> <span class="c4 c21">=</span><span class="c4"> buffer_id  
-  </span> <span class="c4 c21">else</span><span class="c4">:  
-    </span> <span class="c14"># No buffer ID from switch -- we got the raw data</span><span class="c4">   </span> <span class="c4 c21">if</span><span class="c4"> raw_data</span> <span class="c4 c21">is</span><span class="c4"> </span><span class="c17 c36">None</span><span class="c4">:  
-      </span> <span class="c14"># No raw_data specified -- nothing to send!</span><span class="c4">     </span> <span class="c4 c21">return</span><span class="c4">  
-     msg</span><span class="c4 c21">.</span><span class="c4">data</span> <span class="c4 c21">=</span><span class="c4"> raw_data  
-
-  action</span> <span class="c4 c21">=</span><span class="c4"> of</span><span class="c4 c21">.</span><span class="c4">ofp_action_output(port</span> <span class="c4 c21">=</span><span class="c4"> out_port)  
-   msg</span><span class="c4 c21">.</span><span class="c4">actions</span><span class="c4 c21">.</span><span class="c4">append(action)  
-
- </span> <span class="c14"># Send message to switch</span><span class="c4"> </span> <span class="c36 c17">self</span><span class="c4 c21">.</span><span class="c4">connection</span><span class="c4 c21">.</span><span class="c4">send(msg)</span>
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
 
 <span>Table 2: Send Packet</span>
 
 <span></span>
 
-1.  <span class="c1 c19">ofp_flow_mod</span><span class="c1"> </span><span>OpenFlow message</span>
+1.  <span class="c1 c19">```ofp_flow_mod```</span><span class="c1"> </span><span>OpenFlow message</span>
 
 <span class="c8"></span>
 
-<span>This instructs a switch to install a flow table entry. Flow table entries match some fields of incoming packets, and executes some list of actions on matching packets. The actions are the same as for</span> <span class="c1">ofp_packet_out</span><span>, mentioned above (and, again, for the tutorial all you need is the simple</span> <span class="c1">ofp_action_output</span><span> action). The match is described by an</span> <span class="c1">ofp_match</span><span> object.</span>
+<span>This instructs a switch to install a flow table entry. Flow table entries match some fields of incoming packets, and executes some list of actions on matching packets. The actions are the same as for</span> <span class="c1">```ofp_packet_out```</span><span>, mentioned above (and, again, for the tutorial all you need is the simple</span> <span class="c1">```ofp_action_output```</span><span> action). The match is described by an</span> <span class="c1">```ofp_match```</span><span> object.</span>
 
 <span></span>
 
@@ -340,9 +308,11 @@ match.in_port = 3</span>
 
 <span></span>
 
-<span class="c1">fm = of.ofp_flow_mod()  
+```
+fm = of.ofp_flow_mod()  
 fm.match.in_port = 3  
-fm.actions.append(of.ofp_action_output(port = 4))</span>
+fm.actions.append(of.ofp_action_output(port = 4))
+```
 
 ## <a name="h.j5ane6ow8m7d"></a><span class="c19">Verify Switch behavior with tcpdump</span>
 
@@ -352,13 +322,17 @@ fm.actions.append(of.ofp_action_output(port = 4))</span>
 
 <span></span>
 
-<span class="c1">$ pox.py log.level --DEBUG forwarding.l2_learning</span>
+```bash
+$ pox.py log.level --DEBUG forwarding.l2_learning</span>
+```
 
-## <a name="h.pn8sd859fgfi"></a><span>Like before, we'll create xterms for each host and view the traffic in each. In the Mininet console, start up three xterms:</span>
+<span>Like before, we'll create xterms for each host and view the traffic in each. In the Mininet console, start up three xterms:</span>
 
 <span class="c1"></span>
 
-<span class="c1">mininet> xterm h1 h2 h3</span>
+```bash
+mininet> xterm h1 h2 h3
+```
 
 <span class="c1"></span>
 
@@ -368,8 +342,9 @@ fm.actions.append(of.ofp_action_output(port = 4))</span>
 
 <span>In the xterms for h2 and h3, run</span> <span class="c1">tcpdump</span><span>, a utility to print the packets seen by a host:</span>
 
-<span class="c1">  
-# tcpdump -XX -n -i h2-eth0</span>
+```bash
+# tcpdump -XX -n -i h2-eth0
+```
 
 <span></span>
 
@@ -377,7 +352,9 @@ fm.actions.append(of.ofp_action_output(port = 4))</span>
 
 <span></span>
 
-<span class="c1"># tcpdump -XX -n -i h3-eth0</span>
+```bash
+# tcpdump -XX -n -i h3-eth0
+```
 
 <span></span>
 
@@ -385,7 +362,9 @@ fm.actions.append(of.ofp_action_output(port = 4))</span>
 
 <span></span>
 
-<span class="c1"># ping -c 1 10.0.0.2</span>
+```bash
+# ping -c 1 10.0.0.2
+```
 
 <span class="c1"></span>
 
@@ -397,7 +376,7 @@ fm.actions.append(of.ofp_action_output(port = 4))</span>
 
 <span></span>
 
-<span>The code for l2_learning application is provided under ~/pox/pox/forwarding and is explained with greater detail in the</span> <span class="c19 c27">[Module 3.3 lecture on SDN Controller](https://class.coursera.org/sdn-002/lecture/41)</span><span>.</span>
+<span>The code for l2_learning application is provided under ~/pox/pox/forwarding and is explained with greater detail in the</span> <span class="c19 c27">[Module 3.3 lecture on SDN Controller](https://XX)</span><span>.</span>
 
 <span></span>
 
@@ -435,17 +414,21 @@ fm.actions.append(of.ofp_action_output(port = 4))</span>
 
 <span></span>
 
-<span>To start this exercise, download</span> <span class="c17 c19 c27">[Programming-Assignment3.zip](https://d396qusza40orc.cloudfront.net/sdn/srcs/Programming-Assignment3.zip)</span><span>. It consists of three files:</span>
+<span>To start this assignment update the course's Github repo (by default, ```Coursera-SDN```) on your host machine using ```git pull```. Turn on your guest VM (if it is turned off) using ```vagrant up```. Now ssh into the guest VM using ```vagrant ssh```. Go to the directory with the updated code base in your guest VM. 
+```bash
+cd /vagrant/assignments/simple-controller
+```
+</span> It consists of three files:</span>
 
 <span></span>
 
-1.  <span class="c1">firewall.py</span><span>: a sekleton class which you will update with the logic for installing firewall rules.</span>
-2.  <span class="c1">firewall-policies.csv</span><span>:  a list of MAC pairs (i.e., policies) read as input by the firewall application.</span>
-3.  <span class="c1">submit.py</span><span>: used to submit your code and output to the coursera servers for grading.</span>
+1.  <span class="c1">```firewall.py```</span><span>: a sekleton class which you will update with the logic for installing firewall rules.</span>
+2.  <span class="c1">```firewall-policies.csv```</span><span>:  a list of MAC pairs (i.e., policies) read as input by the firewall application.</span>
+3.  <span class="c1">```submit.py```</span><span>: used to submit your code and output to the coursera servers for grading.</span>
 
 <span></span>
 
-<span>You don’t have to do any modifications in</span> <span class="c1">firewall-policies.csv</span><span> and</span> <span class="c1">submit.py</span><span>.</span>
+<span>You don’t have to do any modifications in</span> <span class="c1">```firewall-policies.csv```</span><span> and</span> <span class="c1">```submit.py```</span><span>.</span>
 
 <span></span>
 
@@ -465,20 +448,20 @@ fm.actions.append(of.ofp_action_output(port = 4))</span>
 
 <span></span>
 
-<span class="c1">$ cd ~/pox/pox/misc</span>
-
-<span class="c1">$ touch firewall-policies.csv</span>
+```bash
+$ cd ~/pox/pox/misc
+$ touch firewall-policies.csv
+```
 
 <span></span>
 
 <span>and copy the following lines in it:</span>
 
 <span></span>
-
-<span class="c1">id,mac_0,mac_1</span>
-
-<span class="c1">1,00:00:00:00:00:01,00:00:00:00:00:02</span>
-
+```
+id,mac_0,mac_1
+1,00:00:00:00:00:01,00:00:00:00:00:02
+```
 <span></span>
 
 <span>This will cause the firewall application to install a flow rule entry to disable all communication between host (h1) and host (h2).</span>
@@ -488,10 +471,10 @@ fm.actions.append(of.ofp_action_output(port = 4))</span>
 <span>Run POX controller:</span>
 
 <span></span>
-
-<span class="c1">$ cd ~</span>
-
-<span class="c1">$ pox.py forwarding.l2_learning misc.firewall &</span>
+```bash
+$ cd ~
+$ pox.py forwarding.l2_learning misc.firewall &
+```
 
 <span class="c1"></span>
 
@@ -503,15 +486,18 @@ fm.actions.append(of.ofp_action_output(port = 4))</span>
 
 <span class="c1"></span>
 
-<span class="c1">$ sudo mn --topo single,3 --controller remote --mac</span>
-
+```bash
+$ sudo mn --topo single,3 --controller remote --mac
+```
 <span class="c1"></span>
 
 <span>In mininet try to ping host (h2) from host (h1):</span>
 
 <span class="c1"></span>
 
-<span class="c1">mininet> h1 ping -c 1 h2</span>
+```bash
+mininet> h1 ping -c 1 h2
+```
 
 <span class="c1"></span>
 
@@ -523,7 +509,9 @@ fm.actions.append(of.ofp_action_output(port = 4))</span>
 
 <span></span>
 
-<span class="c1">mininet> h1 ping -c 1 h3</span>
+```bash
+mininet> h1 ping -c 1 h3
+```
 
 <span></span>
 
@@ -547,7 +535,9 @@ fm.actions.append(of.ofp_action_output(port = 4))</span>
 
 <span></span>
 
-<span class="c1">$ sudo python submit.py</span>
+```bash 
+$ sudo python submit.py
+```
 
 <span></span>
 
@@ -567,7 +557,9 @@ fm.actions.append(of.ofp_action_output(port = 4))</span>
 
 <span></span>
 
-<span class="c1">$ sudo mn -c</span>
+```bash
+$ sudo mn -c
+```
 
 <span class="c1"></span>
 
@@ -575,7 +567,9 @@ fm.actions.append(of.ofp_action_output(port = 4))</span>
 
 <span></span>
 
-<span class="c1">$ sudo fuser -k 6633/tcp</span>
+```bash
+$ sudo fuser -k 6633/tcp
+```
 
 <span></span>
 
