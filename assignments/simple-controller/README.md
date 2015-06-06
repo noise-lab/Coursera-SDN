@@ -157,6 +157,8 @@ mininet> xterm h1 h2 h3
 <span></span>
 
 ```bash
+#!/usr/bin/python
+
 from pox.core import core
 import pox.openflow.libopenflow_01 as of
 from pox.lib.util import dpidToStr
