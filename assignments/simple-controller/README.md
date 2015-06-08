@@ -513,6 +513,16 @@ mininet> h1 ping -c 1 h3
 
 <span>What do you see? Host (h1) is able to ping host (h3) as there is no flow rule entry installed in the network to disable the communication between them.</span>
 
+<span>Finally, stop mininet and POX controller.</span>
+
+```bash
+mininet> exit
+```
+
+```bash
+$ sudo fuser -k 6633/tcp
+```
+
 <span></span>
 
 ## <a name="h.i97hjxhipffo"></a><span class="c19">Submitting your Code</span>
