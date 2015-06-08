@@ -8,7 +8,7 @@ sudo pip install eventlet
 
 #  Ryu install
 pushd ~
-git clone git://github.com/osrg/ryu.git
+git clone https://github.com/osrg/ryu.git
 sudo cp /vagrant/setup/ryu-flags.py ~/ryu/ryu/flags.py
 pushd ryu
 sudo python ./setup.py install
