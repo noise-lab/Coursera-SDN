@@ -36,4 +36,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
  ## SSH config
  config.ssh.forward_x11 = true
+
+ ## CPU & RAM
+ config.vm.provider "virtualbox" do |vb|
+    vb.customize ["modifyvm", :id, "--cpuexecutioncap", "100"]
+    vb.memory = 1048
+    vb.cpus = 1
+ end
+
 end
