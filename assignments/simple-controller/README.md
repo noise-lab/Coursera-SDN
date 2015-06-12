@@ -529,7 +529,7 @@ $ sudo fuser -k 6633/tcp
 
 <span></span>
 
-<span>This time copy the</span> <span class="c1">firewall.py</span><span> </span><span class="c24">and the provided</span> <span class="c1 c24">firewall-policy.csv</span><span class="c24"> </span><span>in the</span> <span class="c1">~/pox/pox/misc</span> <span>directory on your VM.</span>
+<span>This time copy the</span> <span class="c1">firewall.py</span><span> </span><span class="c24">and the provided</span> <span class="c1 c24">firewall-policies.csv</span><span class="c24"> </span><span>in the</span> <span class="c1">~/pox/pox/misc</span> <span>directory on your VM.</span>
 
 <span></span>
 
