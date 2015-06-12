@@ -319,7 +319,7 @@ fm.actions.append(of.ofp_action_output(port = 4))
 <span></span>
 
 ```bash
-$ pox.py log.level --DEBUG forwarding.l2_learning</span>
+$ pox.py log.level --DEBUG forwarding.l2_learning
 ```
 
 <span>Like before, we'll create xterms for each host and view the traffic in each. In the Mininet console, start up three xterms:</span>
