@@ -1,6 +1,7 @@
-<span class="c6">In this assignment, you will learn how to slice your OpenFlow network using the "Pox" OpenFlow controller. In the process, you will also learn more about the concept of flowspaces and how the centralized visibility and “layerless-ness” of OpenFlow enables flexible slicing.</span>
+# Network Virtualization Assignment
+In this assignment, you will learn how to slice your OpenFlow network using the "Pox" OpenFlow controller. In the process, you will also learn more about the concept of flowspaces and how the centralized visibility and “layerless-ness” of OpenFlow enables flexible slicing.
 
-<span class="c6">The purpose of this exercise is to help motivate network virtualization and show you different ways in which network virtualization can be implemented. In the lessons, you learned about</span> <span class="c29">[FlowVisor](http://www.google.com/url?q=http%3A%2F%2Fflowvisor.org%2F&sa=D&sntz=1&usg=AFQjCNFJU6x1ptpARocpGc4OtC-HuBZadw)</span><span class="c6">, a mechanism for allowing multiple controllers to operate on distinct portions of network flowspace. Flowvisor is implemented in Java, which would require you to install a completely new tool and operating environment. In lieu of doing so, we have created a simpler assignment that illustrates some of the concepts of slicing that Flowvisor uses. We encourage you to follow the</span> <span class="c29">[Flowvisor Tutorial](https://www.google.com/url?q=https%3A%2F%2Fgithub.com%2Fonstutorial%2Fonstutorial%2Fwiki%2FFlowvisor-Exercise&sa=D&sntz=1&usg=AFQjCNFRaHgFZASUPXLOoioC9XvPI5TzXg)</span><span class="c6"> if you are interested in playing specifically with FlowVisor.</span>
+The purpose of this exercise is to help motivate network virtualization and show you different ways in which network virtualization can be implemented. In the lessons, you learned about [FlowVisor](http://www.google.com/url?q=http%3A%2F%2Fflowvisor.org%2F&sa=D&sntz=1&usg=AFQjCNFJU6x1ptpARocpGc4OtC-HuBZadw), a mechanism for allowing multiple controllers to operate on distinct portions of network flowspace. Flowvisor is implemented in Java, which would require you to install a completely new tool and operating environment. In lieu of doing so, we have created a simpler assignment that illustrates some of the concepts of slicing that Flowvisor uses. We encourage you to follow the</span> <span class="c29">[Flowvisor Tutorial](https://www.google.com/url?q=https%3A%2F%2Fgithub.com%2Fonstutorial%2Fonstutorial%2Fwiki%2FFlowvisor-Exercise&sa=D&sntz=1&usg=AFQjCNFRaHgFZASUPXLOoioC9XvPI5TzXg)</span><span class="c6"> if you are interested in playing specifically with FlowVisor.</span>
 
 <span class="c6">The Flowvisor tutorial teaches you how to create multiple network slices and control different slices with different controllers. Here, because we are going to implement everything directly in Pox, your task is simpler: You will create a network application that creates multiple Layer 2 network slices for different portions of the flowspace.</span>
 
@@ -8,9 +9,15 @@
 
 ## <a name="h.l5apm79xi1jj"></a><span class="c6 c17">Setup</span>
 
-<span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 481.00px; height: 230.00px;">![topology”>
+<span></span>
 
-</span></p><p class=](https://docs.google.com/drawings/d/15Hq3NTUElJvEh5lHu1eeoXysUY3gjUb0IjHgZ-DiIJ8/pub?w=481&h=231)<span class="c6">In this assignment we will slice a wide-area network (WAN). The WAN shown in the figure above connects two sites. For simplicity, we’ll have each site represented by a single OpenFlow switch, s1 and s4, respectively. The sites, s1 and s4, have two paths between them:</span></span>
+![](https://docs.google.com/drawings/d/15Hq3NTUElJvEh5lHu1eeoXysUY3gjUb0IjHgZ-DiIJ8/pub?w=481&h=231 "https://docs.google.com/drawings/d/15Hq3NTUElJvEh5lHu1eeoXysUY3gjUb0IjHgZ-DiIJ8/pub?w=481&h=231")
+
+<span class="c4">Figure 1: Network Topology</span>
+
+## <a name="h.le3k34tab4o5"></a><span class="c16">Creating Topology</span>
+
+<span class="c6">In this assignment we will slice a wide-area network (WAN). The WAN shown in the figure above connects two sites. For simplicity, we’ll have each site represented by a single OpenFlow switch, s1 and s4, respectively. The sites, s1 and s4, have two paths between them:</span></span>
 
 *   <span class="c6">a low-bandwidth path via switch s2</span>
 *   <span class="c6">a high-bandwidth path via switch s3</span>
@@ -51,10 +58,11 @@
 ### Part 1: Topology-based Slicing
 
 <span class="c6">The first part of the assignment should give you a basic understanding of how to "slice" a network using a SDN controller. The goal of this part is to divide the network into two separate slices: upper and lower, as shown below. Users in different slices should not be able to communicate with each other. In practice, a provider may want to subdivide the network in this fashion to support multi-tenancy (and, in fact, the first part of this assignment provides similar functionality as ordinary VLANs).</span>
+<span></span>
+![](https://docs.google.com/drawings/d/1mdFRYvi4QdjzYRpc5KNitDIwUToWjIVGwZNRD6vAejQ/pub?w=480&h=360 "https://docs.google.com/drawings/d/1mdFRYvi4QdjzYRpc5KNitDIwUToWjIVGwZNRD6vAejQ/pub?w=480&h=360")
+<span class="c4">Figure 2: Sliced Topology</span>
 
-<span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 480.00px; height: 360.00px;">![topology-slicing”>
-
-</span></p><p class=](https://docs.google.com/drawings/d/1mdFRYvi4QdjzYRpc5KNitDIwUToWjIVGwZNRD6vAejQ/pub?w=480&h=360)<span class="c6">To implement this isolation, we need to block communication between hosts in different slices. You will implement this functionality by judiciously inserting drop rules at certain network switches. For example, host h1 should not be able to communicate to host h2\. To implement this restriction, you should write OpenFlow rules that provide this isolation. (Unlike previous assignment, this topology has multiple switches; each switch has its own flow table; the controller uses each switch's datapath ID to write flow rules to the appropriate switch.)</span></span>
+To implement this isolation, we need to block communication between hosts in different slices. You will implement this functionality by judiciously inserting drop rules at certain network switches. For example, host h1 should not be able to communicate to host h2\. To implement this restriction, you should write OpenFlow rules that provide this isolation. (Unlike previous assignment, this topology has multiple switches; each switch has its own flow table; the controller uses each switch's datapath ID to write flow rules to the appropriate switch.)</span></span>
 
 ### Understanding the code
 
@@ -108,9 +116,12 @@ h4 -> X h2 X
 
 <span class="c6">Let's assume for simplicity that all video traffic goes on TCP port 80\. In this assignment you are required to write the logic to create two slices, "video" and "non-video", as shown below.</span>
 
-<span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 518.00px; height: 452.00px;">![video-slicing”>
-
 </span></p><h3 class=](https://docs.google.com/drawings/d/1LANqW077ndKlSEuRQDNBTaepq3Ts0fidn7Ev4n8Egeo/pub?w=518&h=453)<a name="h.6y914md5x0zl"></a>
+
+<span></span>
+![](https://docs.google.com/drawings/d/1LANqW077ndKlSEuRQDNBTaepq3Ts0fidn7Ev4n8Egeo/pub?w=518&h=453 "https://docs.google.com/drawings/d/1LANqW077ndKlSEuRQDNBTaepq3Ts0fidn7Ev4n8Egeo/pub?w=518&h=453")
+<span class="c4">Figure 3: Video Slicing</span>
+
 
 ### Understanding your code
 
