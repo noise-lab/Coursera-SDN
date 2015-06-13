@@ -83,17 +83,17 @@ To implement this isolation, we need to block communication between hosts in dif
 
 <span class="c6">Once you have implemented the logic for topology based-slicing, you can test it following these instructions:</span>
 
-<span class="c6">Move your files to POX's directory,</span> <span class="c1">~/pox/pox/misc</span><span class="c6">. This should prevent any potential</span> <span class="c1">PYTHONPATH</span><span class="c6"> issues you might encounter.</span>
+<span class="c6">Copy your files to POX's directory,</span> <span class="c1">~/pox/pox/misc</span><span class="c6">. This should prevent any potential</span> <span class="c1">PYTHONPATH</span><span class="c6"> issues you might encounter.</span>
 
 ```bash
-$ mv topologySlice.py ~/pox/pox/misc/  
-$ mv mininetSlice.py ~/pox/pox/misc/  
+$ cp topologySlice.py ~/pox/pox/misc/  
+$ cp mininetSlice.py ~/pox/pox/misc/  
 ```
 
 <span class="c6">Launch the POX controller.</span>
 
 ```
-~/pox/pox/misc$ pox.py log.level --DEBUG misc.topologySlice &  
+~/pox/pox/misc$ pox.py log.level --DEBUG misc.topologySlice  
 ```
 
 <span class="c6">In a separate terminal, launch your Mininet script.</span>
@@ -121,6 +121,14 @@ h3 -> h1 X X
 h4 -> X h2 X   
 *** Results: 66% dropped 8/12 lost)
 ```
+
+<span class="c6">Finally, stop the Mininet network</span>
+
+```
+$ mininet> exit  
+```
+
+<span class="c6">And stop the POX Controller by pressing ```Ctrl+C``` in the corresponding terminal.</span>
 
 ## <a name="h.ccnt2mtmape2"></a><span class="c6 c17">Part 2: Flowspace Slicing</span>
 
