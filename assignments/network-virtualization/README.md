@@ -26,27 +26,33 @@ The purpose of this exercise is to help motivate network virtualization and show
 
 <span class="c6">As a quick refresher, remember to always ensure that there is no other controller running in the background. Check if any controller is running in the background.</span>
 
-<span class="c10">$</span> <span class="c3">ps -A | grep controller  
-</span>
+```bash
+$ ps -A | grep controller  
+```
 
 <span class="c6">Kill the controller in case any of them is still running.</span>
-
-<span class="c10">$</span> <span class="c3">sudo killall controller  
-</span>
+```bash
+$ sudo killall controller  
+```
 
 <span class="c6">Restart Mininet to make sure that everything is clean and using the faster kernel switch.</span>
 
-<span class="c10">$</span> <span class="c3">sudo mn -c  
-</span>
+```bash 
+$ sudo mn -c  
+```
 
 <span class="c6">We'll use a Mininet script,</span> <span class="c1">mininetSlice.py</span><span class="c6">, to create a network with the topology provided above. The topology we have provided should correspond to the one shown in the figure above, although for the second part of the assignment we have used Pox's link-layer discovery protocol (LLDP) features to ensure that you can complete the assignment without ever explicitly referring to port numbers.</span>
-
-<span class="c41">self</span><span class="c3 c13">.</span><span class="c3">addLink(</span><span class="c15">'s1'</span><span class="c3">,</span> <span class="c15">'s2'</span><span class="c3">, port1</span> <span class="c3 c13">=</span><span class="c3"> </span><span class="c25">1</span><span class="c3">, port2</span> <span class="c3 c13">=</span><span class="c3"> </span><span class="c25">1</span><span class="c3">,</span> <span class="c3 c13">**</span><span class="c3">http_link_config)  
-</span>
+```
+self.addLink('s1', 's2', port1 = 1, port2 = 1, **http_link_config)
+```
 
 ## <a name="h.f8z2bssocptb"></a><span class="c6 c17">Code Overview</span>
-
-<span class="c6">The assignment has two parts, (1) simple topology-based slicing and (2) advanced flowspace slicing. To get started, download the zip file for the assignment([virtualization-assignment](https://d396qusza40orc.cloudfront.net/sdn/srcs/virtualization-assignment.zip)). It consists of four files:</span>
+<span>To start this assignment update the course's Github repo (by default, ```Coursera-SDN```) on your host machine using ```git pull```. Turn on your guest VM (if it is turned off) using ```vagrant up```. Now ssh into the guest VM using ```vagrant ssh```. Go to the directory with the updated code base in your guest VM. 
+```bash
+cd /vagrant/assignments/network-virtualization
+```
+</span> It consists of three files:</span>
+<span class="c6">The assignment has two parts, (1) simple topology-based slicing and (2) advanced flowspace slicing.  It consists of four files:</span>
 
 *   <span class="c1">mininetSlice.py</span><span class="c6">: Mininet script to create the topology used for this assignment.</span>
 *   <span class="c1">topologySlice.py</span><span class="c6">: A skeleton class where you will implement simple topology-based slicing logic.</span>
@@ -58,15 +64,18 @@ The purpose of this exercise is to help motivate network virtualization and show
 ### Part 1: Topology-based Slicing
 
 <span class="c6">The first part of the assignment should give you a basic understanding of how to "slice" a network using a SDN controller. The goal of this part is to divide the network into two separate slices: upper and lower, as shown below. Users in different slices should not be able to communicate with each other. In practice, a provider may want to subdivide the network in this fashion to support multi-tenancy (and, in fact, the first part of this assignment provides similar functionality as ordinary VLANs).</span>
+
 <span></span>
 ![](https://docs.google.com/drawings/d/1mdFRYvi4QdjzYRpc5KNitDIwUToWjIVGwZNRD6vAejQ/pub?w=480&h=360 "https://docs.google.com/drawings/d/1mdFRYvi4QdjzYRpc5KNitDIwUToWjIVGwZNRD6vAejQ/pub?w=480&h=360")
+<span></span>
+
 <span class="c4">Figure 2: Sliced Topology</span>
 
 To implement this isolation, we need to block communication between hosts in different slices. You will implement this functionality by judiciously inserting drop rules at certain network switches. For example, host h1 should not be able to communicate to host h2\. To implement this restriction, you should write OpenFlow rules that provide this isolation. (Unlike previous assignment, this topology has multiple switches; each switch has its own flow table; the controller uses each switch's datapath ID to write flow rules to the appropriate switch.)</span></span>
 
 ### Understanding the code
 
-<span class="c6">The</span> <span class="c1">topologySlice.py</span><span class="c6"> file provides skeleton for this implementation. As in the previous assignment, we have implemented a</span> <span class="c1">launch()</span><span class="c6"> function, which registers a new component. The</span><span class="c1">_handle_ConnectionUp()</span><span class="c6"> callback is invoked whenever a switch connects to the controller.</span>
+<span class="c6">The</span> ```topologySlice.py``` file provides skeleton for this implementation. As in the previous assignment, we have implemented a</span> ```launch()``` function, which registers a new component. The</span>```_handle_ConnectionUp()``` callback is invoked whenever a switch connects to the controller.</span>
 
 <span class="c6">We also launch the</span> <span class="c1">discovery</span><span class="c6"> and</span> <span class="c1">spanning tree</span><span class="c6"> modules, which compute a spanning tree on the topology, thus preventing any traffic that is flooded from looping (since the topology itself has a loop in it, computing a spanning tree is required). More information about these modules is available here:</span> <span class="c29">[Spanning Tree](https://www.google.com/url?q=https%3A%2F%2Fgithub.com%2Fnoxrepo%2Fpox%2Fblob%2Fcarp%2Fpox%2Fopenflow%2Fspanning_tree.py&sa=D&sntz=1&usg=AFQjCNGEXDxrx7W3wIS6LWzzQawmaiYYsQ)</span><span class="c6">,</span> <span class="c29">[Discovery](https://www.google.com/url?q=https%3A%2F%2Fgithub.com%2Fnoxrepo%2Fpox%2Fblob%2Fcarp%2Fpox%2Fopenflow%2Fdiscovery.py&sa=D&sntz=1&usg=AFQjCNH8OK0VcJLRAqLNDXFAHVa6y5kNSA)</span>
 
@@ -76,19 +85,22 @@ To implement this isolation, we need to block communication between hosts in dif
 
 <span class="c6">Move your files to POX's directory,</span> <span class="c1">~/pox/pox/misc</span><span class="c6">. This should prevent any potential</span> <span class="c1">PYTHONPATH</span><span class="c6"> issues you might encounter.</span>
 
-<span class="c10">$</span> <span class="c3">mv topologySlice.py ~/pox/pox/misc/  
-</span><span class="c10">$</span> <span class="c3">mv mininetSlice.py ~/pox/pox/misc/  
-</span>
+```bash
+$ mv topologySlice.py ~/pox/pox/misc/  
+$ mv mininetSlice.py ~/pox/pox/misc/  
+```
 
 <span class="c6">Launch the POX controller.</span>
 
-<span class="c3">~/pox/pox/misc</span><span class="c10">$</span> <span class="c3">pox.py log.level --DEBUG misc.topologySlice &  
-</span>
+```
+~/pox/pox/misc$ pox.py log.level --DEBUG misc.topologySlice &  
+```
 
 <span class="c6">In a separate terminal, launch your Mininet script.</span>
 
-<span class="c3">~/pox/pox/misc</span><span class="c10">$</span> <span class="c3">sudo python mininetSlice.py  
-</span>
+```
+~/pox/pox/misc$ sudo python mininetSlice.py  
+```
 
 <span class="c6">Wait until the application indicates that the OpenFlow switch has connected and that all spanning tree computation has finished. You should see some messages such as</span> <span class="c1">DEBUG:openflow.spanning_tree:Requested switch features for [00-00-00-00-00-03 4]</span><span class="c6"> after a while, possibly followed by some flooding.</span>
 
@@ -96,17 +108,19 @@ To implement this isolation, we need to block communication between hosts in dif
 
 <span class="c6">Now, verify that the hosts in different slices are not able to communicate with each other.</span>
 
-<span class="c3">mininet> pingall  
-</span>
+```
+$ mininet> pingall  
+```
 
 <span class="c6">You should see the following output:</span>
 
-<span class="c3">h1 -> X h3 X   
+```
+h1 -> X h3 X   
 h2 -> X X h4   
 h3 -> h1 X X   
 h4 -> X h2 X   
-*** Results: 66% dropped</span> <span class="c3 c13">(</span><span class="c3">8/12 lost</span><span class="c3 c13">)</span><span class="c3">  
-</span>
+*** Results: 66% dropped 8/12 lost)
+```
 
 ## <a name="h.ccnt2mtmape2"></a><span class="c6 c17">Part 2: Flowspace Slicing</span>
 
@@ -125,45 +139,22 @@ h4 -> X h2 X
 
 ### Understanding your code
 
-<span class="c6">In</span> <span class="c1">videoSlice.py</span><span class="c6">, you have a class called (</span><span class="c1">VideoSlice</span><span class="c6">). We have provided you with some of the logic to implement slicing. You should fill in the</span> <span class="c1">portmap</span><span class="c6"> data structure and the missing parts of the</span> <span class="c1">forward</span><span class="c6"> function. We have included a line of the portmap data structure as a hint: the data structure should map a switch and a portion of flowspace to the dpid of the next switch. You will need to figure out how to implement a wildcard, in addition to explicit flowspace directives for port 80.</span>
+<span class="c6">In ```videoSlice.py```, you have a class called (</span><span class="c1">VideoSlice</span><span class="c6">). We have provided you with some of the logic to implement slicing. You should fill in the</span> <span class="c1">portmap</span><span class="c6"> data structure and the missing parts of the</span> <span class="c1">forward</span><span class="c6"> function. We have included a line of the portmap data structure as a hint: the data structure should map a switch and a portion of flowspace to the dpid of the next switch. You will need to figure out how to implement a wildcard, in addition to explicit flowspace directives for port 80.</span>
 
-[](#)[](#)
 
-<table cellpadding="0" cellspacing="0" class="c24">
+The structure of self.portmap is a four-tuple key and a string value. The type is:        
+```
+'''
+       The structure of self.portmap is a four-tuple key and a string value.
+       The type is:
+       (dpid string, src MAC addr, dst MAC addr, port (int)) -> dpid of next switch
+       '''
+        self.portmap = {
+                        ('00-00-00-00-00-01', EthAddr('00:00:00:00:00:01'),
+                         EthAddr('00:00:00:00:00:03'), 80): '00-00-00-00-00-03',
+                ...
 
-<tbody>
-
-<tr class="c33">
-
-<td class="c40">
-
-<span class="c2">       '''</span>
-
-<span class="c2">       The structure of self.portmap is a four-tuple key and a string value.</span>
-
-<span class="c2">       The type is:</span>
-
-<span class="c2">       (dpid string, src MAC addr, dst MAC addr, port (int)) -> dpid of next switch</span>
-
-<span class="c2">       '''</span>
-
-<span class="c8 c6">       </span> <span class="c8 c34">self</span><span class="c8 c6 c13">.</span><span class="c8 c6">portmap</span> <span class="c8 c6 c13">=</span><span class="c8 c6 c9"> {</span>
-
-<span class="c8 c6">                        (</span><span class="c8 c21">'00-00-00-00-00-01'</span><span class="c8 c6">, EthAddr(</span><span class="c8 c21">'00:00:00:00:00:01'</span><span class="c9 c8 c6">),</span>
-
-<span class="c8 c6">                         EthAddr(</span><span class="c8 c21">'00:00:00:00:00:03'</span><span class="c8 c6">),</span> <span class="c8 c12">80</span><span class="c6 c8">):</span> <span class="c8 c21">'00-00-00-00-00-03'</span><span class="c9 c8 c6">,</span>
-
-<span class="c9 c8 c6">                ...</span>
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-<span class="c6"></span>
+```
 
 <span class="c6">The discovery module that we discussed above also passes information to the Pox controller about the topology, such as the switches that it knows about, and the ports of each switch that are connected to one another. This discovery protocol, link-layer discovery protocol (LLDP), is useful for part 2 of the assignment, but we've included the code to do that discovery for you. You can look at the skeleton code for an example of how LLDP is used (see the</span> <span class="c1">handleLinkEvent</span><span class="c6"> function). The</span> <span class="c8 c19">[l2_multi.py](https://www.google.com/url?q=https%3A%2F%2Fgithub.com%2Fnoxrepo%2Fpox%2Fblob%2Fcarp%2Fpox%2Fforwarding%2Fl2_multi.py&sa=D&sntz=1&usg=AFQjCNHBlxGR8Efot7Uj-P7zOQZcif9Rig)</span><span class="c6"> module in the Pox distribution, which performs Layer 2 learning for multiple switches in a single topology, also makes use of LLDP.</span>
 
@@ -179,56 +170,62 @@ h4 -> X h2 X
 
 <span class="c6">Launch the POX controller</span>
 
-<span class="c3">~/pox/pox/misc</span><span class="c10">$</span> <span class="c3">pox.py log.level --DEBUG misc.videoSlice  
-</span>
+```
+~/pox/pox/misc$pox.py log.level --DEBUG misc.videoSlice  
+```
 
 <span class="c6">In a separate terminal, launch your Mininet script.</span>
 
-<span class="c3">~/pox/pox/misc</span><span class="c10">$</span> <span class="c3">sudo python mininetSlice.py  
-</span>
+```
+~/pox/pox/misc$ sudo python mininetSlice.py  
+```
 
 <span class="c6">Wait until the application indicates that the OpenFlow switch has connected.</span>
-
-<span class="c6"></span>
-
 <span class="c6">Now verify that the all the hosts are able to communicate with each other. This is a simple sanity check to make sure that your logic is not affecting connectivity in general.</span>
 
-<span class="c3">mininet> pingall  
-</span>
-
+```bash
+mininet> pingall  
+```
 <span class="c6">You should see this output:</span>
-
-<span class="c3">mininet> pingall  
+```bash
+mininet> pingall  
 *** Ping: testing ping reachability  
 h1 -> h2 h3 h4   
 h2 -> h1 h3 h4   
 h3 -> h1 h2 h4   
 h4 -> h1 h2 h3   
-*** Results: 0% dropped</span> <span class="c3 c13">(</span><span class="c3">12/12 received</span><span class="c3 c13">)</span><span class="c3">  
-</span>
+*** Results: 0% dropped 12/12 received
+```
 
 <span class="c6">You can now test that your slices work properly be ensuring that video (in this case, port 80) traffic traverses the 10 Mbps link and non-port 80 traffic traverses the 1 Mbps link. For example, you can test the two paths between h2 and h3 as below. (Your code should work for</span> <span class="c6 c37">all</span><span class="c6"> pairwise paths.)</span>
 
-<span class="c3">mininet > h3 iperf -s -p</span> <span class="c25">80</span><span class="c3"> &  
-mininet > h3 iperf -s -p</span> <span class="c25">22</span><span class="c3"> &  
-mininet> h2 iperf -c h3 -p</span> <span class="c25">80</span><span class="c3"> -t 2 -i 1  
-------------------------------------------------------------  
-Client connecting to 10.0.0.3, TCP port 80  
-TCP window size: 85.3 KByte</span> <span class="c3 c13">(</span><span class="c3">default</span><span class="c3 c13">)</span><span class="c3">  
-------------------------------------------------------------  
-</span><span class="c3 c13">[</span><span class="c3">  3</span><span class="c3 c13">]</span><span class="c3"> </span><span class="c7">local</span> <span class="c3">10.0.0.2 port</span> <span class="c25">52154</span><span class="c3"> connected with 10.0.0.3 port 80  
-</span><span class="c3 c13">[</span><span class="c3"> ID</span><span class="c3 c13">]</span><span class="c3"> Interval       Transfer     Bandwidth  
-</span><span class="c3 c13">[</span><span class="c3">  3</span><span class="c3 c13">]</span><span class="c3">  0.0- 2.1 sec  2.50 MBytes  9.77 Mbits/sec  
-mininet> h2 iperf -c h3 -p</span> <span class="c25">22</span><span class="c3"> -t 2 -i 1   
-------------------------------------------------------------  
-Client connecting to 10.0.0.3, TCP port 22  
-TCP window size: 85.3 KByte</span> <span class="c3 c13">(</span><span class="c3">default</span><span class="c3 c13">)</span><span class="c3">  
-------------------------------------------------------------  
-</span><span class="c3 c13">[</span><span class="c3">  3</span><span class="c3 c13">]</span><span class="c3"> </span><span class="c7">local</span> <span class="c3">10.0.0.2 port</span> <span class="c25">53695</span><span class="c3"> connected with 10.0.0.3 port 22  
+```bash 
+mininet > h3 iperf -s -p 80 &  
+mininet > h3 iperf -s -p 22 & 
+```
 
-</span><span class="c3 c13">[</span><span class="c3"> ID</span><span class="c3 c13">]</span><span class="c3"> Interval       Transfer     Bandwidth  
-</span><span class="c3 c13">[</span><span class="c3">  3</span><span class="c3 c13">]</span><span class="c3">  0.0- 4.0 sec  </span> <span class="c25">512</span><span class="c3"> KBytes  1.05 Mbits/sec  
-</span>
+```bash
+mininet> h2 iperf -c h3 -p 80 -t 2 -i 1  
+------------------------------------------------------------
+Client connecting to 10.0.0.3, TCP port 80
+TCP window size: 85.3 KByte (default)
+------------------------------------------------------------
+[  3] local 10.0.0.2 port 52154 connected with 10.0.0.3 port 80
+[ ID] Interval       Transfer     Bandwidth
+[  3]  0.0- 2.1 sec  2.50 MBytes  9.77 Mbits/sec
+```
+<span></span>
+```bash
+mininet> h2 iperf -c h3 -p 22 -t 2 -i 1 
+------------------------------------------------------------
+Client connecting to 10.0.0.3, TCP port 22
+TCP window size: 85.3 KByte (default)
+------------------------------------------------------------
+[  3] local 10.0.0.2 port 53695 connected with 10.0.0.3 port 22
+
+[ ID] Interval       Transfer     Bandwidth
+[  3]  0.0- 4.0 sec   512 KBytes  1.05 Mbits/sec
+```
 
 <span class="c6">Note that you can observe about 10 Mbps port 80 traffic and about 1 Mbps throughput for port 22 traffic (or any port that is not port 80).</span>
 
@@ -236,15 +233,17 @@ TCP window size: 85.3 KByte</span> <span class="c3 c13">(</span><span class="c3"
 
 <span class="c6">Once you are done testing both the topology and video slice component, you can test it as follows:</span>
 
-<span class="c6">Copy the provided</span> <span class="c1">submit.py</span> <span class="c6"> to</span> <span class="c1">~/pox/pox/misc.</span>
+<span class="c6">Copy the provided</span> <span class="c1">```submit.py```</span> <span class="c6"> to</span> <span class="c1">```~/pox/pox/misc```.</span>
 
-<span class="c6">As above, make sure that your</span> <span class="c1">topologySlice.py, videoSlice.py</span><span class="c6"> and</span> <span class="c1">mininetSlice.py</span><span class="c6"> are in same directory (i.e.</span><span class="c1">~/pox/pox/misc</span><span class="c6">).</span>
+<span class="c6">As above, make sure that your</span> <span class="c1">```topologySlice.py```, ```videoSlice.py```</span><span class="c6"> and</span> <span class="c1">```mininetSlice.py```</span><span class="c6"> are in same directory (i.e.</span><span class="c1">```~/pox/pox/misc```</span><span class="c6">).</span>
 
 <span class="c6"></span>
 
-<span class="c6">To submit your code, run the submit.py script:</span>
+<span class="c6">To submit your code, run the ```submit.py``` script:</span>
 
-<span class="c3">~/pox/pox/misc</span><span class="c10">$</span> <span class="c3">sudo python submit.py</span>
+```bash
+~/pox/pox/misc$ sudo python submit.py
+```
 
 <span class="c6">Your Mininet installation should have Internet access by default, but still verify that it has Internet connectivity (i.e., eth0 set up as NAT). Otherwise,</span> <span class="c1">submit.py</span><span class="c6"> will not be able to post your code and output to our Coursera servers.</span>
 
@@ -256,11 +255,16 @@ TCP window size: 85.3 KByte</span> <span class="c3 c13">(</span><span class="c3"
 
 <span class="c6">Note, if during the execution</span> <span class="c6 c26">submit.py</span> <span class="c6">script crashes for some reason, or if you terminate it using CTRL+C, make sure to clean Mininet environment using:</span>
 
-<span class="c10">$</span> <span class="c3">sudo mn -c</span>
+```bash
+$ sudo mn -c
+```
+
 
 <span class="c6">Also, if it still complains about the controller running. Execute the following command to kill it:</span>
 
-<span class="c10">$</span> <span class="c3">sudo fuser -k 6633/tcp</span>
+```bash
+$ sudo fuser -k 6633/tcp
+```
 
 <span class="c6">Part of this assignment is adapted from the</span> <span class="c29">[Flowvisor Tutorial](https://www.google.com/url?q=https%3A%2F%2Fgithub.com%2Fonstutorial%2Fonstutorial%2Fwiki%2FFlowvisor-Exercise&sa=D&sntz=1&usg=AFQjCNFRaHgFZASUPXLOoioC9XvPI5TzXg)</span><span class="c6">. If you are feeling brave, you may want to work your way through that tutorial to learn more; we chose to adapt the assignment for Pox to allow you to work in the Python environment that you're already familiar with, rather than having to install (and re-learn) the Flowvisor's Java-based environment.</span>
 
