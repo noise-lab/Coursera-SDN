@@ -27,18 +27,18 @@ The purpose of this exercise is to help motivate network virtualization and show
 <span class="c6">As a quick refresher, remember to always ensure that there is no other controller running in the background. Check if any controller is running in the background.</span>
 
 ```bash
-$ ps -A | grep controller  
+~$ ps -A | grep controller  
 ```
 
 <span class="c6">Kill the controller in case any of them is still running.</span>
 ```bash
-$ sudo killall controller  
+~$ sudo killall controller  
 ```
 
 <span class="c6">Restart Mininet to make sure that everything is clean and using the faster kernel switch.</span>
 
 ```bash 
-$ sudo mn -c  
+~$ sudo mn -c  
 ```
 
 <span class="c6">We'll use a Mininet script,</span> <span class="c1">mininetSlice.py</span><span class="c6">, to create a network with the topology provided above. The topology we have provided should correspond to the one shown in the figure above, although for the second part of the assignment we have used Pox's link-layer discovery protocol (LLDP) features to ensure that you can complete the assignment without ever explicitly referring to port numbers.</span>
@@ -49,7 +49,7 @@ self.addLink('s1', 's2', port1 = 1, port2 = 1, **http_link_config)
 ## <a name="h.f8z2bssocptb"></a><span class="c6 c17">Code Overview</span>
 <span>To start this assignment update the course's Github repo (by default, ```Coursera-SDN```) on your host machine using ```git pull```. Turn on your guest VM (if it is turned off) using ```vagrant up```. Now ssh into the guest VM using ```vagrant ssh```. Go to the directory with the updated code base in your guest VM. 
 ```bash
-cd /vagrant/assignments/network-virtualization
+~$ cd /vagrant/assignments/network-virtualization
 ```
 </span> It consists of three files:</span>
 <span class="c6">The assignment has two parts, (1) simple topology-based slicing and (2) advanced flowspace slicing.  It consists of four files:</span>
@@ -81,25 +81,26 @@ To implement this isolation, we need to block communication between hosts in dif
 
 ### <a name="h.as89dknr9eyb"></a><span class="c6 c23">Testing your code</span>
 
-<span class="c6">Once you have implemented the logic for topology based-slicing, you can test it following these instructions:</span>
+<span class="c6">Once you have implemented the logic for topology based-slicing, you can test it by following these instructions:</span>
 
 <span class="c6">Copy your files to POX's directory,</span> <span class="c1">~/pox/pox/misc</span><span class="c6">. This should prevent any potential</span> <span class="c1">PYTHONPATH</span><span class="c6"> issues you might encounter.</span>
 
 ```bash
-$ cp topologySlice.py ~/pox/pox/misc/  
-$ cp mininetSlice.py ~/pox/pox/misc/  
+/vagrant/assignments/network-virtualization$ cp topologySlice.py ~/pox/pox/misc/
+/vagrant/assignments/network-virtualization$ cp mininetSlice.py ~/pox/pox/misc/ 
 ```
 
-<span class="c6">Launch the POX controller.</span>
+<span class="c6">Go to the above directory and launch the POX controller.</span>
 
 ```
-~/pox/pox/misc$ pox.py log.level --DEBUG misc.topologySlice  
+/vagrant/assignments/network-virtualization$ cd ~/pox/pox/misc
+~/pox/pox/misc$ pox.py log.level --DEBUG misc.topologySlice 
 ```
 
 <span class="c6">In a separate terminal, launch your Mininet script.</span>
 
 ```
-~/pox/pox/misc$ sudo python mininetSlice.py  
+~/pox/pox/misc$ sudo python mininetSlice.py 
 ```
 
 <span class="c6">Wait until the application indicates that the OpenFlow switch has connected and that all spanning tree computation has finished. You should see some messages such as</span> <span class="c1">DEBUG:openflow.spanning_tree:Requested switch features for [00-00-00-00-00-03 4]</span><span class="c6"> after a while, possibly followed by some flooding.</span>
@@ -109,23 +110,23 @@ $ cp mininetSlice.py ~/pox/pox/misc/
 <span class="c6">Now, verify that the hosts in different slices are not able to communicate with each other.</span>
 
 ```
-$ mininet> pingall  
+mininet> pingall 
 ```
 
 <span class="c6">You should see the following output:</span>
 
 ```
-h1 -> X h3 X   
-h2 -> X X h4   
-h3 -> h1 X X   
-h4 -> X h2 X   
+h1 -> X h3 X 
+h2 -> X X h4 
+h3 -> h1 X X 
+h4 -> X h2 X 
 *** Results: 66% dropped 8/12 lost)
 ```
 
 <span class="c6">Finally, stop the Mininet network</span>
 
 ```
-$ mininet> exit  
+mininet> exit 
 ```
 
 <span class="c6">And stop the POX Controller by pressing ```Ctrl+C``` in the corresponding terminal.</span>
@@ -152,9 +153,9 @@ $ mininet> exit
 <span class="c6">In ```videoSlice.py```, you have a class called (</span><span class="c1">VideoSlice</span><span class="c6">). We have provided you with some of the logic to implement slicing. You should fill in the</span> <span class="c1">portmap</span><span class="c6"> data structure and the missing parts of the</span> <span class="c1">forward</span><span class="c6"> function. We have included a line of the portmap data structure as a hint: the data structure should map a switch and a portion of flowspace to the dpid of the next switch. You will need to figure out how to implement a wildcard, in addition to explicit flowspace directives for port 80.</span>
 
 
-The structure of self.portmap is a four-tuple key and a string value. The type is:        
+The structure of self.portmap is a four-tuple key and a string value. The type is: 
 ```
-'''
+       '''
        The structure of self.portmap is a four-tuple key and a string value.
        The type is:
        (dpid string, src MAC addr, dst MAC addr, port (int)) -> dpid of next switch
@@ -176,46 +177,51 @@ The structure of self.portmap is a four-tuple key and a string value. The type i
 
 <span class="c6">As above, make sure that your</span> <span class="c1">videoSlice.py</span><span class="c6"> and</span> <span class="c1">mininetSlice.py</span><span class="c6"> are in same directory (i.e.</span><span class="c1">~/pox/pox/misc</span><span class="c6">).</span>
 
+```bash
+~/pox/pox/misc$ cp /vagrant/assignments/network-virtualization/videoSlice.py ~/pox/pox/misc/
+~/pox/pox/misc$ ls
+```
+
 <span class="c6"></span>
 
 <span class="c6">Launch the POX controller</span>
 
 ```
-~/pox/pox/misc$pox.py log.level --DEBUG misc.videoSlice  
+~/pox/pox/misc$pox.py log.level --DEBUG misc.videoSlice 
 ```
 
 <span class="c6">In a separate terminal, launch your Mininet script.</span>
 
 ```
-~/pox/pox/misc$ sudo python mininetSlice.py  
+~/pox/pox/misc$ sudo python mininetSlice.py 
 ```
 
 <span class="c6">Wait until the application indicates that the OpenFlow switch has connected.</span>
 <span class="c6">Now verify that the all the hosts are able to communicate with each other. This is a simple sanity check to make sure that your logic is not affecting connectivity in general.</span>
 
 ```bash
-mininet> pingall  
+mininet> pingall 
 ```
 <span class="c6">You should see this output:</span>
 ```bash
-mininet> pingall  
-*** Ping: testing ping reachability  
-h1 -> h2 h3 h4   
-h2 -> h1 h3 h4   
-h3 -> h1 h2 h4   
-h4 -> h1 h2 h3   
+mininet> pingall 
+*** Ping: testing ping reachability 
+h1 -> h2 h3 h4 
+h2 -> h1 h3 h4 
+h3 -> h1 h2 h4 
+h4 -> h1 h2 h3 
 *** Results: 0% dropped 12/12 received
 ```
 
 <span class="c6">You can now test that your slices work properly be ensuring that video (in this case, port 80) traffic traverses the 10 Mbps link and non-port 80 traffic traverses the 1 Mbps link. For example, you can test the two paths between h2 and h3 as below. (Your code should work for</span> <span class="c6 c37">all</span><span class="c6"> pairwise paths.)</span>
 
 ```bash 
-mininet > h3 iperf -s -p 80 &  
+mininet > h3 iperf -s -p 80 & 
 mininet > h3 iperf -s -p 22 & 
 ```
 
 ```bash
-mininet> h2 iperf -c h3 -p 80 -t 2 -i 1  
+mininet> h2 iperf -c h3 -p 80 -t 2 -i 1 
 ------------------------------------------------------------
 Client connecting to 10.0.0.3, TCP port 80
 TCP window size: 85.3 KByte (default)
