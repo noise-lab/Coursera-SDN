@@ -134,6 +134,8 @@ h4 -> X h2 X
 
 <span></span>
 ![](https://docs.google.com/drawings/d/1LANqW077ndKlSEuRQDNBTaepq3Ts0fidn7Ev4n8Egeo/pub?w=518&h=453 "https://docs.google.com/drawings/d/1LANqW077ndKlSEuRQDNBTaepq3Ts0fidn7Ev4n8Egeo/pub?w=518&h=453")
+<span></span>
+
 <span class="c4">Figure 3: Video Slicing</span>
 
 
