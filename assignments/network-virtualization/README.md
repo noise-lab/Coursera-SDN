@@ -187,7 +187,7 @@ The structure of self.portmap is a four-tuple key and a string value. The type i
 <span class="c6">Launch the POX controller</span>
 
 ```
-~/pox/pox/misc$pox.py log.level --DEBUG misc.videoSlice 
+~/pox/pox/misc$ pox.py log.level --DEBUG misc.videoSlice 
 ```
 
 <span class="c6">In a separate terminal, launch your Mininet script.</span>
@@ -245,15 +245,29 @@ TCP window size: 85.3 KByte (default)
 
 <span class="c6">Note that you can observe about 10 Mbps port 80 traffic and about 1 Mbps throughput for port 22 traffic (or any port that is not port 80).</span>
 
+<span class="c6">Finally, stop the Mininet network</span>
+
+```
+mininet> exit 
+```
+
+<span class="c6">And stop the POX Controller by pressing ```Ctrl+C``` in the corresponding terminal.</span>
+
 ## <a name="h.siu0z1nxn0iv"></a><span class="c6 c38">Submitting your code</span>
 
 <span class="c6">Once you are done testing both the topology and video slice component, you can test it as follows:</span>
 
 <span class="c6">Copy the provided</span> <span class="c1">```submit.py```</span> <span class="c6"> to</span> <span class="c1">```~/pox/pox/misc```.</span>
 
+```bash
+~/pox/pox/misc$ cp /vagrant/assignments/network-virtualization/submit.py ~/pox/pox/misc/
+```
+
 <span class="c6">As above, make sure that your</span> <span class="c1">```topologySlice.py```, ```videoSlice.py```</span><span class="c6"> and</span> <span class="c1">```mininetSlice.py```</span><span class="c6"> are in same directory (i.e.</span><span class="c1">```~/pox/pox/misc```</span><span class="c6">).</span>
 
-<span class="c6"></span>
+```bash
+~/pox/pox/misc$ ls
+```
 
 <span class="c6">To submit your code, run the ```submit.py``` script:</span>
 
