@@ -1,0 +1,43 @@
+## P4 Assignment
+
+In this assignment, you will learn how to write a P4 program for programmable data planes. Using P4 you will be able to 
+create new headers, write parser specifications and add custom Match+Action tables to describe how the data plane device 
+should process the packets.
+
+### Overview
+
+For more information about the P4 language read the following material:
+* [ An Introduction to P4](http://p4.org/wp-content/uploads/2015/03/p4-tutorial-12201423.pdf)
+* [P4: Programming Protocol-Independent Packet Processors](http://www.sigcomm.org/sites/default/files/ccr/papers/2014/July/0000000-0000004.pdf)
+
+### Simple Router with Access Control
+
+In this exercise, you will be extending the simple router P4 program -- provided in the based P4 repository -- with an access control list.
+In order to do this, you have to update the following aspects of the simple router program:
+* Add support for reading and parsing TCP fields
+* Add a new Match+Action table for access control
+
+The following figures show the final parser and table flow graph for the simple router with acl.
+
+[]()
+[]()
+
+#### 1. Copy and build the assignment
+
+* Copy the simple_router_acl directory to the p4facorty/targets folder
+
+``` bash
+$ cd ~/p4factory/targets
+$ cp -rf /vagrant/assignments/simple_router_acl/ .
+```
+
+* Run make to test if the simple_router_acl builds properly. Note: that there is not acl support in the code at this time. You will be 
+adding this support as part of the assignment.
+
+``` bash
+$ cd ~/p4factory/targets/simple_router_acl
+$ make
+```
+
+#### 2. 
+
