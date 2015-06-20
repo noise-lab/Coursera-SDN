@@ -1,0 +1,3 @@
+/build
+/*.pcap
+/of-tests/pd_thrift
