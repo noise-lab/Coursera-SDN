@@ -16,6 +16,7 @@ In this exercise, you will be extending the simple router P4 program -- provided
 In order to do this, you have to update the following aspects of the simple router program:
 * Add support for reading and parsing TCP fields
 * Add a new Match+Action table for access control
+* Update the control flow
 
 The following figures show the final parser and table flow graph for the simple router with acl.
 
@@ -24,14 +25,14 @@ The following figures show the final parser and table flow graph for the simple 
 
 #### 1. Copy and build the assignment
 
-* Copy the simple_router_acl directory to the p4facorty/targets folder
+* Copy the `simple_router_acl` directory to the `p4facorty/targets` folder
 
 ``` bash
 $ cd ~/p4factory/targets
 $ cp -rf /vagrant/assignments/simple_router_acl/ .
 ```
 
-* Run `make` to test if the simple_router_acl builds properly. Note: that there is not acl support in the code at this time. You will be adding this support as part of the assignment.
+* Run `make` to test if the `simple_router_acl` builds properly. Note: that there is no acl support in the code at this time. You will be adding this support as part of this assignment.
 
 ``` bash
 $ cd ~/p4factory/targets/simple_router_acl
