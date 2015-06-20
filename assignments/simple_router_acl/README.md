@@ -31,13 +31,64 @@ $ cd ~/p4factory/targets
 $ cp -rf /vagrant/assignments/simple_router_acl/ .
 ```
 
-* Run make to test if the simple_router_acl builds properly. Note: that there is not acl support in the code at this time. You will be 
-adding this support as part of the assignment.
+* Run `make` to test if the simple_router_acl builds properly. Note: that there is not acl support in the code at this time. You will be adding this support as part of the assignment.
 
 ``` bash
 $ cd ~/p4factory/targets/simple_router_acl
 $ make
 ```
 
-#### 2. 
+#### 2. Update the source files to add support for access control
+
+You need to modify the following three files:
+* `p4src/includes/headers.p4`: add new header type for tcp
+* `p4src/includes/parser.p4`: add a new parser function for tcp
+* `p4src/simple_router_acl.p4`: add a new table for acl and update the control flow
+
+### 3. Test the assignment
+
+* Run `make` to build the assignment.
+
+``` bash
+$ cd ~/p4factory/targets/simple_router_acl
+$ make
+```
+
+* Setup the virtual ethernet pairs.
+
+``` bash
+$ sudo ~/p4factory/tools/veth_setup.sh
+```
+
+* Run the `behavioral-model`.
+
+``` bash
+$ sudo ./behavioral-model
+```
+
+* In another terminal, run the test script.
+
+``` bash
+$ cd ~/p4factory/targets/simple_router_acl
+$ sudo python run_tests.py --test-dir=of-tests/tests/
+```
+
+* Upon successful completion, you should see the following output.
+
+``` bash
+...
+VXLAN enabled
+ERSPAN enabled
+Geneve enabled
+eth.py: device id is  0
+echo.EchoTest ... ok
+acl.AclTest ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 1.843s
+
+OK
+```
+
+### 4. Submit your code
 
