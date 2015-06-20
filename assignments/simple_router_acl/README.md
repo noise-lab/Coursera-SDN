@@ -20,9 +20,8 @@ In order to do this, you have to update the following aspects of the simple rout
 
 The following figures show the final parser and table flow graph for the simple router with acl. **The boxes in RED show what needs to be added.**
 
-![Parse Graph](https://github.com/mshahbaz/Coursera-SDN/blob/master/assignments/simple_router_acl/graphs/simple_router_acl.parser.png)
-
-![Table Flow Graph](https://github.com/mshahbaz/Coursera-SDN/blob/master/assignments/simple_router_acl/graphs/simple_router_acl.tables.png)
+* [Parse Graph](https://github.com/mshahbaz/Coursera-SDN/blob/master/assignments/simple_router_acl/graphs/simple_router_acl.parser.png)
+* [Table Flow Graph](https://github.com/mshahbaz/Coursera-SDN/blob/master/assignments/simple_router_acl/graphs/simple_router_acl.tables.png)
 
 #### 1. Copy and build the assignment
 
