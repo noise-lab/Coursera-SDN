@@ -12,6 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Coursera:
+# - Software Defined Networking (SDN) course
+# -- Programming Assignment: Simple Router with ACL
+# Professor: Nick Feamster
+# Author: Muhammad Shahbaz
+
 import oftest.dataplane as dataplane
 import oftest.pd_base_tests as pd_base_tests
 
