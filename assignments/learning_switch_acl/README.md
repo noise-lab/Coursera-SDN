@@ -120,6 +120,8 @@ h1 h2
 *** Done
 ```
 
+> Note: you must rerun the NetASM datapath each time you launch Mininet.
+
 #### 4. Submit your code
 
 To submit your code. Run the `submit.py` script. 
