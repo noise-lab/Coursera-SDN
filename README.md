@@ -80,6 +80,7 @@ This will start a Mininet bash terminal. Type ```xterm h1 h2``` in this terminal
 - Alternative methods to ssh to the VM: run "ssh -X vagrant@192.168.0.100" password is vagrant
 - If you see "ssh_exchange_identification: read: Connection reset by peer" when trying to connect using "vagrant ssh" use the alternative method provided above since it has been reported as a valid workaround, this issue is under investigation
 - The shared folder: "Coursera-SDN" git cloned folder for the host and /vagrant for the guest
+- Some students reported that on old/slower machines some assignments might fail because of extra delay on the computation wich translates to increaced delay on ping request/response. The original default vagrant configuration for VBox was 2Gb RAM and 1 CPU with 50% cap. We changed this to 1GB RAM and 1 CPU with no cap. We think this new configuration will be good for most, but if you want to you can always tweek this to your requirements or likings (edit the line that starts with "# CPU & RAM" on Vagrantfile)
 
 #### Sample setup output for reference
 - Following output is from MacOS

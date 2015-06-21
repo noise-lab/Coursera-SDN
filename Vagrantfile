@@ -28,12 +28,20 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
  ## We will update the Vagrantfile as the course progresses and students will 
  ## need additional installations to complete the assignments. 
  
- #config.vm.provision :shell, privileged: false, :path => "setup/ryu-setup.sh"
+ config.vm.provision :shell, privileged: false, :path => "setup/ryu-setup.sh"
  #config.vm.provision :shell, privileged: false, :path => "setup/p4-setup.sh"
- #config.vm.provision :shell, privileged: false, :path => "setup/netasm-setup.sh"
+ config.vm.provision :shell, privileged: false, :path => "setup/netasm-setup.sh"
  #config.vm.provision :shell, privileged: false, :path => "setup/sdx-setup.sh"
  #config.vm.provision :shell, privileged: false, :path => "setup/kinetic-setup.sh"
 
  ## SSH config
  config.ssh.forward_x11 = true
+
+ ## CPU & RAM
+ config.vm.provider "virtualbox" do |vb|
+    vb.customize ["modifyvm", :id, "--cpuexecutioncap", "100"]
+    vb.memory = 1048
+    vb.cpus = 1
+ end
+
 end

@@ -178,41 +178,39 @@ def launch ():
 
 ### <a name="h.sw3sfi66zwby"></a><span>Useful POX API’s</span>
 
-<span></span>
 
-1.  ```connection.send( ... )``` function sends an OpenFlow message to a switch.</span>
 
-<span class="c8"></span>
+*  ```connection.send( ... )``` function sends an OpenFlow message to a switch.</span>
+
+
 
 <span>When a connection to a switch starts, a ConnectionUp event is fired. The above code invokes a</span><span class="c1"> _handle_ConnectionUp ()</span> <span>function that implements the hub logic.</span>
 
-<span></span>
 
-1.  ```ofp_action_output``` class
+*  ```ofp_action_output``` class
 
-<span></span>
+
 
 <span>This is an action for use with</span> <span class="c1">ofp_packet_out</span><span> and</span> <span class="c1">ofp_flow_mod</span><span>. It specifies a switch port that you wish to send the packet out of. It can also take various "special" port numbers. An example of this, as shown in Table 1, would be</span> <span class="c1">OFPP_FLOOD</span><span> which sends the packet out all ports except the one the packet originally arrived on.</span>
 
-<span></span>
+
 
 <span>Example. Create an output action that would send packets to all ports:</span>
 
-<span></span>
+
 
 ```bash
 out_action = of.ofp_action_output(port = of.OFPP_FLOOD)
 ```
 
-<span></span>
 
-1.  ```ofp_match``` class (not used in the code above but might be useful in the assignment)</span>
+* ```ofp_match``` class (not used in the code above but might be useful in the assignment)</span>
 
-<span></span>
+
 
 <span>Objects of this class describe packet header fields and an input port to match on. All fields are optional -- items that are not specified are "wildcards" and will match on anything.</span>
 
-<span></span>
+
 
 <span>Some notable fields of ofp_match objects are:</span>
 
@@ -220,20 +218,16 @@ out_action = of.ofp_action_output(port = of.OFPP_FLOOD)
 2.  ```dl_dst```- The data link layer (MAC) destination address</span>
 3.  ```in_port```- The packet input switch port</span>
 
-<span></span>
+
 
 <span>Example. Create a match that matches packets arriving on port 3:</span>
-
-<span></span>
 
 ```
 match = of.ofp_match()  
 match.in_port = 3
 ```
 
-<span class="c1"></span>
-
-1.  ```ofp_packet_out``` <span>OpenFlow message</span> <span class="c34">(not used in the code above but might be useful in the assignment)</span>
+*  ```ofp_packet_out``` <span>OpenFlow message</span> <span class="c34">(not used in the code above but might be useful in the assignment)</span>
 
 <span></span>
 
@@ -325,7 +319,7 @@ fm.actions.append(of.ofp_action_output(port = 4))
 <span></span>
 
 ```bash
-$ pox.py log.level --DEBUG forwarding.l2_learning</span>
+$ pox.py log.level --DEBUG forwarding.l2_learning
 ```
 
 <span>Like before, we'll create xterms for each host and view the traffic in each. In the Mininet console, start up three xterms:</span>
@@ -519,13 +513,23 @@ mininet> h1 ping -c 1 h3
 
 <span>What do you see? Host (h1) is able to ping host (h3) as there is no flow rule entry installed in the network to disable the communication between them.</span>
 
+<span>Finally, stop mininet and POX controller.</span>
+
+```bash
+mininet> exit
+```
+
+```bash
+$ sudo fuser -k 6633/tcp
+```
+
 <span></span>
 
 ## <a name="h.i97hjxhipffo"></a><span class="c19">Submitting your Code</span>
 
 <span></span>
 
-<span>This time copy the</span> <span class="c1">firewall.py</span><span> </span><span class="c24">and the provided</span> <span class="c1 c24">firewall-policy.csv</span><span class="c24"> </span><span>in the</span> <span class="c1">~/pox/pox/misc</span> <span>directory on your VM.</span>
+<span>This time copy the</span> <span class="c1">firewall.py</span><span> </span><span class="c24">and the provided</span> <span class="c1 c24">firewall-policies.csv</span><span class="c24"> </span><span>in the</span> <span class="c1">~/pox/pox/misc</span> <span>directory on your VM.</span>
 
 <span></span>
 
