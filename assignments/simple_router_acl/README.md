@@ -14,9 +14,9 @@ For more information about the P4 language read the following material:
 
 In this exercise, you will be extending the simple router P4 program -- provided in the base P4 repository -- with an access control list.
 In order to do this, you have to update the following aspects of the simple router program:
-* Add support for reading and parsing TCP fields
+* Add support for reading and parsing tcp fields
 * Add a new Match+Action table for access control
-* Update the control flow
+* Update the control flow to perform access control using tcp's source and destination ports
 
 The following figures show the final parser and table flow graph for the simple router with acl. **The boxes in RED show what needs to be added.**
 
@@ -44,7 +44,7 @@ $ make
 You need to modify the following three files:
 * `p4src/includes/headers.p4`: add new header type for tcp
 * `p4src/includes/parser.p4`: add a new parser function for tcp
-* `p4src/simple_router_acl.p4`: add a new table for acl and update the control flow to perform access control using tcp source and destination ports.
+* `p4src/simple_router_acl.p4`: add a new table for acl and update the control flow.
 
 ### 3. Test the assignment
 
