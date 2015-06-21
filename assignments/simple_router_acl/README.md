@@ -44,7 +44,7 @@ $ make
 You need to modify the following three files:
 * `p4src/includes/headers.p4`: add new header type for tcp
 * `p4src/includes/parser.p4`: add a new parser function for tcp
-* `p4src/simple_router_acl.p4`: add a new table for acl and update the control flow
+* `p4src/simple_router_acl.p4`: add a new table for acl and update the control flow to perform access control using tcp source and destination ports.
 
 ### 3. Test the assignment
 
