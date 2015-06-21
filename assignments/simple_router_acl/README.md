@@ -1,7 +1,7 @@
 ## P4 Assignment
 
 In this assignment, you will learn how to write a P4 program for programmable data planes. Using P4 you will be able to 
-create new headers, write parser specifications and add custom Match+Action tables to describe how the data plane device 
+create new headers, write parser specifications and add custom match+action tables to describe how the data plane device 
 should process packets.
 
 ### Overview
@@ -15,7 +15,7 @@ For more information about the P4 language read the following material:
 In this exercise, you will be extending the simple router P4 program -- provided in the base P4 repository -- with an access control list.
 In order to do this, you have to update the following aspects of the simple router program:
 * Add support for reading and parsing tcp fields
-* Add a new Match+Action table for access control
+* Add a new match+action table for access control
 * Update the control flow to perform access control using tcp's source and destination ports
 
 The following figures show the final parser and table flow graph for the simple router with acl. **The boxes in RED show what needs to be added.**
