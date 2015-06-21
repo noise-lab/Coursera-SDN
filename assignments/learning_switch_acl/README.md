@@ -35,7 +35,7 @@ $ cp -rf /vagrant/assignments/learning_switch_acl/ .
 
 You only need to modify the `learning_switch_acl_netasm.py` file.
 
-### 3. Test the assignment
+#### 3. Test the assignment
 
 Run Mininet script `learning_switch_acl_mininet.py`.
 
@@ -120,4 +120,4 @@ h1 h2
 *** Done
 ```
 
-### 4. Submit your code
+#### 4. Submit your code
