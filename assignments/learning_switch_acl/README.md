@@ -75,7 +75,7 @@ $ sudopy python /home/vagrant/pox/pox.py --no-openflow netasm.back_ends.soft_swi
 
 This will launch the NetASM datapath with the required configurations.
 
-Now, open up another terminal, and run the POX (controller) script.
+Now, open up another terminal and run the POX (controller) script.
 
 ``` bash
 $ cd ~
