@@ -37,7 +37,7 @@ You only need to modify the `learning_switch_acl_netasm.py` file.
 
 ### 3. Test the assignment
 
-Run mininet script `learning_switch_acl_mininet.py`.
+Run Mininet script `learning_switch_acl_mininet.py`.
 
 ``` bash
 $ cd ~
