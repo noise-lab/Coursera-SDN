@@ -12,7 +12,7 @@ For more information about the P4 language read the following material:
 
 ### Simple Router with Access Control
 
-In this exercise, you will be extending the simple router P4 program -- provided in the based P4 repository -- with an access control list.
+In this exercise, you will be extending the simple router P4 program -- provided in the base P4 repository -- with an access control list.
 In order to do this, you have to update the following aspects of the simple router program:
 * Add support for reading and parsing TCP fields
 * Add a new Match+Action table for access control
