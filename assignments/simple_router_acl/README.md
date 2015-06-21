@@ -46,7 +46,7 @@ You need to modify the following three files:
 * `p4src/includes/parser.p4`: add a new parser function for tcp
 * `p4src/simple_router_acl.p4`: add a new table for acl and update the control flow.
 
-### 3. Test the assignment
+#### 3. Test the assignment
 
 * Run `make` to build the assignment.
 
@@ -91,5 +91,5 @@ Ran 2 tests in 1.843s
 OK
 ```
 
-### 4. Submit your code
+#### 4. Submit your code
 
