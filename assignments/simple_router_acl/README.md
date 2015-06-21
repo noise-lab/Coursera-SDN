@@ -2,7 +2,7 @@
 
 In this assignment, you will learn how to write a P4 program for programmable data planes. Using P4 you will be able to 
 create new headers, write parser specifications and add custom Match+Action tables to describe how the data plane device 
-should process the packets.
+should process packets.
 
 ### Overview
 
