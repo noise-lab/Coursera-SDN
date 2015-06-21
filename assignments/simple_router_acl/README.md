@@ -93,3 +93,13 @@ OK
 
 #### 4. Submit your code
 
+To submit your code. Run the `behavioral-model` again. However, this time instead of running the `run_test.py` script, run the `submit.py` provided under the project directory in another terminal.
+
+``` bash
+$ cd ~/p4factory/targets/simple_router_acl
+$ sudo python submit.py
+```
+
+The submission script will ask for your login and password. This password is not the general account password, but an assignment-specific password that is uniquely generated for each student. You can get this from the assignments listing page.
+
+Once finished, it will prompt the results on the terminal (either passed or failed).
