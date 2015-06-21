@@ -125,6 +125,7 @@ h1 h2
 To submit your code. Run the `submit.py` script. 
 
 ``` bash
+cd ~/netasm/netasm/examples/learning_switch_acl/
 sudo python submit.py
 ```
 
