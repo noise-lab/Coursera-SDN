@@ -22,7 +22,7 @@ In order to do this, you have to update the following aspects of the learning sw
 * Add support for reading and parsing ip fields
 * Write instructions for doing access control using ip's source and destination addresses
 
-#### 1. Copy and build the assignment
+#### 1. Copy the assignment
 
 * Copy the `learning_switch_acl` directory to the `netasm/netasm/examples` folder
 
