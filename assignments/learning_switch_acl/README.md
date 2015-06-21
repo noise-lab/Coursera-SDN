@@ -121,3 +121,16 @@ h1 h2
 ```
 
 #### 4. Submit your code
+
+To submit your code. Run the `submit.py` script. 
+
+``` bash
+cd ~/netasm/netasm/examples/learning_switch_acl/
+sudo python submit.py
+```
+
+The submission script will ask for your login and password. This password is not the general account password, but an assignment-specific password that is uniquely generated for each student. You can get this from the assignments listing page.
+
+This will start Mininet. Now follow the same steps above under Section 3 (Test the assignment), for running the NetASM datapath and the POX controller in a separate terminal. Return back to Mininet terminal and press Enter.
+
+Once finished, it will prompt the results on the terminal (either passed or failed).
