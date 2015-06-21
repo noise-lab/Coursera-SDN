@@ -93,7 +93,7 @@ OK
 
 #### 4. Submit your code
 
-To submit your code. Run the `behavioral-model` again. However, this time instead of running the `run_test.py` script, run the `submit.py` provided under the project directory in another terminal.
+To submit your code. Run the `behavioral-model` again. However, this time instead of running the `run_test.py` script, run the `submit.py` script provided under the project directory in another terminal.
 
 ``` bash
 $ cd ~/p4factory/targets/simple_router_acl
