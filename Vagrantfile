@@ -38,9 +38,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
  config.ssh.forward_x11 = true
 
  ## CPU & RAM
+ ## We need at least 2G to build P4, otherwise you run out of memmory 
  config.vm.provider "virtualbox" do |vb|
     vb.customize ["modifyvm", :id, "--cpuexecutioncap", "100"]
-    vb.memory = 1048
+    vb.memory = 2048
     vb.cpus = 1
  end
 
