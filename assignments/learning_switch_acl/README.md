@@ -127,8 +127,8 @@ h1 h2
 To submit your code. Run the `submit.py` script. 
 
 ``` bash
-cd ~/netasm/netasm/examples/learning_switch_acl/
-sudopy python submit.py
+$ cd ~/netasm/netasm/examples/learning_switch_acl/
+$ sudopy python submit.py
 ```
 
 The submission script will ask for your login and password. This password is not the general account password, but an assignment-specific password that is uniquely generated for each student. You can get this from the assignments listing page.
