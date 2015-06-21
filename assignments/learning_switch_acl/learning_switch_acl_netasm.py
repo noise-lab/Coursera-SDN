@@ -299,7 +299,7 @@ def main():
             #    a. if not ip, jump to the HLT instruction
             #    b. else if is ip, lookup in the acl match table (see eth_match_table lookup example above)
             #       1. if no match, drop the packet (you can use the DRP instruction here, but remember to jump to the
-            #          HLT instruction
+            #          HLT instruction)
             #       2. else pass through (you can use the ID instruction for this)
 
             # -end-
