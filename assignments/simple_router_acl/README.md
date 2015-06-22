@@ -6,6 +6,10 @@ should process packets.
 
 ### Overview
 
+This introductory video walks you through the simple router that the assignment uses as a base for the acl, it's highly recommended to watch this video before attempting the assignment:
+
+* [P4 Simple Router - Tutorial Video] (http://p4.org/wp-content/uploads/2015/04/p4-demo-video-full.mp4)
+
 For more information about the P4 language read the following material:
 * [ An Introduction to P4](http://p4.org/wp-content/uploads/2015/03/p4-tutorial-12201423.pdf)
 * [P4: Programming Protocol-Independent Packet Processors](http://www.sigcomm.org/sites/default/files/ccr/papers/2014/July/0000000-0000004.pdf)
