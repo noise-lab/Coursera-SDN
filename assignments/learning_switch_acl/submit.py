@@ -7,7 +7,7 @@ Professor: Nick Feamster
 Teaching Assistant: Muhammad Shahbaz, Arpit Gupta
 '''
 
-### The only things you'll have to edit (unless you're porting this script over to a different language) 
+### The only things you'll have to edit (unless you're porting this script over to a different language)
 ### are at the bottom of this file.
 
 import urllib
@@ -161,7 +161,7 @@ from netasm.back_ends.soft_switch.mininet.node import NetASMSwitch
 URL = 'sdn1-001'
 
 # the "Identifier" you used when creating the part
-partIds = ['agPAx']
+partIds = ['agPA5']
 # used to generate readable run-time information for students
 partFriendlyNames = ['Learning Switch with ACL']
 # source files to collect (just for our records)
