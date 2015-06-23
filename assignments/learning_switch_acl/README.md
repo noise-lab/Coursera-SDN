@@ -1,5 +1,7 @@
 ## NetASM Assignment
 
+**NOTE:** Before you start the NetASM assignment, make sure you update your repo with "git pull" and then do "vagrant halt" and "vagrant up", this is required so vagrant installs NetASM and all dependencies
+
 In this exercise, you will learn how to define new data-plane layouts, add custom state elements like tables, and control how each packet is processed in the data plane. To do so, you will be learning and using **NetASM**, a new domain-specific language for configuring programmable data planes on a variety of targets.
 
 NetASM is analogous to an x86 or MIPS-like instructions set.  However, unlike updating main memory and registers, it defines the layout (i.e., control-flow and states) of the data plane. Control-flow defines how the packet is traversed through the data plane, and state refers to the type of memory element (i.e., tables). These state elements have a well-defined data structure and type declaration in NetASM, which makes it easy to identify bugs early in the compilation process.
