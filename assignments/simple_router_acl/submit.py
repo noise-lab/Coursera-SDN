@@ -155,11 +155,11 @@ import subprocess
 URL = 'sdn1-001'
 
 # the "Identifier" you used when creating the part
-partIds = ['agPAx']
+partIds = ['agPA52']
 # used to generate readable run-time information for students
 partFriendlyNames = ['Simple Router with ACL']
 # source files to collect (just for our records)
-sourceFiles = ['./p4src/simple_router_acl.p4', 
+sourceFiles = ['./p4src/simple_router_acl.p4',
                './p4src/includes/headers.p4',
                './p4src/includes/parser.p4']
 
@@ -167,13 +167,13 @@ def output(partIdx):
   """Uses the student code to compute the output for test cases."""
   outputString = ''
 
-  if partIdx == 0: # This is agPAx
+  if partIdx == 0: # This is agPA52
     command = ['python', 'run_tests.py', '--test-dir=of-tests/tests/']
     proc = subprocess.Popen(command, stdout=subprocess.PIPE)
     output, _ = proc.communicate()
-      
+
     print output
-      
+
     outputString = output
 
   return outputString.strip()
