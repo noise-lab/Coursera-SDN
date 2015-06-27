@@ -146,8 +146,7 @@ mininet> xterm h1 h2 h3
 <span class="c8"></span>
 
 <span class="c8">Now, lets look at the hub code (You can see the reduction in the amount of code needed to implement hub in Pyretic as compared to POX):</span>
-```
-
+```python
 from pyretic.lib.corelib import *
 from pyretic.lib.std import *
    """Implement hub-like behavior --- send all packets to all ports on a network
@@ -227,7 +226,7 @@ mininet> xterm h1 h2 h3
 
 <span class="c8">Let’s have a look at the</span> <span>mac_learner</span><span class="c8"> code (it’s pretty self explanatory, and we went throug</span><span>h it in lecture, as well</span><span class="c8">):</span>
 
-```
+```python
 from pyretic.lib.corelib import *
 from pyretic.lib.std import *
 from pyretic.lib.query import *
@@ -317,15 +316,19 @@ def main():
 
 <span class="c17 c6"></span>
 
-<span class="c8">To start this exercise, download</span> <span class="c42">[pyretic-firewall-assignment.zip](https://www.google.com/url?q=https%3A%2F%2Fd396qusza40orc.cloudfront.net%2Fsdn%2Fsrcs%2Fpyretic-firewall-assignment.zip&sa=D&sntz=1&usg=AFQjCNFfEBYZtNMIsKYZBjFiI9wPOUV0pA)</span><span class="c8"> It consists of three files:</span>
+To start this assignment update the course's Github repo (by default, Coursera-SDN) on your host machine using git pull. Turn on your guest VM (if it is turned off) using vagrant up. Now ssh into the guest VM using vagrant ssh. Go to the directory with the updated code base in your guest VM.
+```bash
+~$ cd /vagrant/assignments/pyretic-firewall
+```
 
-<span class="c8"></span>
+The directory consists of three files:
 
-<span class="c9">pyretic_firewall.py</span><span class="c8">: a sekleton class which you will update with the logic for installing firewall rules.</span>
 
-<span class="c9">firewall-policies.csv</span><span class="c8">:  a list of MAC pairs (i.e., policies) read as input by the firewall application.</span>
+<span class="c9">```pyretic_firewall.py```</span><span class="c8">: a sekleton class which you will update with the logic for installing firewall rules.</span>
 
-<span class="c9">submit.py</span><span class="c8">: used to submit your code and output to the</span> <span>C</span><span class="c8">oursera servers for grading.</span>
+<span class="c9">```firewall-policies.csv```</span><span class="c8">:  a list of MAC pairs (i.e., policies) read as input by the firewall application.</span>
+
+<span class="c9">```submit.py```</span><span class="c8">: used to submit your code and output to the</span> <span>C</span><span class="c8">oursera servers for grading.</span>
 
 <span class="c8"></span>
 
@@ -337,7 +340,7 @@ def main():
 
 <span class="c8"></span>
 
-<span class="c8">Your task is to read the policy file and update the</span> <span class="c9">main</span> <span class="c8">function. The function should install policies in the OpenFlow switch that drop packets whenever a matching src/dst MAC address (for any of the listed MAC pairs) enters the switch</span>
+<span class="c8">Your task is to read the policy file and update the</span> <span class="c9">```main```</span> <span class="c8">function. The function should install policies in the OpenFlow switch that drop packets whenever a matching src/dst MAC address (for any of the listed MAC pairs) enters the switch</span>
 
 <span class="c8"></span>
 
