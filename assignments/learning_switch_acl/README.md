@@ -1,7 +1,5 @@
 ## NetASM Assignment
 
-**NOTE:** Before you start this assignment, make sure you update your repo with `git pull` and then do `vagrant halt` and `vagrant up` followed by `vagrant provision`, this is required to install NetASM with all its dependencies.
-
 In this exercise, you will learn how to define new data-plane layouts, add custom state elements like tables, and control how each packet is processed in the data plane. To do so, you will be learning and using **NetASM**, a new domain-specific language for configuring programmable data planes on a variety of targets.
 
 NetASM is analogous to an x86 or MIPS-like instructions set.  However, unlike updating main memory and registers, it defines the layout (i.e., control-flow and states) of the data plane. Control-flow defines how the packet is traversed through the data plane, and state refers to the type of memory element (i.e., tables). These state elements have a well-defined data structure and type declaration in NetASM, which makes it easy to identify bugs early in the compilation process.
@@ -23,6 +21,27 @@ In order to do this, you have to update the following aspects of the learning sw
 * Add a new match table for access control
 * Add support for reading and parsing ip fields
 * Write instructions for doing access control using ip's source and destination addresses
+
+### Update your VM to get the assignment
+
+1- Update your local repo
+```bash
+$ git pull
+```
+
+2- Shutdown your VM
+```bash
+vagrant halt
+```
+3- Start your VM (it should install all the new dependencies)
+```bash
+$ vagrant up
+```
+
+4- Excecute the required provisioning scripts
+```bash
+$ vagrant provision
+```
 
 #### 1. Copy the assignment
 

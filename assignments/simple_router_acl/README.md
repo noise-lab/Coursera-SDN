@@ -1,7 +1,5 @@
 ## P4 Assignment
 
-**NOTE:** Before you start this assignment, make sure you update your repo with `git pull` and then do `vagrant halt` and `vagrant up` followed by `vagrant provision`, this is required to install P4 with all its dependencies.
-
 In this assignment, you will learn how to write a P4 program for programmable data planes. Using P4 you will be able to 
 create new headers, write parser specifications and add custom match+action tables to describe how the data plane device 
 should process packets.
@@ -28,6 +26,27 @@ The following figures show the final parser and table flow graph for the simple 
 
 * [Parse Graph](https://github.com/mshahbaz/Coursera-SDN/blob/master/assignments/simple_router_acl/graphs/simple_router_acl.parser.png)
 * [Table Flow Graph](https://github.com/mshahbaz/Coursera-SDN/blob/master/assignments/simple_router_acl/graphs/simple_router_acl.tables.png)
+
+### Update your VM to get the assignment
+
+1- Update your local repo
+```bash
+$ git pull
+```
+
+2- Shutdown your VM
+```bash
+vagrant halt
+```
+3- Start your VM (it should install all the new dependencies)
+```bash
+$ vagrant up
+```
+
+4- Excecute the required provisioning scripts
+```bash
+$ vagrant provision
+```
 
 #### 1. Copy and build the assignment
 
