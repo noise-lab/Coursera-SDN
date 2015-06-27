@@ -1,6 +1,6 @@
 ## P4 Assignment
 
-**NOTE:** Before you start this assignment, make sure you update your repo with `git pull` and then do `vagrant halt` and `vagrant up` followed by `vagrant provision`, this is required to install NetASM with all its dependencies.
+**NOTE:** Before you start this assignment, make sure you update your repo with `git pull` and then do `vagrant halt` and `vagrant up` followed by `vagrant provision`, this is required to install P4 with all its dependencies.
 
 In this assignment, you will learn how to write a P4 program for programmable data planes. Using P4 you will be able to 
 create new headers, write parser specifications and add custom match+action tables to describe how the data plane device 
