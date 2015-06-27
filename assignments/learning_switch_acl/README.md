@@ -62,10 +62,10 @@ Run Mininet script `learning_switch_acl_mininet.py`.
 
 ``` bash
 $ cd ~
-$ sudopy ~/netasm/netasm/examples/learning_switch_acl/learning_switch_acl_mininet.py
+$ sudopy python ~/netasm/netasm/examples/learning_switch_acl/learning_switch_acl_mininet.py
 ```
 
-> Note: make sure that you run this and the remaining scripts using `sudopy`
+-> Note: make sure that you run this and the remaining scripts using `sudopy` (a bash alias that sets all necesary python paths)
 
 The script will halt at some point and you should see the following output.
 
@@ -100,7 +100,7 @@ Now, open up another terminal and run the POX (controller) script.
 
 ``` bash
 $ cd ~
-$ sudopy ./pox/pox.py netasm.examples.learning_switch_acl.learning_switch_acl_pox
+$ sudopy python ./pox/pox.py netasm.examples.learning_switch_acl.learning_switch_acl_pox
 ```
 
 You should see that after a short time, both NetASM datapath and POX controller are connected. Upong successful connection, you should see the following ouput on the POX terminal.
