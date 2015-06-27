@@ -286,7 +286,7 @@ def main():
 
 <span class="c8"></span>
 
-<span class="c8">These policies are explained in greater detail in</span> <span class="c39">[Module 6.4](Thttps://class.coursera.org/sdn1-001/admin/lectures/59)</span><span class="c8">.</span>
+<span class="c8">These policies are explained in greater detail in</span> <span class="c39">[Module 6.4](https://class.coursera.org/sdn1-001/admin/lectures/59)</span><span class="c8">.</span>
 
 <span class="c8"></span>
 
