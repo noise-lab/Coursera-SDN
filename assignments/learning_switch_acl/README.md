@@ -1,6 +1,6 @@
 ## NetASM Assignment
 
-**NOTE:** Before you start the NetASM assignment, make sure you update your repo with "git pull" and then do "vagrant halt" and "vagrant up", this is required so vagrant installs NetASM and all dependencies
+**NOTE:** Before you start the NetASM assignment, make sure you update your repo with `git pull` and then do `vagrant halt` and `vagrant up` followed by `vagrant provision`, this is required to install NetASM with all its dependencies.
 
 In this exercise, you will learn how to define new data-plane layouts, add custom state elements like tables, and control how each packet is processed in the data plane. To do so, you will be learning and using **NetASM**, a new domain-specific language for configuring programmable data planes on a variety of targets.
 
