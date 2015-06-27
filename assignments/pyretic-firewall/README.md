@@ -104,7 +104,6 @@ OpenFlow switch 1 connected
 mininet> xterm h1 h2 h3
 ```
 
-
 <span class="c8">Arrange each xterm so that they're all on the screen at once. This may require reducing the height to fit a cramped laptop screen.</span>
 
 <span class="c8"></span>
@@ -260,7 +259,7 @@ def main():
     return mac_learner()
 ```
 
-<span class="c8">Table 2\. switch application</span>
+<span class="c8">Table 2\. Switch Application</span>
 
 <span class="c8"></span>
 
