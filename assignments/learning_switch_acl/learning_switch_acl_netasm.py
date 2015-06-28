@@ -360,7 +360,7 @@ def main():
             #           b. TableId specifies the table to be used in the lookup
             #           c. O.Operands_ specifies the list of fields to be used in the lookup. Note that order of fields matters here. 
             #              1. In the above example, it means that eth_src is matched with the first column of the table and eth_dst with the second. 
-            #              2. Also, Operands_ type means that only Field and Value type can be used for the comparison i.e., you cannot used Location type here.
+            #              2. Also, Operands_ type means that only Field and Value types can be used for the comparison i.e., you cannot used Location type here.
 
             # -end-
 
