@@ -51,7 +51,7 @@ sudo pip install -U exabgp
 
 ### <a name="h.35ws6bwun9r5"></a><span class="c2 c6">Overview</span>
 
-<span class="c2">This part of the exercise allows you to get comfortable using the SDX software. You are not required to submit anything. All of the examples in SDX are organized in the directory called</span> <span class="c0">```~/sdx/examples/```<span class="c2">. We'll focus on the example</span> <span class="c0">```simple```</span><span class="c2">  for the walkthrough.</span>
+<span class="c2">This part of the exercise allows you to get comfortable using the SDX software. You are not required to submit anything. All of the examples in SDX are organized in the directory called</span> <span class="c0">```~/sdx-ryu/examples/```<span class="c2">. We'll focus on the example</span> <span class="c0">```simple```</span><span class="c2">  for the walkthrough.</span>
 
 
 <span></span>
@@ -130,7 +130,7 @@ self.addLink(root, ixpfabric, port2 = 5)
 
 <span class="c11 c16 c40">Figure 4\. Adding the route server host, which we have named “exabgp”, after the software on which the route server is based.</span> <span class="c2 c11 c16">(```sdx_mininext.py```)</span>
 
-<span class="c2">The</span> <span class="c0">mininet</span><span class="c2"> directory also has a</span> <span class="c32 c2 c10">Quagga</span><span class="c2"> config directory. We define BGP configuration for each of the participating</span> <span class="c32 c2 c10">Quagga</span><span class="c2"> router here. BGP configuration for participant A's router (</span><span class="c0">```~/sdx/examples/simple/mininet/quaggacfgs/a1/bgpd.conf```</span><span class="c2">) looks like this:</span>
+<span class="c2">The</span> <span class="c0">mininet</span><span class="c2"> directory also has a</span> <span class="c32 c2 c10">Quagga</span><span class="c2"> config directory. We define BGP configuration for each of the participating</span> <span class="c32 c2 c10">Quagga</span><span class="c2"> router here. BGP configuration for participant A's router (</span><span class="c0">```~/sdx-ryu/examples/simple/mininet/quaggacfgs/a1/bgpd.conf```</span><span class="c2">) looks like this:</span>
 ```bash
 router bgp 100  
 bgp router-id 172.0.0.1  
@@ -149,7 +149,7 @@ redistribute static
 
 <span class="c2">The SDX presents a virtual SDX switch abstraction to each participant. Each participant writes policies for its virtual switch without bothering about other participant's policies. This limited view of the network provides desired isolation by ensuring that the participants are not allowed to write rules for other network's traffic. For more details about this abstraction, you can refer to the</span> <span class="c26 c42">[SIGCOMM paper](http://www.google.com/url?q=http%3A%2F%2Fgtnoise.net%2Fpapers%2F2014%2Fgupta-sigcomm2014.pdf&sa=D&sntz=1&usg=AFQjCNFN92u6bx1uHl6aCNZ_Qk3FaGK9ag)</span><span class="c2"> about SDX</span><span class="c2">.</span>
 
-<span class="c2">In this example, participant A has outbound policies defined in</span> <span class="c0">```~/sdx/examples/simple/controller/participant_policies/participant_1.py```</span><span class="c32 c2 c10">,</span><span class="c2"> which are written as:</span>
+<span class="c2">In this example, participant A has outbound policies defined in</span> <span class="c0">```~/sdx-ryu/examples/simple/controller/participant_policies/participant_1.py```</span><span class="c32 c2 c10">,</span><span class="c2"> which are written as:</span>
 
 ```json
 {
@@ -190,7 +190,7 @@ redistribute static
 
 <span class="c2 c11 c16">Figure 6\. Participant A’s outbound policies. (participant_1.py)</span>
 
-<span class="c2">Each p</span><span class="c2">articipant's policies written in Pyretic. The policy shown above reflects AS A’s policy for perform application-specific peering—it forwards web (i.e., port 80) traffic to peer B, and port 4321–4322 traffic to peer C.  Participant C has inbound policies as defined in</span><span class="c2 c10 c32"> </span><span class="c0">```~/sdx/examples/simple/controller/participant_policies/participant_3.py```</span><span class="c2">:</span>
+<span class="c2">Each p</span><span class="c2">articipant's policies written in Pyretic. The policy shown above reflects AS A’s policy for perform application-specific peering—it forwards web (i.e., port 80) traffic to peer B, and port 4321–4322 traffic to peer C.  Participant C has inbound policies as defined in</span><span class="c2 c10 c32"> </span><span class="c0">```~/sdx-ryu/examples/simple/controller/participant_policies/participant_3.py```</span><span class="c2">:</span>
 
 ```json
 {
@@ -321,27 +321,13 @@ In case the `iperf` connection is not successful, you should see the message, `c
 
 <span class="c2">The setup for the assignment is similar to the previous example.  </span>
 
-[](#)[](#)
+<span></span>
 
-<table cellpadding="0" cellspacing="0" class="c31">
+![](https://d396qusza40orc.cloudfront.net/sdn/images/Coursera%20SDX.jpg "https://d396qusza40orc.cloudfront.net/sdn/images/Coursera%20SDX.jpg")
 
-<tbody>
+<span class="c4">Figure 8\. Topology that you will set up for the assignment. 
 
-<tr class="c34">
-
-<td class="c33">
-
-<span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 462.67px;">![pub](https://d396qusza40orc.cloudfront.net/sdn/images/Coursera%20SDX.jpg)</span>
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-<span class="c2 c11 c16">Figure 8\. Topology that you will set up for the assignment.  
+ 
 172.* addresses refer to the IP addresses of the connected router interfaces. /24 IP prefixes are the routes that each router advertises.  </span>
 
 <span class="c2">In the figure, the IP addresses on each interface (</span><span class="c0">172.0.*.*</span><span class="c2">) refer to the interfaces on the local LAN that the routers (and the SDX controller/route server) use to communicate with one another.  The /24 IP prefixes shown by each router in the figure indicate the IP prefixes that each router should be announcing to the neighboring ASes using BGP (i.e., using a BGP</span> <span class="c0">network</span><span class="c2"> statement, as we showed above in the example</span> <span class="c0">bgpd.conf</span><span class="c2">).</span>
@@ -354,7 +340,7 @@ In case the `iperf` connection is not successful, you should see the message, `c
 </span><span class="c2">First, you will configure the topology as shown in the figure.  You will need two files:</span>
 
 *   <span class="c0">```sdx_mininext.py```</span><span class="c2">: You will use this file to configure the SDX topology, as we have shown above. Similar to the walkthrough example, make sure that each router has a loopback address for each advertised route. For example, if the node</span> <span class="c0">c1</span><span class="c2"> advertises</span> <span class="c0">140.0.0.0/24</span> <span class="c2">then add the loopback interface</span> <span class="c0">140.0.0.1</span><span class="c2"> for</span> <span class="c0">c1</span><span class="c2">.  </span>
-*   <span class="c0">```bgpd.conf```</span><span class="c2">: You will use this file to set up the BGP sessions for each of the participants and change the IP prefixes that each participant advertises. For example if node</span> <span class="c0">c1</span><span class="c2"> advertises</span> <span class="c0">140.0.0.0/24,</span> <span class="c2">then make sure that</span> <span class="c2">network</span><span class="c9 c2"> </span><span class="c0">100.0.0.0/24</span><span class="c9 c2"> </span><span class="c2">is added in</span><span class="c9 c2"> c1’s bgpd.conf</span> <span class="c2">file.</span><span class="c9 c2"> </span>
+*   <span class="c0">```bgpd.conf```</span><span class="c2">: You will use this file to set up the BGP sessions for each of the participants and change the IP prefixes that each participant advertises. For example if node</span> <span class="c0">c1</span><span class="c2"> advertises</span> <span class="c0">140.0.0.0/24,</span> <span class="c2">then make sure that</span> <span class="c2">network</span><span class="c9 c2"> </span><span class="c0">140.0.0.0/24</span><span class="c9 c2"> </span><span class="c2">is added in</span><span class="c9 c2"> c1’s bgpd.conf</span> <span class="c2">file.</span><span class="c9 c2"> </span>
 
 ##### <span class="c3 c2 c11">Testing the topology and route server configuration</span>
 
@@ -428,50 +414,21 @@ mininext> a1 iperf -c 180.0.0.1 -B 100.0.0.1 -p 8080 -t 2
 
 ### <a name="h.43cd3gtc620p"></a><span class="c48 c2 c26">Submitting the Assignment</span>
 
-<span class="c2">Copy the</span> <span class="c0">submit.py</span><span class="c2"> file that we have provided to the</span> <span class="c0">~/sdx/</span><span class="c0">examples/simple/mininet/</span><span class="c2"> directory.</span> Now run the ```submit.py``` script from the ```~/sdx/examples/simple/mininet/``` directory.
+<span class="c2">Copy the</span> <span class="c0">submit.py</span><span class="c2"> file that we have provided to the</span> <span class="c0">~/sdx-ryu/</span><span class="c0">examples/simple/mininet/</span><span class="c2"> directory.</span> Now run the ```submit.py``` script from the ```~/sdx-ryu/examples/simple/mininet/``` directory.
 
 ```bash
 $ sudo submit.py  
 ```
 
-Follow the following steps to complete the submission:
- * In a new shell, make the OVS use OpenFlow 1.3  
-```bash
-    $ sudo ovs-vsctl set bridge s1 protocols=OpenFlow13
-```
-
-* Now start the Ryu Controller: 
-
-```bash
-$ ryu-manager ~/sdx-ryu/ctrl/asdx.py --asdx-dir simple
-```
-
-* Start the Route Server: 
-```bash
-$ cd ~/sdx-ryu/xrs
-$ sudo ./route_server.py simple
-```
-
-* Finally start the ExaBGP:
-```bash
- $ exabgp ~/sdx-ryu/examples/simple/controller/sdx_config/bgp.conf
-```
-
-<span class="c2">Your mininet VM should have Internet access by default, but still verify that it has internet connectivity (i.e., eth0 set up as NAT). Otherwise, submit.py will not be able to post your code and output to our coursera servers.</span>
+<span class="c2">Your mininet VM should have Internet access by default, but still verify that it has internet connectivity (i.e., eth0 set up as NAT). Otherwise, ```submit.py``` will not be able to post your code and output to our coursera servers.</span>
 
 <span class="c2">The submission script will ask for your login and password. This password is not the general account password, but an assignment-specific password that is uniquely generated for each student. You can get this from the assignments listing page.</span>
 
 <span class="c2">Once finished, it will prompt the results on the terminal (either passed or failed).</span>
 
 
-<span class="c2">Note, if during the execution submit.py or m7-output.py scripts crash for some reason or you terminate it using CTRL+C, make sure to clean mininet environment using:</span>
+<span class="c2">Note, if during the execution ```submit.py``` scripts crash for some reason or you terminate it using CTRL+C, make sure to run the ```clean.sh``` script:</span>
 
 ```bash
-$ sudo mn -c
-```
-
-<span class="c2">Also, if it still complains about the controller running. Execute the following command to kill it:</span>
-
-```bash
-$ sudo fuser -k 6633/tcp
+$ sudo sh clean.sh
 ```
