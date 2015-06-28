@@ -131,6 +131,7 @@ def main():
             #       ipv4_ver, ipv4_ihl, ipv4_dscp, ipv4_ecn, ipv4_tlen, 
             #       ipv4_id, ipv4_flgs, ipv4_fo, ipv4_ttl, ipv4_prtcl, 
             #       ipv4_chksm, ipv4_src, ipv4_dst
+            #        Note: you can find the size of these fields here: https://en.wikipedia.org/wiki/IPv4#Packet_structure
             # 3. The add command is used as follows:
             #    -- I.ADD(O.Field(Field('has_ip')), Size(1)),
             #    a. ADD instruction adds a new field in the header
