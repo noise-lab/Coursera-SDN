@@ -348,20 +348,20 @@ def main():
             #       2. else pass through (you can use the ID instruction for this)
             #    c. To implement this code block you will be using the following instructions: I.BR, I.ID, I. JMP, I.LBL, I.ADD, I.LKt, I.DRP
             #       1. Identity (ID) instruction is used as follows:
-            #       -- I.ID()
+            #          -- I.ID()
             #          a. It's no op instruction. Does nothing.
             #       2. Drop instruction is used as follows:
-            #       -- I.DRP(Reason('no match in the acl table', '')),
+            #          -- I.DRP(Reason('no match in the acl table', '')),
             #          a. Tags the packet to be dropped
             #          b. Takes one argument of type Reason. Reason further takes two arguments: reason (string), description (string)
             #       3. Lookup table instruction is used as follows:
-            #       -- I.LKt(O.Field(Field('index')), TableId('eth_match_table'), O.Operands_(O.Field(Field('eth_src')), O.Field(Field('eth_dst')))),
+            #          -- I.LKt(O.Field(Field('index')), TableId('eth_match_table'), O.Operands_(O.Field(Field('eth_src')), O.Field(Field('eth_dst')))),
             #          a. Here it takes three arguments: O.Field, TableId, O.Operands_
-            #             a. O.Field is the matched index return by the lookup. It's -1 if there's no match
-            #             b. TableId specifies the table to be used in the lookup
-            #             c. O.Operands_ specifies the list of fields to be used in the lookup. Note that order of fields matters here. 
-            #                1. In the above example, it means that eth_src is matched with the first column of the table and eth_dst with the second. 
-            #                 2. Also, Operands_ type means that only Field and Value type can be used for the comparison i.e., you cannot used Location type here.
+            #             1. O.Field is the matched index return by the lookup. It's -1 if there's no match
+            #             2. TableId specifies the table to be used in the lookup
+            #             3. O.Operands_ specifies the list of fields to be used in the lookup. Note that order of fields matters here. 
+            #                a. In the above example, it means that eth_src is matched with the first column of the table and eth_dst with the second. 
+            #                b. Also, Operands_ type means that only Field and Value type can be used for the comparison i.e., you cannot used Location type here.
 
             # -end-
 
