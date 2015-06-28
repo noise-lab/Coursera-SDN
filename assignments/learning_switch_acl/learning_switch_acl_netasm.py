@@ -91,10 +91,9 @@ def main():
     #    a. Fields name should be ipv4_src, ipv4_dst
     #       a. Should be of size 32: Size(32) ... don't forget to use Size() class, otherwise, it will raise type error.
     #       b. Should have a binary match type: MatchTypeCollection.Binary
-    #    b. Add this fields in the table_fields list of the table
+    #    b. Add these fields in the table_fields list of the table
     #       e.g., acl_match_table.table_fields[Field('ipv4_src')] = Size(32), MatchTypeCollection.Binary
-    #       This adds a field name ipv4_src in the table. The order in which you add fields matters. 
-    #       This will affect the lookups.
+    #       This adds a field name ipv4_src in the table. The order in which you add fields matters. This will affect the lookups.
 
     # -end-
 
