@@ -53,29 +53,13 @@ sudo pip install -U exabgp
 
 <span class="c2">This part of the exercise allows you to get comfortable using the SDX software. You are not required to submit anything. All of the examples in SDX are organized in the directory called</span> <span class="c0">```~/sdx/examples/```<span class="c2">. We'll focus on the example</span> <span class="c0">```simple```</span><span class="c2">  for the walkthrough.</span>
 
-<span class="c2"></span>
 
-[](#)[](#)
+<span></span>
 
-<table cellpadding="0" cellspacing="0" class="c31">
+![](https://d396qusza40orc.cloudfront.net/sdn/images/sigcomm14_mininext.jpg "https://d396qusza40orc.cloudfront.net/sdn/images/sigcomm14_mininext.jpg")
 
-<tbody>
+<span class="c4">Figure 1: Example SDX topology.</span>
 
-<tr class="c34">
-
-<td class="c33">
-
-<span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 448.00px;">![pub](https://d396qusza40orc.cloudfront.net/sdn/images/sigcomm14_mininext.jpg)</span>
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-<span class="c2 c11 c16">Figure 1\. Example SDX topology.  
 
 ```172.*``` addresses refer to the IP addresses of the connected router interfaces. ```/24``` IP prefixes are the routes that each router advertises.  ASes A and C each have Pyretic policies, as shown.</span>
 
@@ -96,8 +80,7 @@ sudo pip install -U exabgp
 ```python
 
 '''Set Quagga service configuration for this node'''
-quaggaSvcConfig = \ 
-{ 'quaggaConfigPath' : scriptdir + '/quaggacfgs/' + host.name }
+quaggaSvcConfig = { 'quaggaConfigPath' : scriptdir + '/quaggacfgs/' + host.name }
 
 '''Add services to the list for handling by service helper'''
 services = {} 
