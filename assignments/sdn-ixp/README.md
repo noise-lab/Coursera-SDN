@@ -47,9 +47,9 @@ sudo pip install -U exabgp
 ```
 
 
-## <a name="h.hefnxat1hpve"></a><span class="c48 c2 c26 c11">Walkthrough</span>
+### <a name="h.hefnxat1hpve"></a><span class="c48 c2 c26 c11">Walkthrough</span>
 
-### <a name="h.35ws6bwun9r5"></a><span class="c2 c6">Overview</span>
+#### <a name="h.35ws6bwun9r5"></a><span class="c2 c6">Overview</span>
 
 <span class="c2">This part of the exercise allows you to get comfortable using the SDX software. You are not required to submit anything. All of the examples in SDX are organized in the directory called</span> <span class="c0">```~/sdx-ryu/examples/```<span class="c2">. We'll focus on the example</span> <span class="c0">```simple```</span><span class="c2">  for the walkthrough.</span>
 
@@ -65,11 +65,11 @@ sudo pip install -U exabgp
 
 <span class="c2">The setup consists of three participants, each representing a participating AS: A, B, and C. Participants A and B each have a single router.  Participant C has two routers connected to the IXP.  These routers are running the</span> <span class="c0">zebra</span><span class="c2"> and</span> <span class="c0">bgpd</span><span class="c2"> daemons, part of the</span> <span class="c32 c2 c10">Quagga</span><span class="c2"> routing engine. We are also using the</span> <span class="c0">MiniNext</span><span class="c2"> emulation tool to create this topology.  MiniNext is a variant of Mininet that gives each node in the topology its own filesystem, thus allowing each node to run its own version of the routing software. The following sites have more information about</span> <span class="c44">[MiniNext](https://www.google.com/url?q=https%3A%2F%2Fgithub.com%2FUSC-NSL%2FminiNeXT&sa=D&sntz=1&usg=AFQjCNFtMs5QPPHGlq8urv0_AWCrfMoFeA) </span><span>and</span><span class="c44">[ ](https://www.google.com/url?q=https%3A%2F%2Fgithub.com%2FUSC-NSL%2FminiNeXT&sa=D&sntz=1&usg=AFQjCNFtMs5QPPHGlq8urv0_AWCrfMoFeA)</span><span class="c44">[Quagga](http://www.google.com/url?q=http%3A%2F%2Fwww.nongnu.org%2Fquagga%2F&sa=D&sntz=1&usg=AFQjCNEygXPyuNAp9vmEtGDa65a11fEzyA)</span><span class="c2">[.](http://www.google.com/url?q=http%3A%2F%2Fwww.nongnu.org%2Fquagga%2F&sa=D&sntz=1&usg=AFQjCNEygXPyuNAp9vmEtGDa65a11fEzyA)</span>
 
-### <a name="h.onujae3nkrvb"></a><span class="c2 c50">Understanding the SDX Setup</span>
+#### <a name="h.onujae3nkrvb"></a><span class="c2 c50">Understanding the SDX Setup</span>
 
 <span class="c2">The example setup has two directories:</span> <span class="c0">controller</span><span class="c2"> and</span> <span class="c0">mininet</span><span class="c2">. The</span> <span class="c0">controller</span><span class="c2"> directory has configuration files pertaining to SDX controller; the</span> <span class="c0">mininet</span><span class="c2"> directory has information pertaining to topology configuration, as well as information for configuring communication with the route server.</span>
 
-### <a name="h.7477fhkt7fm8"></a><span class="c2 c6">Configuring Topology and Routing Information in Mininext</span>
+##### <a name="h.7477fhkt7fm8"></a><span class="c2 c6">Configuring Topology and Routing Information in Mininext</span>
 
 <span class="c2">We</span><span class="c2"> need to set up routers that run a routing engine to exchange BGP routes at the exchange point. Running a routing engine requires a particular filesystem that is not supported for the</span> <span class="c0">Mininet</span><span class="c32 c2 c10"> </span><span class="c2">nodes.  </span><span class="c0">MiniNext</span><span class="c2"> enables a filesystem for its nodes enabling emulation of legacy switches, routers, etc.</span>
 
@@ -143,7 +143,7 @@ redistribute static
 
 <span class="c2">This configuration indicates that this router has router-id</span> <span class="c0">172.0.0.1</span><span class="c2">, A's AS number is</span> <span class="c0">100</span><span class="c2">  The</span> <span class="c0">neighbor</span><span class="c2"> configuration command tells the node to look for a remote BGP session (SDX’s routeserver ) whose IP address is</span> <span class="c0">172.0.255.254</span><span class="c2"> and whose remote AS is</span> <span class="c0">65000</span><span class="c2">.  The network lines advertise the respective prefixes.</span>
 
-### <a name="h.mt88cjvu9mdw"></a><span class="c2 c6">Participants' SDX Policies</span>
+##### <a name="h.mt88cjvu9mdw"></a><span class="c2 c6">Participants' SDX Policies</span>
 
 <span class="c2">The control plane configuration involves defining participant's policies, which entails (1) configuring</span> <span class="c0">```bgp.conf```</span><span class="c2"> for SDX's route server and (2) configuring ```sdx_global.cfg``` to provide each participant's information to the SDX controller.</span>
 
@@ -225,7 +225,7 @@ redistribute static
 
 <span class="c2">Participant B does not specify any specific policy, so its forwarding proceeds according to default BGP forwarding.</span>
 
-### <a name="h.ue8z58v6dg2p"></a><span class="c2 c6">Running the SDX Setup</span>
+#### <a name="h.ue8z58v6dg2p"></a><span class="c2 c6">Running the SDX Setup</span>
 
 
 * Step 1\.Launch the topology using MiniNExT (Mininet):
@@ -256,7 +256,7 @@ $ sudo ./route_server.py simple
  $ exabgp ~/sdx-ryu/examples/simple/controller/sdx_config/bgp.conf
 ```
 
-### <a name="h.7ckch6gls77e"></a><span class="c2 c6">Sanity Checks</span>
+#### <a name="h.7ckch6gls77e"></a><span class="c2 c6">Sanity Checks</span>
 
 <span class="c2">You can now check to determine whether the participants received the routes from route server.  For example, to see the routes on host a1, type the following:</span>
 
@@ -271,7 +271,7 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 
 <span class="c2">Specifically, you should see two entries in A’s routing table for 140.0.0.0/8 and 150.0.0.0/8 whose next-hop IP address is 172.0.1.2.</span>
 
-### <a name="h.uxkh081ccb6a"></a><span class="c2 c6">Testing SDX Policies</span>
+#### <a name="h.uxkh081ccb6a"></a><span class="c2 c6">Testing SDX Policies</span>
 
 As a quick recap, A’s app-specific policy can be represented as:
 
