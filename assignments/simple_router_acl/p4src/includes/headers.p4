@@ -52,7 +52,8 @@ header_type ipv4_t {
 // -begin-
 
 // You should declare a tcp header type here ...
-// 1. You should name it `tcp_t`
+// Note: Name the header `tcp_t` and fields: `srcPort`, `dstPort`, `seqNo`, `ackNo`, `dataOffset`, `res`, `flags`, `window`,
+//                                           `checksum`, and `urgentPtr`
 
 
 // -end-
