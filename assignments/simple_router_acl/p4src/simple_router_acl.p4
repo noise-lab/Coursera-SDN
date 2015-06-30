@@ -74,9 +74,9 @@ table forward {
 // -begin-
 
 // You should implement the following here ...
-// 1. define a _nop action
-// 2. create acl table that
-//    a. reads tcp's  src and dst ports and does an exact match on them
+// 1. define a `_nop` action
+// 2. create `acl` table that
+//    a. reads tcp's src and dst ports and does an exact match on them
 //    b. has two actions for drop and nop (make sure that these actions start with '_' otherwise they will
 //                                         conflict with the builtin functions)
 //    c. has size of 256
