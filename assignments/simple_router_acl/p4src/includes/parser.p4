@@ -88,7 +88,7 @@ parser parse_ipv4 {
 // -begin-
 
 // You should implement the following here ...
-// 1. create a tcp header instance
-// 2. write the tcp parser function
+// 1. create a tcp header instance, named: `tcp`
+// 2. write the tcp parser function, named: `parse_tcp`
 
 // -end-
