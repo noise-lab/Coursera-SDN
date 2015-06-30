@@ -52,5 +52,7 @@ header_type ipv4_t {
 // -begin-
 
 // You should declare a tcp header type here ...
+// 1. You should name it `tcp_t`
+
 
 // -end-
