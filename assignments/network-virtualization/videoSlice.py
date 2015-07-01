@@ -43,7 +43,7 @@ class VideoSlice (EventMixin):
                         ('00-00-00-00-00-01', EthAddr('00:00:00:00:00:01'),
                          EthAddr('00:00:00:00:00:03'), 80): '00-00-00-00-00-03',
 
-                        """ Add your mapping logic here"""
+                        # Add your mapping logic here
 
                         }
 
