@@ -169,8 +169,8 @@ def output(partIdx):
 
   if partIdx == 0: # This is agPA52
     command = ['python', 'run_tests.py', '--test-dir=of-tests/tests/']
-    proc = subprocess.Popen(command, stdout=subprocess.PIPE)
-    output, _ = proc.communicate()
+    proc = subprocess.Popen(command, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+    _, output = proc.communicate()
 
     print output
 
