@@ -19,7 +19,7 @@ rm -rf git
 
 # Pyretic installation
 cd ~  
-git clone git://github.com/frenetic-lang/pyretic.git
+git clone https://github.com/frenetic-lang/pyretic.git
 
 export PATH=$PATH:$HOME/pyretic:$HOME/pox  
 export PYTHONPATH=$HOME/pyretic:$HOME/mininet:$HOME/pox
