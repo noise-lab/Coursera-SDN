@@ -103,15 +103,15 @@ def startNetwork():
     info( '** Creating Quagga network topology\n' )
     topo = QuaggaTopo()
     global net
-    net = Mininext(topo=topo, 
+    net = Mininext(topo=topo,
 		controller=lambda name: RemoteController( name, ip='127.0.0.1' ))
-    
+
     info( '** Starting the network\n' )
     net.start()
-        
-    info( '**Adding Network Interfaces for SDX Setup\n' )    
+
+    info( '**Adding Network Interfaces for SDX Setup\n' )
     addInterfacesForSDXNetwork(net)
-    
+
     info( '** Running CLI\n' )
     CLI( net )
 
