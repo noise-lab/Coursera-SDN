@@ -18,11 +18,11 @@ sudo pip install requests
 # Install SDX
 # Will be provided later
 cd ~
-mkdir asdx
-git clone https://github.com/nsg-ethz/supercharged_sdx.git asdx/
-sudo chmod 755 ~/asdx/xrs/client.py ~/asdx/xrs/route_server.py ~/asdx/examples/simple/mininet/sdx_mininext.py
-
-mkdir ~/asdx/xrs/ribs
+git clone https://github.com/sdn-ixp/sdx-ryu.git
+cd sdx-ryu
+sudo chmod 755 xrs/client.py xrs/route_server.py examples/simple/mininet/sdx_mininext.py
+mkdir xrs/ribs
+cd ~
 
 # Install ExaBGP
 sudo pip install -U exabgp
