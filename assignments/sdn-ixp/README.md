@@ -323,7 +323,7 @@ mininext> a1 iperf -c 140.0.0.1 -B 100.0.0.1 -p 4322 -t 2
 In case the `iperf` connection is not successful, you should see the message, `connect failed: Connection refused.`
 
 #### Cleaning Up
-Make sure that you clean up the ribs and clean the Mininet topology. For convenience, we have provided the ```clean.sh``` script. Run ```sh clean.sh``` script to clean the ribs and the Mininet topology.
+Make sure that you clean up the ribs and clean the Mininet topology. For convenience, we have provided the ```clean.sh``` script. Run ```sudo sh clean.sh``` script to clean the ribs and the Mininet topology.
 
 ## <a name="h.dpp4i4pvtw7k"></a><span class="c48 c2 c26 c11">Assignment</span>
 
