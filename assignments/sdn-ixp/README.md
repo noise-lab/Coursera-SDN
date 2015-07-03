@@ -45,7 +45,7 @@ cd ~
 # Install ExaBGP
 sudo pip install -U exabgp
 ```
-
+`Note`: We also had to re-provision the Mininet setup to make it work with ```MiniNExT```. Check the `Vagrantfile` to make sure that it has sdx and mininet setup uncommented.
 
 ### <a name="h.hefnxat1hpve"></a><span class="c48 c2 c26 c11">Walkthrough</span>
 
@@ -317,6 +317,9 @@ mininext> a1 iperf -c 140.0.0.1 -B 100.0.0.1 -p 4322 -t 2
 
 In case the `iperf` connection is not successful, you should see the message, `connect failed: Connection refused.`
 
+#### Cleaning Up
+Make sure that you clean up the ribs and clean the Mininet topology. For convenience, we have provided the ```clean.sh``` script. Run ```sh clean.sh``` script to clean the ribs and the Mininet topology.
+
 ## <a name="h.dpp4i4pvtw7k"></a><span class="c48 c2 c26 c11">Assignment</span>
 
 <span class="c2">The setup for the assignment is similar to the previous example.  </span>
@@ -417,7 +420,7 @@ mininext> a1 iperf -c 180.0.0.1 -B 100.0.0.1 -p 8080 -t 2
 <span class="c2">Copy the</span> <span class="c0">submit.py</span><span class="c2"> file that we have provided to the</span> <span class="c0">~/sdx-ryu/</span><span class="c0">examples/simple/mininet/</span><span class="c2"> directory.</span> Now run the ```submit.py``` script from the ```~/sdx-ryu/examples/simple/mininet/``` directory.
 
 ```bash
-$ sudo submit.py  
+$ sudo python submit.py  
 ```
 
 <span class="c2">Your mininet VM should have Internet access by default, but still verify that it has internet connectivity (i.e., eth0 set up as NAT). Otherwise, ```submit.py``` will not be able to post your code and output to our coursera servers.</span>
