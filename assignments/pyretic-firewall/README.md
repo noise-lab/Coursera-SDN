@@ -23,7 +23,7 @@
 
 <span class="c8">As mentioned above, Pyretic is a new language and system  that enables modular programming by:</span>
 
-*   <span class="c8">Defining composition operators and a library of policies for forwarding and querying traffic. Pyretic's parallel composition operator allows multiple policies to operate on the same set of packets, while itsl sequential composition operator allows one policy to process packets after another.</span>
+*   <span class="c8">Defining composition operators and a library of policies for forwarding and querying traffic. Pyretic's parallel composition operator allows multiple policies to operate on the same set of packets, while it's sequential composition operator allows one policy to process packets after another.</span>
 
 <span></span>
 
@@ -31,7 +31,7 @@
 
 <span></span>
 
-*   <span class="c8">Pyretic provides a reich abstract packet model that allows programmers to extend packets with virtual fields that may be used to associate packets with high-level meta-data.</span>
+*   <span class="c8">Pyretic provides a rich abstract packet model that allows programmers to extend packets with virtual fields that may be used to associate packets with high-level meta-data.</span>
 
 <span class="c8"></span>
 
@@ -286,7 +286,7 @@ def main():
 
 <span class="c8"></span>
 
-<span class="c8">These policies are explained in greater detail in</span> <span class="c39">[Module 6.4](https://class.coursera.org/sdn1-001/admin/lectures/59)</span><span class="c8">.</span>
+<span class="c8">These policies are explained in greater detail in</span> <span class="c39">[Module 6.4](https://class.coursera.org/sdn1-001/lecture/59)</span><span class="c8">.</span>
 
 <span class="c8"></span>
 
