@@ -7,13 +7,17 @@
 <span class="c2">In this exercise, we’ll explore one implementation of a software defined Internet exchange point (SDX).  This implementation provides new programming abstractions allowing participants to create and run new wide area traffic delivery applications. SDX platform provides a scalable runtime that both, behaves correctly when interacting with BGP, and ensures that the applications do not interfere with each other.</span>
 
 ### <span class="c2 c26 c11 c48">Installation</span>
+To start this assignment update the course's Github repo (by default, Coursera-SDN) on your host machine using git pull. We updated the ```Vagrantfile``` to install all the required software to run the SDX assignment. Turn on your guest VM (if it is turned off) using vagrant up with provisioning. 
+```bash
+vagrant reload --provision
+```
 
-We updated the ```Vagrantfile``` to install all the required software to run the SDX assignment. In addition to ```Ryu```, it installs:
+The SDX setup script installs:
 * [Quagga](http://www.nongnu.org/quagga/)
 * [MiniNExT](https://github.com/USC-NSL/miniNExT.git)
 * [Exabgp](https://github.com/Exa-Networks/exabgp)
 
-SDX's setup file looks like this:
+SDX's setup script looks like this:
 ```bash
 #!/usr/bin/env bash
 
@@ -45,6 +49,7 @@ cd ~
 # Install ExaBGP
 sudo pip install -U exabgp
 ```
+
 `Note`: We also had to re-provision the Mininet setup to make it work with ```MiniNExT```. Check the `Vagrantfile` to make sure that it has sdx and mininet setup uncommented.
 
 ### <a name="h.hefnxat1hpve"></a><span class="c48 c2 c26 c11">Walkthrough</span>
@@ -337,10 +342,15 @@ Make sure that you clean up the ribs and clean the Mininet topology. For conveni
 
 <span class="c2">You will need to modify files in the example</span> <span class="c0">```simple```</span><span class="c2"> so that the behavior of the topology and forwarding is as we have have shown in the figure.  </span>
 
+### Getting Started
 <span class="c2">As with the walkthrough, the assignment has two parts.</span>
+Go to the directory with the updated code base in your guest VM.
+```bash
+~$ cd /vagrant/assignments/sdn-ixp
+```
 
 #### <span class="c3 c2 c11">Part 1: Topology and route server configuration</span><span class="c3 c2">  
-</span><span class="c2">First, you will configure the topology as shown in the figure.  You will need two files:</span>
+</span><span class="c2">First, you will configure the topology as shown in the figure. You will need two files:</span>
 
 *   <span class="c0">```sdx_mininext.py```</span><span class="c2">: You will use this file to configure the SDX topology, as we have shown above. Similar to the walkthrough example, make sure that each router has a loopback address for each advertised route. For example, if the node</span> <span class="c0">c1</span><span class="c2"> advertises</span> <span class="c0">140.0.0.0/24</span> <span class="c2">then add the loopback interface</span> <span class="c0">140.0.0.1</span><span class="c2"> for</span> <span class="c0">c1</span><span class="c2">.  </span>
 *   <span class="c0">```bgpd.conf```</span><span class="c2">: You will use this file to set up the BGP sessions for each of the participants and change the IP prefixes that each participant advertises. For example if node</span> <span class="c0">c1</span><span class="c2"> advertises</span> <span class="c0">140.0.0.0/24,</span> <span class="c2">then make sure that</span> <span class="c2">network</span><span class="c9 c2"> </span><span class="c0">140.0.0.0/24</span><span class="c9 c2"> </span><span class="c2">is added in</span><span class="c9 c2"> c1’s bgpd.conf</span> <span class="c2">file.</span><span class="c9 c2"> </span>
