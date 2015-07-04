@@ -274,7 +274,7 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 172.0.0.0       0.0.0.0         255.255.0.0     U     0      0        0 a1-eth0
 ```
 
-<span class="c2">Specifically, you should see two entries in A’s routing table for 140.0.0.0/8 and 150.0.0.0/8 whose next-hop IP address is 172.0.1.2.</span>
+<span class="c2">Specifically, you should see two entries in A’s routing table for 140.0.0.0/8 and 150.0.0.0/8 whose next-hop IP addresses are 172.0.1.3 & 172.0.01.4. These are the virtual next-hops for the two prefixes. You can find more details about the virtual next-hops from the section 4.2 of SDX's [SIGCOMM paper](http://www.cs.princeton.edu/~arpitg/pdfs/sigc056.pdf)</span>
 
 #### <a name="h.uxkh081ccb6a"></a><span class="c2 c6">Testing SDX Policies</span>
 
