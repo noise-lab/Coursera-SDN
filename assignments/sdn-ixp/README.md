@@ -274,7 +274,7 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 172.0.0.0       0.0.0.0         255.255.0.0     U     0      0        0 a1-eth0
 ```
 
-<span class="c2">Specifically, you should see two entries in A’s routing table for 140.0.0.0/8 and 150.0.0.0/8 whose next-hop IP address is 172.0.1.2.</span>
+<span class="c2">Specifically, you should see two entries in A’s routing table for 140.0.0.0/8 and 150.0.0.0/8 whose next-hop IP addresses are 172.0.1.3 & 172.0.01.4. These are the virtual next-hops for the two prefixes. You can find more details about the virtual next-hops from the section 4.2 of SDX's [SIGCOMM paper](http://www.cs.princeton.edu/~arpitg/pdfs/sigc056.pdf)</span>
 
 #### <a name="h.uxkh081ccb6a"></a><span class="c2 c6">Testing SDX Policies</span>
 
@@ -342,18 +342,12 @@ Make sure that you clean up the ribs and clean the Mininet topology. For conveni
 
 <span class="c2">You will need to modify files in the example</span> <span class="c0">```simple```</span><span class="c2"> so that the behavior of the topology and forwarding is as we have have shown in the figure.  </span>
 
-### Getting Started
-<span class="c2">As with the walkthrough, the assignment has two parts.</span>
-Go to the directory with the updated code base in your guest VM.
-```bash
-~$ cd /vagrant/assignments/sdn-ixp
-```
 
 #### <span class="c3 c2 c11">Part 1: Topology and route server configuration</span><span class="c3 c2">  
 </span><span class="c2">First, you will configure the topology as shown in the figure. You will need two files:</span>
 
 *   <span class="c0">```sdx_mininext.py```</span><span class="c2">: You will use this file to configure the SDX topology, as we have shown above. Similar to the walkthrough example, make sure that each router has a loopback address for each advertised route. For example, if the node</span> <span class="c0">c1</span><span class="c2"> advertises</span> <span class="c0">140.0.0.0/24</span> <span class="c2">then add the loopback interface</span> <span class="c0">140.0.0.1</span><span class="c2"> for</span> <span class="c0">c1</span><span class="c2">.  </span>
-*   <span class="c0">```bgpd.conf```</span><span class="c2">: You will use this file to set up the BGP sessions for each of the participants and change the IP prefixes that each participant advertises. For example if node</span> <span class="c0">c1</span><span class="c2"> advertises</span> <span class="c0">140.0.0.0/24,</span> <span class="c2">then make sure that</span> <span class="c2">network</span><span class="c9 c2"> </span><span class="c0">140.0.0.0/24</span><span class="c9 c2"> </span><span class="c2">is added in</span><span class="c9 c2"> c1’s bgpd.conf</span> <span class="c2">file.</span><span class="c9 c2"> </span>
+*   <span class="c0">```bgpd.conf```</span><span class="c2">: You will use this file to set up the BGP sessions for `each` participant and change the IP prefixes that they advertise. For example if node</span> <span class="c0">c1</span><span class="c2"> advertises</span> <span class="c0">140.0.0.0/24,</span> <span class="c2">then make sure that</span> <span class="c2">network</span><span class="c9 c2"> </span><span class="c0">140.0.0.0/24</span><span class="c9 c2"> </span><span class="c2">is added in</span><span class="c9 c2"> c1’s bgpd.conf</span> <span class="c2">file.</span><span class="c9 c2"> </span>
 
 ##### <span class="c3 c2 c11">Testing the topology and route server configuration</span>
 
@@ -365,25 +359,27 @@ mininext> a1 route -n
 Kernel IP routing table
 Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 140.0.0.0       172.0.1.3       255.255.255.0   UG    0      0        0 a1-eth0
-150.0.0.0       172.0.1.3       255.255.255.0   UG    0      0        0 a1-eth0
-160.0.0.0       172.0.1.2       255.255.255.0   UG    0      0        0 a1-eth0
-170.0.0.0       172.0.1.2       255.255.255.0   UG    0      0        0 a1-eth0
+150.0.0.0       172.0.1.6       255.255.255.0   UG    0      0        0 a1-eth0
+160.0.0.0       172.0.1.7       255.255.255.0   UG    0      0        0 a1-eth0
+170.0.0.0       172.0.1.8       255.255.255.0   UG    0      0        0 a1-eth0
 172.0.0.0       0.0.0.0         255.255.0.0     U     0      0        0 a1-eth0
-180.0.0.0       172.0.1.4       255.255.255.0   UG    0      0        0 a1-eth0
+180.0.0.0       172.0.1.5       255.255.255.0   UG    0      0        0 a1-eth0
 190.0.0.0       172.0.1.4       255.255.255.0   UG    0      0        0 a1-eth0
 ```
 
 #### <span class="c3 c2 c11">Part 2: Policy configuration</span><span class="c2 c3">  
 </span><span class="c2">In the second part, you will define policies for each participant. These policies should satisfy the following goals:</span>
 
-*   <span class="c2">Participant A should forward HTTP traffic to peer B, HTTPS and port 8080 traffic to C.</span>
-*   <span class="c2">Participant C should forward HTTPS traffic to c1, HTTP traffic to c2 and drop any traffic for port 8080.</span><sup>[[h]](#cmnt8)</sup>
+*   <span class="c2">Participant A should forward HTTP traffic to peer B, HTTPS traffic to C.</span>
+*   <span class="c2">Participant C should forward HTTPS traffic to c1, HTTP traffic to c2. 
 
-<span class="c2">You will need to modify</span> <span class="c0">participant_A.py</span><span class="c2"> and</span> <span class="c0">participant_C.py</span><span class="c2"> from the walkthrough to implement these policies.</span>
+<span class="c2">You will need to modify</span> <span class="c0">participant_1.py</span><span class="c2"> and</span> <span class="c0">participant_3.py</span><span class="c2"> from the walkthrough to implement these policies.</span>
 
 ##### <span class="c3 c2 c11">Testing policy configuration</span>
 
-<span class="c2">SDX’s route server will select B’s routes for the prefixes</span> <span class="c0">140.0.0.0/24</span><span class="c0">,</span> <span class="c0">150.0.0.0/24</span><span class="c0">,</span> <span class="c0">160.0.0.0/24</span><span class="c0"> &</span> <span class="c0">180.0.0.0/24</span><span class="c0">;</span> <span class="c2">C’s routes for the prefixes</span><span class="c0"> </span><span class="c0">180.0.0.0/24</span><span class="c0"> &</span> <span class="c0">190.0.0.0/24</span><span class="c0">; and</span> <span class="c2">A’s routes for the prefixes</span><span class="c0"> </span><span class="c0">100.0.0.0/24</span><span class="c0"> &</span> <span class="c0">110.0.0.0/24</span><span class="c0">.</span> <span class="c2">Even though A’s policy is to forward port 80 traffic to B, the SDX controller will forward port 80 traffic with dstip = 180.0.0.1 to C. Since C’s inbound TE policy forwards the HTTP traffic to c2, thus this traffic should be received at c2\. Similarly HTTPS traffic from A should be received at c1\. We should also expect packet drops for port 8080 traffic forwarded to C.</span>
+<span class="c2">SDX’s route server will select B’s routes for the prefixes</span> <span class="c0">140.0.0.0/24</span><span class="c0">,</span> <span class="c0">150.0.0.0/24</span><span class="c0">,</span> <span class="c0">160.0.0.0/24</span><span class="c0"> &</span> <span class="c0">170.0.0.0/24</span><span class="c0">;</span> <span class="c2">C’s routes for the prefixes</span><span class="c0"> </span><span class="c0">180.0.0.0/24</span><span class="c0"> &</span> <span class="c0">190.0.0.0/24</span><span class="c0">; and</span> <span class="c2">A’s routes for the prefixes</span><span class="c0"> </span><span class="c0">100.0.0.0/24</span><span class="c0"> &</span> <span class="c0">110.0.0.0/24</span><span class="c0">.
+
+</span> <span class="c2">Even though A’s policy is to forward port 80 traffic to B, the SDX controller will forward port 80 traffic with dstip = 180.0.0.1 to C (because participant B didn't advertise the route for the prefix 180.0.0.0/24). Since C’s inbound TE policy forwards the HTTP traffic to c2, thus this traffic should be received at c2\. Similarly HTTPS traffic from A should be received at c1\. 
 
 <span class="c2">Similar to the walkthrough example, you can use iperf to test the policy configuration. You can verify that port 80 traffic for routes advertised by B will be received by node b1.</span>
 ```bash
@@ -399,7 +395,7 @@ TCP window size: 85.3 KByte (default)
 [  3]  0.0- 3.0 sec   384 KBytes  1.06 Mbits/sec
 ```
 
-<span class="c2">You can verify that port 80 traffic from A for routes advertised only by C will be forwarded to node c1\.</span>
+<span class="c2">You can also verify that port 80 traffic from A for routes advertised only by C will be forwarded to node c1\.</span>
 ```bash
 mininext> c2 iperf -s -B 180.0.0.1 -p 80 &
 mininext> a1 iperf -c 180.0.0.1 -B 100.0.0.2 -p 80 -t 2
@@ -412,18 +408,6 @@ TCP window size: 85.3 KByte (default)
 [ ID] Interval       Transfer     Bandwidth
 [  3]  0.0- 3.0 sec   384 KBytes  1.04 Mbits/sec
 ```
-
-<span class="c2">Finally, you</span><span class="c2"> can also verify that the port 8080 traffic forwarded to C</span><span class="c2"> will be dropped.</span>
-
-```bash
-mininext> c1 iperf -s -B 180.0.0.1 -p 8080 &
-mininext> a1 iperf -c 180.0.0.1 -B 100.0.0.1 -p 8080 -t 2
-```
-
-<span class="c0 c10">Nothing happens, use ctrl+c to end this test</span>
-
-<span class="c2">In this case you should see iperf client’s requests from A will not be received by the server running on c1\.</span><span class="c0">  
-</span>
 
 ### <a name="h.43cd3gtc620p"></a><span class="c48 c2 c26">Submitting the Assignment</span>
 
