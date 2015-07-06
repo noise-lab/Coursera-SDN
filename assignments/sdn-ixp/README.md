@@ -342,18 +342,12 @@ Make sure that you clean up the ribs and clean the Mininet topology. For conveni
 
 <span class="c2">You will need to modify files in the example</span> <span class="c0">```simple```</span><span class="c2"> so that the behavior of the topology and forwarding is as we have have shown in the figure.  </span>
 
-### Getting Started
-<span class="c2">As with the walkthrough, the assignment has two parts.</span>
-Go to the directory with the updated code base in your guest VM.
-```bash
-~$ cd /vagrant/assignments/sdn-ixp
-```
 
 #### <span class="c3 c2 c11">Part 1: Topology and route server configuration</span><span class="c3 c2">  
 </span><span class="c2">First, you will configure the topology as shown in the figure. You will need two files:</span>
 
 *   <span class="c0">```sdx_mininext.py```</span><span class="c2">: You will use this file to configure the SDX topology, as we have shown above. Similar to the walkthrough example, make sure that each router has a loopback address for each advertised route. For example, if the node</span> <span class="c0">c1</span><span class="c2"> advertises</span> <span class="c0">140.0.0.0/24</span> <span class="c2">then add the loopback interface</span> <span class="c0">140.0.0.1</span><span class="c2"> for</span> <span class="c0">c1</span><span class="c2">.  </span>
-*   <span class="c0">```bgpd.conf```</span><span class="c2">: You will use this file to set up the BGP sessions for each of the participants and change the IP prefixes that each participant advertises. For example if node</span> <span class="c0">c1</span><span class="c2"> advertises</span> <span class="c0">140.0.0.0/24,</span> <span class="c2">then make sure that</span> <span class="c2">network</span><span class="c9 c2"> </span><span class="c0">140.0.0.0/24</span><span class="c9 c2"> </span><span class="c2">is added in</span><span class="c9 c2"> c1’s bgpd.conf</span> <span class="c2">file.</span><span class="c9 c2"> </span>
+*   <span class="c0">```bgpd.conf```</span><span class="c2">: You will use this file to set up the BGP sessions for `each` participant and change the IP prefixes that they advertise. For example if node</span> <span class="c0">c1</span><span class="c2"> advertises</span> <span class="c0">140.0.0.0/24,</span> <span class="c2">then make sure that</span> <span class="c2">network</span><span class="c9 c2"> </span><span class="c0">140.0.0.0/24</span><span class="c9 c2"> </span><span class="c2">is added in</span><span class="c9 c2"> c1’s bgpd.conf</span> <span class="c2">file.</span><span class="c9 c2"> </span>
 
 ##### <span class="c3 c2 c11">Testing the topology and route server configuration</span>
 
@@ -385,7 +379,7 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 
 <span class="c2">SDX’s route server will select B’s routes for the prefixes</span> <span class="c0">140.0.0.0/24</span><span class="c0">,</span> <span class="c0">150.0.0.0/24</span><span class="c0">,</span> <span class="c0">160.0.0.0/24</span><span class="c0"> &</span> <span class="c0">170.0.0.0/24</span><span class="c0">;</span> <span class="c2">C’s routes for the prefixes</span><span class="c0"> </span><span class="c0">180.0.0.0/24</span><span class="c0"> &</span> <span class="c0">190.0.0.0/24</span><span class="c0">; and</span> <span class="c2">A’s routes for the prefixes</span><span class="c0"> </span><span class="c0">100.0.0.0/24</span><span class="c0"> &</span> <span class="c0">110.0.0.0/24</span><span class="c0">.
 
-</span> <span class="c2">Even though A’s policy is to forward port 80 traffic to B, the SDX controller will forward port 80 traffic with dstip = 180.0.0.1 to C. Since C’s inbound TE policy forwards the HTTP traffic to c2, thus this traffic should be received at c2\. Similarly HTTPS traffic from A should be received at c1\. 
+</span> <span class="c2">Even though A’s policy is to forward port 80 traffic to B, the SDX controller will forward port 80 traffic with dstip = 180.0.0.1 to C (because participant B didn't advertise the route for the prefix 180.0.0.0/24). Since C’s inbound TE policy forwards the HTTP traffic to c2, thus this traffic should be received at c2\. Similarly HTTPS traffic from A should be received at c1\. 
 
 <span class="c2">Similar to the walkthrough example, you can use iperf to test the policy configuration. You can verify that port 80 traffic for routes advertised by B will be received by node b1.</span>
 ```bash
