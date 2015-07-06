@@ -376,14 +376,16 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 #### <span class="c3 c2 c11">Part 2: Policy configuration</span><span class="c2 c3">  
 </span><span class="c2">In the second part, you will define policies for each participant. These policies should satisfy the following goals:</span>
 
-*   <span class="c2">Participant A should forward HTTP traffic to peer B, HTTPS and port 8080 traffic to C.</span>
-*   <span class="c2">Participant C should forward HTTPS traffic to c1, HTTP traffic to c2 and drop any traffic for port 8080.</span><sup>[[h]](#cmnt8)</sup>
+*   <span class="c2">Participant A should forward HTTP traffic to peer B, HTTPS traffic to C.</span>
+*   <span class="c2">Participant C should forward HTTPS traffic to c1, HTTP traffic to c2. 
 
-<span class="c2">You will need to modify</span> <span class="c0">participant_A.py</span><span class="c2"> and</span> <span class="c0">participant_C.py</span><span class="c2"> from the walkthrough to implement these policies.</span>
+<span class="c2">You will need to modify</span> <span class="c0">participant_1.py</span><span class="c2"> and</span> <span class="c0">participant_3.py</span><span class="c2"> from the walkthrough to implement these policies.</span>
 
 ##### <span class="c3 c2 c11">Testing policy configuration</span>
 
-<span class="c2">SDX’s route server will select B’s routes for the prefixes</span> <span class="c0">140.0.0.0/24</span><span class="c0">,</span> <span class="c0">150.0.0.0/24</span><span class="c0">,</span> <span class="c0">160.0.0.0/24</span><span class="c0"> &</span> <span class="c0">180.0.0.0/24</span><span class="c0">;</span> <span class="c2">C’s routes for the prefixes</span><span class="c0"> </span><span class="c0">180.0.0.0/24</span><span class="c0"> &</span> <span class="c0">190.0.0.0/24</span><span class="c0">; and</span> <span class="c2">A’s routes for the prefixes</span><span class="c0"> </span><span class="c0">100.0.0.0/24</span><span class="c0"> &</span> <span class="c0">110.0.0.0/24</span><span class="c0">.</span> <span class="c2">Even though A’s policy is to forward port 80 traffic to B, the SDX controller will forward port 80 traffic with dstip = 180.0.0.1 to C. Since C’s inbound TE policy forwards the HTTP traffic to c2, thus this traffic should be received at c2\. Similarly HTTPS traffic from A should be received at c1\. We should also expect packet drops for port 8080 traffic forwarded to C.</span>
+<span class="c2">SDX’s route server will select B’s routes for the prefixes</span> <span class="c0">140.0.0.0/24</span><span class="c0">,</span> <span class="c0">150.0.0.0/24</span><span class="c0">,</span> <span class="c0">160.0.0.0/24</span><span class="c0"> &</span> <span class="c0">170.0.0.0/24</span><span class="c0">;</span> <span class="c2">C’s routes for the prefixes</span><span class="c0"> </span><span class="c0">180.0.0.0/24</span><span class="c0"> &</span> <span class="c0">190.0.0.0/24</span><span class="c0">; and</span> <span class="c2">A’s routes for the prefixes</span><span class="c0"> </span><span class="c0">100.0.0.0/24</span><span class="c0"> &</span> <span class="c0">110.0.0.0/24</span><span class="c0">.
+
+</span> <span class="c2">Even though A’s policy is to forward port 80 traffic to B, the SDX controller will forward port 80 traffic with dstip = 180.0.0.1 to C. Since C’s inbound TE policy forwards the HTTP traffic to c2, thus this traffic should be received at c2\. Similarly HTTPS traffic from A should be received at c1\. 
 
 <span class="c2">Similar to the walkthrough example, you can use iperf to test the policy configuration. You can verify that port 80 traffic for routes advertised by B will be received by node b1.</span>
 ```bash
@@ -399,7 +401,7 @@ TCP window size: 85.3 KByte (default)
 [  3]  0.0- 3.0 sec   384 KBytes  1.06 Mbits/sec
 ```
 
-<span class="c2">You can verify that port 80 traffic from A for routes advertised only by C will be forwarded to node c1\.</span>
+<span class="c2">You can also verify that port 80 traffic from A for routes advertised only by C will be forwarded to node c1\.</span>
 ```bash
 mininext> c2 iperf -s -B 180.0.0.1 -p 80 &
 mininext> a1 iperf -c 180.0.0.1 -B 100.0.0.2 -p 80 -t 2
@@ -412,18 +414,6 @@ TCP window size: 85.3 KByte (default)
 [ ID] Interval       Transfer     Bandwidth
 [  3]  0.0- 3.0 sec   384 KBytes  1.04 Mbits/sec
 ```
-
-<span class="c2">Finally, you</span><span class="c2"> can also verify that the port 8080 traffic forwarded to C</span><span class="c2"> will be dropped.</span>
-
-```bash
-mininext> c1 iperf -s -B 180.0.0.1 -p 8080 &
-mininext> a1 iperf -c 180.0.0.1 -B 100.0.0.1 -p 8080 -t 2
-```
-
-<span class="c0 c10">Nothing happens, use ctrl+c to end this test</span>
-
-<span class="c2">In this case you should see iperf client’s requests from A will not be received by the server running on c1\.</span><span class="c0">  
-</span>
 
 ### <a name="h.43cd3gtc620p"></a><span class="c48 c2 c26">Submitting the Assignment</span>
 
