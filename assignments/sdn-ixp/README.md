@@ -427,6 +427,8 @@ mininext> a1 iperf -c 180.0.0.1 -B 100.0.0.1 -p 8080 -t 2
 
 ### <a name="h.43cd3gtc620p"></a><span class="c48 c2 c26">Submitting the Assignment</span>
 
+**NOTE** The submit.py script will start all applications required by the sdx assignment (MiniNExT, set OF 1.3, start Ryu, start route server and ExaBGP). To make sure the enviroment is clean, close all other windows but one and clean the enviroment with the provided script and only then submit.
+
 <span class="c2">Copy the</span> <span class="c0">submit.py</span><span class="c2"> file that we have provided to the</span> <span class="c0">~/sdx-ryu/</span><span class="c0">examples/simple/mininet/</span><span class="c2"> directory.</span> Now run the ```submit.py``` script from the ```~/sdx-ryu/examples/simple/mininet/``` directory.
 
 ```bash
