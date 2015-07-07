@@ -135,7 +135,7 @@ self.addLink(root, ixpfabric, port2 = 5)
 
 <span class="c11 c16 c40">Figure 4\. Adding the route server host, which we have named “exabgp”, after the software on which the route server is based.</span> <span class="c2 c11 c16">(```sdx_mininext.py```)</span>
 
-<span class="c2">The</span> <span class="c0">mininet</span><span class="c2"> directory also has a</span> <span class="c32 c2 c10">Quagga</span><span class="c2"> config directory. We define BGP configuration for each of the participating</span> <span class="c32 c2 c10">Quagga</span><span class="c2"> router here. BGP configuration for participant A's router (</span><span class="c0">```~/sdx-ryu/examples/simple/mininet/quaggacfgs/a1/bgpd.conf```</span><span class="c2">) looks like this:</span>
+<span class="c2">The</span> <span class="c0">mininet</span><span class="c2"> directory also has a</span> <span class="c32 c2 c10">Quagga</span><span class="c2"> config directory. We define BGP configuration for each of the participating</span> <span class="c32 c2 c10">Quagga</span><span class="c2"> router here. BGP configuration for participant A's router (</span><span class="c0">```~/vagrant/sdx-ryu/examples/simple/mininet/configs/a1/bgpd.conf```</span><span class="c2">) looks like this:</span>
 ```bash
 router bgp 100  
 bgp router-id 172.0.0.1  
