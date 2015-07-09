@@ -233,30 +233,30 @@ redistribute static
 #### <a name="h.ue8z58v6dg2p"></a><span class="c2 c6">Running the SDX Setup</span>
 
 
-* Step 1\.Launch the topology using MiniNExT (Mininet):
+* Step 1\.Launch the topology using MiniNExT (Mininet) [shell#1]:
 ```bash
     $ cd ~/sdx-ryu/examples/simple/mininet  
     $ sudo ./sdx_mininext.py
  ```
  
- * Step 2\. In a new shell, make the OVS use OpenFlow 1.3  
+ * Step 2\. In a new shell, make the OVS use OpenFlow 1.3 [shell#2]: 
 ```bash
     $ sudo ovs-vsctl set bridge s1 protocols=OpenFlow13
 ```
 
-* Step 3\. Now start the Ryu Controller: 
+* Step 3\. Now start the Ryu Controller [shell#2]: 
 
 ```bash
 $ ryu-manager ~/sdx-ryu/ctrl/asdx.py --asdx-dir simple
 ```
 
-* Step 4\. Start the Route Server: 
+* Step 4\. In a new shell, the Route Server [shell#3]: 
 ```bash
 $ cd ~/sdx-ryu/xrs
 $ sudo ./route_server.py simple
 ```
 
-* Step 5\. Finally start the ExaBGP:
+* Step 5\. Finally, in another new shell start the ExaBGP [shell#4]:
 ```bash
  $ exabgp ~/sdx-ryu/examples/simple/controller/sdx_config/bgp.conf
 ```
