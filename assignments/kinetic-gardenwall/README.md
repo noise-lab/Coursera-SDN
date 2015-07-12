@@ -135,6 +135,8 @@ $ export KINETICPATH=$HOME/pyretic/pyretic/kinetic
 $ python pyretic.py pyretic.kinetic.apps.ids
 ```
 
+<span class="c11">When prompted to deploy, enter "yes".</span>
+
 <span class="c4"></span>
 
 <span class="c11">Check if th</span><span>is</span><span class="c11"> command produces any errors. It should start a controller and not output any error messages.</span>
@@ -200,7 +202,7 @@ $ python json_sender.py -n infected -l True --flow="{srcip=10.0.0.1}" -a 127.0.0
 
 <span>This command sends a JSON message to the Kinetic controller indicating that host</span> <span class="c4">h1</span><span> is infected.  The Kinetic control program you are running has a Finite State Machine (FSM) policy that says when a host corresponding to the flow space with a specific source IP address transitions to an infected state, the policy for that part of flow space should transition from “passthrough” to “drop”.</span>
 
-<span></span>
+<span>Now try to ping h2 form h1 again and you should be able to verify there is no IP connectivity.</span>
 
 <span>Sending an event that indicates that the host is no longer infected should cause</span> <span class="c4">h1</span><span> to no longer be blocked:</span>
 
@@ -681,8 +683,8 @@ $ pox.py pox.misc.gardenwall forwarding.l2_learning
 <span></span>
 
 ```shell
-$ cd ~/pox
-$ pox.py pox.misc.gardenwall forwarding.l2_learning
+$ cd ~/pyretic
+$ python pyretic.py pyretic.examples.gardenwall
 ```
 
 
@@ -722,10 +724,10 @@ $ python json_sender.py -n exempt -l True --flow="{srcmac=00:00:00:00:00:01}" -a
 
 <span class="c4"></span>
 
-<span>Events to now allow traffic again:</span>
+<span>Now send the required events to allow traffic again:</span>
 
 ```shell
-$ python json_sender.py -n exempt -l True --flow="{srcmac=00:00:00:00:00:01}" -a 127.0.0.1 -p 50001
+$ python json_sender.py -n infected -l False --flow="{srcmac=00:00:00:00:00:01}" -a 127.0.0.1 -p 50001
 ```
 
 <span class="c4"></span>
@@ -748,7 +750,11 @@ $ python json_sender.py -n exempt -l True --flow="{srcmac=00:00:00:00:00:01}" -a
 
 <span class="c2 c40"></span>
 
-<span></span>
+<span>Copy the provided submit.py to ~/pyretic/pyretic/kinetic</span>
+
+```shell
+cp /vagrant/assignments/kinetic-gardenwall/submit.py ~/pyretic/pyretic/kinetic/submit.py
+```
 
 <span class="c11">Run</span> <span>the</span><span class="c11"> controller application in one console:</span>
 
