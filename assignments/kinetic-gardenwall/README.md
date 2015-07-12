@@ -407,28 +407,20 @@ mc.add_spec("SPEC A [ policy=policy_2 U infected ]")
 
 ## <a name="h.r6bzhsczylh8"></a><span class="c13 c2 c3">Assignment</span>
 
-<span>The assignment has two parts.  You’ll first use Kinetic to make small modifications to the IDS module (and write some rules to verify that it is correct).  You’ll then re-implement the same application that you implemented in Kinetic in either Pyretic or Pox. To start this exercise, download</span> <span class="c2 c3 c12">[gardenwall](https://www.google.com/url?q=https%3A%2F%2Fd396qusza40orc.cloudfront.net%2Fsdn%2Fsrcs%2FKinetic%2520Assignment%2Fgardenwall_assignment.zip&sa=D&sntz=1&usg=AFQjCNHAYYA_NFDW4wLdQSe3EkzFV8jLHQ)</span><span class="c2 c3 c12">[-assignment1.zip](https://www.google.com/url?q=https%3A%2F%2Fd396qusza40orc.cloudfront.net%2Fsdn%2Fsrcs%2FKinetic%2520Assignment%2Fgardenwall_assignment.zip&sa=D&sntz=1&usg=AFQjCNHAYYA_NFDW4wLdQSe3EkzFV8jLHQ)</span><span>.  All parts of this assignment use the topology below.  Put these files in a directory called</span> <span class="c4">~/pyretic/pyretic/kinetic/ext</span><span>.</span>
-
-<span></span>
-
-<span>Files you will need:</span>
-
-<span class="c2 c3 c12">[gardenwall-assignment.zip](https://www.google.com/url?q=https%3A%2F%2Fd396qusza40orc.cloudfront.net%2Fsdn%2Fsrcs%2FKinetic%2520Assignment%2Fgardenwall_assignment.zip&sa=D&sntz=1&usg=AFQjCNHAYYA_NFDW4wLdQSe3EkzFV8jLHQ)</span>
-
-<span></span>
+<span>The assignment has two parts.  You’ll first use Kinetic to make small modifications to the IDS module (and write some rules to verify that it is correct).  You’ll then re-implement the same application that you implemented in Kinetic in either Pyretic or Pox. To start this exercise, do a git pull and check the directory `/vagrant/assignments/kinetic-gardenwall/` 
 
 <span>You will use the following files:</span>
 
 <span></span>
 
-*   <span class="c4">kinetic_gardenwall.py:</span> <span>Skeleton code for the gardenwall application (Kinetic).</span>
-*   <span class="c4">pox_gardenwall.py:</span> <span>Skeleton code for the gardenwall application (Pox).</span>
-*   <span class="c4">pyretic_gardenwall.py:</span> <span>Skeleton code for the gardenwall application (Pyretic).</span>
-*   <span class="c4">submit.py</span><span>: used to submit your code and output to the coursera servers for grading.</span>
-*   <span class="c4">rewrite.py</span><span>: A helper file for Pox gardenwall application (Make sure that you copy this file to the directory ~/pox/pox/misc/)</span>
+*   <span class="c4">`kinetic_gardenwall.py`:</span> <span>Skeleton code for the gardenwall application (Kinetic).</span>
+*   <span class="c4">`pox_gardenwall.py`:</span> <span>Skeleton code for the gardenwall application (Pox).</span>
+*   <span class="c4">`pyretic_gardenwall.py`:</span> <span>Skeleton code for the gardenwall application (Pyretic).</span>
+*   <span class="c4">`submit.py`</span><span>: used to submit your code and output to the coursera servers for grading.</span>
+*   <span class="c4">`rewrite.py`</span><span>: A helper file for Pox gardenwall application (Make sure that you copy this file to the directory ~/pox/pox/misc/)</span>
 
 <span></span>
-
+All parts of this assignment use the topology below. 
 <span></span>
 
 <span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 543.00px; height: 348.03px;">![](https://d396qusza40orc.cloudfront.net/sdn/srcs/Kinetic%20Assignment/image03.png)</span>
@@ -741,7 +733,7 @@ $ python json_sender.py -n exempt -l True --flow="{srcmac=00:00:00:00:00:01}" -a
 
 <span></span>
 
-<span>We are interested in gathering your experiences about programming the same application in Pox, Pyretic, and Kinetic.  Thus, the last part of this assignment is to</span> <span class="c2 c3 c12">[complete the survey](https://www.google.com/url?q=https%3A%2F%2Fclass.coursera.org%2Fsdn-002%2Fquiz%2Fstart%3Fquiz_id%3D177&sa=D&sntz=1&usg=AFQjCNGwI9MhhSpRNjLeAj8fOwwG-NOMRw)</span><span> asking you to compare your experiences programming in each of these languages.  </span>
+<span>We are interested in gathering your experiences about programming the same application in Pox, Pyretic, and Kinetic.  Thus, the last part of this assignment is to</span> <span class="c2 c3 c12">[complete the survey](https://class.coursera.org/sdn1-001/quiz/start?quiz_id=177)</span><span> asking you to compare your experiences programming in each of these languages.  </span>
 
 <span></span>
 
@@ -796,7 +788,6 @@ $ pyretic.py pyretic.examples.gardenwall
 
 <span>`Note`: You should not try to run all the controllers simultaneously. Start the controller for the part you want to submit, run the submit.py script as explained below. Stop the running controller before you try to submit the next part.</span><span class="c4"> </span>
 
-### <a name="h.26in1rg"></a><span>Method 1:</span>
 
 <span>In another console</span><span class="c11">, run the submit.py script, under the</span> <span class="c20 c4">~/pyretic/pyretic/</span><span class="c4">kinetic</span><span class="c20 c4"> </span><span class="c11">directory:</span>
 
@@ -811,7 +802,7 @@ $ sudo python submit.py
 
 <span></span>
 
-<span>Use the appropriate part numbers when prompted.</span> <span class="c11">Your mininet VM should have internet access by default, but still verify that it has</span> <span>I</span><span class="c11">nternet connectivity (i.e., eth0 set up as NAT). Otherwise</span> <span class="c20 c4">`submit.py`</span><span class="c11"> will not be able to post your code and output to our</span> <span>C</span><span class="c11">oursera servers.</span>
+<span>Use the appropriate part numbers when prompted.</span> <span class="c11">Your VM should have internet access by default, but still verify that it has</span> <span>I</span><span class="c11">nternet connectivity (i.e., eth0 set up as NAT). Otherwise</span> <span class="c20 c4">`submit.py`</span><span class="c11"> will not be able to post your code and output to our</span> <span>C</span><span class="c11">oursera servers.</span>
 
 <span class="c11"></span>
 
