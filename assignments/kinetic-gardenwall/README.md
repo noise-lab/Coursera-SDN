@@ -97,12 +97,12 @@ $ git checkout kinetic
 
 <span class="c4"></span>
 
-<span class="c11">Check if</span> <span class="c20 c4">"home/mininet/pyretic/pyretic/kinetic"</span><span class="c11"> directory exists.</span>
+<span class="c11">Check if</span> <span class="c20 c4">"~/pyretic/pyretic/kinetic"</span><span class="c11"> directory exists.</span>
 
 <span class="c11"></span>
 
 ```shell
-$ ls home/mininet/pyretic/pyretic/kinetic
+$ ls ~/pyretic/pyretic/kinetic
 ```
 
 <span class="c20 c4"></span>
@@ -127,7 +127,7 @@ $ export KINETICPATH=$HOME/pyretic/pyretic/kinetic
 
 <span></span>
 
-<span class="c11">Move back to directory</span> <span class="c20 c4">"/home/mininet/pyretic"</span><span class="c11"> and run:</span>
+<span class="c11">Move back to directory</span> <span class="c20 c4">"~/pyretic"</span><span class="c11"> and run:</span>
 
 <span class="c11"></span>
 
@@ -163,7 +163,7 @@ $ sudo mn --controller=remote --topo=single,3 --mac --arp
 
 <span class="c11"></span>
 
-<span class="c11">Now, start the</span> <span>Kinetic</span><span class="c11"> “simple” application using the Pyretic runtime:</span>
+<span class="c11">Now, in a separate shell start the</span> <span>Kinetic</span><span class="c11"> “simple” application using the Pyretic runtime:</span>
 
 <span class="c11"></span>
 
@@ -187,11 +187,12 @@ mininet> h1 ping -c3 h2
 
 <span class="c11"></span>
 
-<span class="c11">Use the JSON client included with Kinetic to send JSON events to the</span> <span>Kinetic</span><span class="c11"> </span><span>c</span><span class="c11">ontroller to</span> <span>indicate</span><span class="c11"> th</span><span>at</span><span class="c11"> </span><span>host h1 is infected</span><span class="c11">:</span>
+<span class="c11">In a separate shell use the JSON client included with Kinetic to send JSON events to the</span> <span>Kinetic</span><span class="c11"> </span><span>c</span><span class="c11">ontroller to</span> <span>indicate</span><span class="c11"> th</span><span>at</span><span class="c11"> </span><span>host h1 is infected</span><span class="c11">:</span>
 
 <span class="c11"></span>
 
 ```shell
+$ cd ~/pyretic/pyretic/kinetic
 $ python json_sender.py -n infected -l True --flow="{srcip=10.0.0.1}" -a 127.0.0.1 -p 50001
 ```
 
