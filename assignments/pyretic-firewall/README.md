@@ -376,7 +376,7 @@ id,mac_0,mac_1
 
 ```bash
 $ cd ~
-$ pyretic.py pyretic.examples.pyretic_firewall &
+$ pyretic.py pyretic.examples.pyretic_firewall
 ```
 
 <span class="c9"></span>
@@ -434,7 +434,7 @@ mininet> h1 ping -c1 h3
 <span class="c8"></span>
 
 ```bash
-$ pyretic.py pyretic.examples.pyretic_firewall &
+$ pyretic.py pyretic.examples.pyretic_firewall
 ```
 
 
