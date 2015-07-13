@@ -76,7 +76,7 @@ $ sudo mn -c
 
 <span class="c11"></span>
 
-<span class="c11">In the VM, go to</span> <span class="c20 c4">"/home/mininet/pyretic/"</span><span class="c11">.</span>
+<span class="c11">In the VM, go to</span> <span class="c20 c4">"~/pyretic/"</span><span class="c11">.</span>
 
 <span class="c11"></span>
 
