@@ -170,7 +170,7 @@ partFriendlyNames = [' Host Gardenwall']
 
 # source files to collect (just for our records)
 sourceFiles = ['%s/pyretic/pyretic/kinetic/examples/gardenwall.py' % os.environ[ 'HOME' ],
-               '%s/pox/pox/kinetic/misc/gardenwall.py' % os.environ[ 'HOME' ],
+               '%s/pox/pox/misc/gardenwall.py' % os.environ[ 'HOME' ],
                '%s/pyretic/pyretic/examples/gardenwall.py' % os.environ[ 'HOME' ]]
 
 
