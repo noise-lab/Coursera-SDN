@@ -187,7 +187,7 @@ The structure of self.portmap is a four-tuple key and a string value. The type i
 <span class="c6">Launch the POX controller</span>
 
 ```
-~/pox/pox/misc$ pox.py log.level --DEBUG misc.videoSlice 
+~/pox/pox/misc$ ./pox.py log.level --DEBUG misc.videoSlice 
 ```
 
 <span class="c6">In a separate terminal, launch your Mininet script.</span>
