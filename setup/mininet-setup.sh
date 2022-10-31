@@ -19,5 +19,6 @@ sudo rm /usr/share/man/man1/mnexec.1*
 git clone git://github.com/mininet/mininet
 pushd mininet
 git checkout -b 2.1.0p2 2.1.0p2
+git config --global url."http://github.com/mininet".insteadOf git://openflowswitch.org
 ./util/install.sh -fn03
 popd
